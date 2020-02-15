@@ -1,0 +1,3 @@
+[$GIT_ROOT/tool/subbrute]
+
+checkout = git clone 'https://github.com/TheRook/subbrute' 'subbrute'

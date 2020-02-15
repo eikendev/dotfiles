@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/vim/lervag]
+
+checkout = git clone 'https://github.com/lervag/dotvim' 'lervag'

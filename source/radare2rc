@@ -1,0 +1,20 @@
+# Show pseudocode in disassembly.
+e asm.pseudo = false
+
+# Use Intel syntax.
+e asm.syntax = intel
+
+# Use a wide color palette.
+e scr.color = 3
+
+# Set theme.
+eco solarized
+
+# Use UTF-8 for special characters.
+e scr.utf8 = true
+
+# Resolve relative addresses.
+e asm.relsub = true
+
+# Do not show fortunes on start.
+e cfg.fortunes = false

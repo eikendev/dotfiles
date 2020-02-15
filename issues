@@ -1,0 +1,7 @@
+nvim:
+	show signs for bad spelling
+	make GitGutterPreviewHunk work without error
+	systemd: add timer to synchronize RFCs
+
+	issue: actually delete marks persistently
+	status: open (https://github.com/neovim/neovim/issues/4295)

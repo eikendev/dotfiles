@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+NEWS_CMD=ttrss
+
+TITLE='News Synchronization'
+
+LOCK_DIR=~/.local/share
+LOCK_FILE="$LOCK_DIR/sync-news.lock"
+
+ENV_FILE="$DOTFILES/local/sync-news.env"
+
+source "$HOME/bin/dot/script-utils"
+
+for cmd in "$NEWS_CMD"; do check_dependency $cmd; done
+
+lock
+check_connectivity
+
+if ! [ -f "$ENV_FILE" ]; then
+	printf "%s\n" 'Environment file was not found.' >&2
+	notify "$MESSAGE"
+	exit 1
+fi
+
+source "$ENV_FILE"
+
+printf "%s\n" 'Synchronizing news.'
+$NEWS_CMD synchronize --directory ~/news --url "$FEED_URL" --username "$FEED_USERNAME" --keyring-service "$FEED_SERVICE"
+exit_on_failure 1 1 'Could not synchronize news.'
+
+printf "%s\n" 'Synchronization successful.'
+exit 0

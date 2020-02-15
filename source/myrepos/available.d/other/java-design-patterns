@@ -1,0 +1,3 @@
+[$GIT_ROOT/other/java-design-patterns]
+
+checkout = git clone 'https://github.com/iluwatar/java-design-patterns.git' 'java-design-patterns'

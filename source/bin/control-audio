@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+current_sink() {
+	pacmd list-sinks | grep '* index: ' | tr -dc '0-9'
+}
+
+system_dbus() {
+	local NAME="$1"
+	local ACTION="$2"
+
+	dbus-send --type=method_call --dest=org.mpris.MediaPlayer2."$NAME" /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$ACTION"
+}
+
+control_mpris() {
+	system_dbus "cmus" "$1"
+	system_dbus "rhythmbox" "$1"
+	system_dbus "vlc" "$1"
+}
+
+audio_play() {
+	control_mpris "PlayPause"
+}
+
+audio_next() {
+	control_mpris "Next"
+}
+
+audio_previous() {
+	control_mpris "Previous"
+}
+
+switch_sink() {
+	local CURRENT_SINK_INDEX="$(current_sink)"
+	local CARDS="$(pacmd list-sinks | grep "index: " | tr -dc '0-9\n' | sort)"
+	local PICKNEXTCARD=1
+
+	for card in $CARDS; do
+		if [ "$PICKNEXTCARD" == 1 ]; then
+			local NEXT_SINK_INDEX="$card"
+			local PICKNEXTCARD=0
+		fi
+		if [ "$card" == "$CURRENT_SINK_INDEX" ]; then
+			PICKNEXTCARD=1
+		fi
+	done
+
+	echo "Switching from sink $CURRENT_SINK_INDEX to sink $NEXT_SINK_INDEX."
+	pacmd set-default-sink "$NEXT_SINK_INDEX"
+
+	pacmd list-sink-inputs | grep index | cut -c 12- | while read -r input
+	do
+		echo "Moving input $input to sink $NEXT_SINK_INDEX."
+		pacmd move-sink-input "$input" "$NEXT_SINK_INDEX"
+	done
+}
+
+case "$1" in
+	play)
+		echo "Start or stop current playback."
+		audio_play
+		;;
+	next)
+		echo "Skip to next track."
+		audio_next
+		;;
+	previous)
+		echo "Skip to previous track."
+		audio_previous
+		;;
+	raise)
+		echo "Raising volume on sink $(current_sink)."
+		pactl set-sink-volume "$(current_sink)" +5%
+		;;
+	lower)
+		echo "Lowering volume on sink $(current_sink)."
+		pactl set-sink-volume "$(current_sink)" -5%
+		;;
+	mute)
+		echo "Muting sink $(current_sink)."
+		pactl set-sink-mute "$(current_sink)" toggle
+		;;
+	switch)
+		echo "Switch to next audio sink."
+		switch_sink
+		;;
+	*)
+		echo "Usage: $0 {play|next|previous|raise|lower|mute|switch}" >&2
+		exit 2
+esac

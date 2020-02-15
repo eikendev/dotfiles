@@ -1,0 +1,3 @@
+[$GIT_ROOT/tool/hash_extender]
+
+checkout = git clone 'https://github.com/iagox86/hash_extender' 'hash_extender'

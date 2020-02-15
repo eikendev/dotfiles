@@ -1,0 +1,3 @@
+[$GIT_ROOT/other/hacker-laws]
+
+checkout = git clone 'https://github.com/dwmkerr/hacker-laws' 'hacker-laws'

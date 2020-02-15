@@ -1,0 +1,3 @@
+[$GIT_ROOT/other/the-art-of-command-line]
+
+checkout = git clone 'https://github.com/jlevy/the-art-of-command-line' 'the-art-of-command-line'

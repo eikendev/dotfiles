@@ -1,0 +1,50 @@
+# This file is read for interactive shells in zsh.
+
+# The path is not set by the zshenv file.
+source "$ZSH_CONFIG/path.zsh"
+
+# Source custom options and aliases.
+foreach file (
+	misc
+	completion
+	directory
+	clip
+	widget
+	unbind
+	mapping
+	prompt
+) {
+	source "$ZSH_CONFIG/$file.zsh"
+}
+unset file
+
+if [ -e "$ZSH_CONFIG/local.zsh" ]; then
+	source "$ZSH_CONFIG/local.zsh"
+fi
+
+# Source all available aliases.
+for file in "$ZSH_CONFIG"/alias/**/*.zsh; do
+	source $file
+done
+unset file
+
+# Source all available functions.
+for file in "$ZSH_CONFIG"/function/**/*.zsh; do
+	source $file
+done
+unset file
+
+# Start tmux if the current shell is not inside one.
+if command -v tmux > /dev/null; then
+	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -f ~/.config/tmux/config
+fi
+
+# Setup hooks for direnv.
+eval "$(direnv hook zsh)"
+
+# Source plugins.
+source "$ZSH_CONFIG/plugin.zsh"
+source "$ZSH_CONFIG/plugin/autopair/autopair.zsh"
+source "$ZSH_CONFIG/plugin/autosuggestions/zsh-autosuggestions.zsh"
+source "$ZSH_CONFIG/plugin/forgit/forgit.plugin.zsh"
+source "$ZSH_CONFIG/plugin/syntax-highlighting/zsh-syntax-highlighting.zsh"

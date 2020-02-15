@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+VERSION=$1
+
+function confirm_continue {
+	read -p 'Do you wish to continue? ' -r
+
+	if [[ ! $REPLY =~ ^[Yy]$ ]]
+	then
+		exit 1
+	fi
+}
+
+if [ -z "$VERSION" ] ; then
+	printf "%s\n" "Usage: $0 <version>" >&2
+	exit 1
+fi
+
+printf "%s\n" 'Update currently install packages.'
+confirm_continue
+sudo dnf upgrade --refresh
+
+printf "%s\n" 'Install necessary DNF plugins.'
+confirm_continue
+sudo dnf install dnf-plugin-system-upgrade
+
+printf "%s\n" "Download packages for version $VERSION."
+confirm_continue
+sudo dnf system-upgrade download "--releasever=$VERSION"
+
+printf "%s\n" 'Reboot and install packages.'
+confirm_continue
+sudo dnf system-upgrade reboot

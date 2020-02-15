@@ -1,0 +1,23 @@
+:root {
+	--kde-background: #262626;
+}
+
+/* Dark home and newtab. */
+@-moz-document url("about:blank"), url("about:newtab"), url("about:home") {
+	html:not(#ublock0-epicker),
+	html:not(#ublock0-epicker) body,
+	#newtab-customize-overlay {
+		color: var(--lwt-text-color) !important;
+		background: var(--kde-background) !important;
+		overflow-y: auto !important;
+	}
+}
+
+/* Hiding button in about:newtab. */
+.prefs-pane-button button {
+	fill: rgba(255, 255, 255, 0.6) !important;
+}
+.prefs-pane-button button:hover {
+	fill: rgba(255, 255, 255, 0.8) !important;
+	background-color: transparent !important;
+}

@@ -1,0 +1,3 @@
+# vim: filetype=tmux
+
+source-file ~/.config/tmux/include/*.tmux

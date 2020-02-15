@@ -1,0 +1,3 @@
+[$GIT_ROOT/tool/sss-cli]
+
+checkout = git clone 'https://github.com/dsprenkels/sss-cli' 'sss-cli'

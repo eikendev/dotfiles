@@ -1,0 +1,4 @@
+/* Match KDE active tab line color. */
+#tabbrowser-tabs {
+	--tab-line-color: #2378c7 !important;
+}

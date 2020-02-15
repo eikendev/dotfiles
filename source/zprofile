@@ -1,0 +1,13 @@
+# This file is read for login shells in zsh.
+
+# The path is not set by the zshenv file.
+source "$ZSH_CONFIG/path.zsh"
+
+# Start an ssh agent.
+# https://unix.stackexchange.com/a/217223
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+	eval `ssh-agent`
+	ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l > /dev/null || ssh-add

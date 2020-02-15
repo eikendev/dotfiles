@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/vim/helmuthdu]
+
+checkout = git clone 'https://github.com/helmuthdu/vim' 'helmuthdu'

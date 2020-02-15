@@ -1,0 +1,11 @@
+# Display italic text.
+--italic-text always
+
+# Do not show fancy separators.
+--style numbers,changes
+
+# Pass tabs through directly.
+--tabs 0
+
+# Apply personal less configuration manually.
+--pager='less --ignore-case --tilde --jump-target=8 --RAW-CONTROL-CHARS --clear-screen --silent --tabs=4 --shift=5'

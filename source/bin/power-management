@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+
+BAT_CMD=upower
+CTL_CMD=brightnessctl
+
+TITLE='Power Management'
+
+source "$HOME/bin/dot/script-utils"
+
+battery_status() {
+	local EXPRESSION='state|to\ full|to\ empty|percentage'
+	local BATTERY=$($BAT_CMD -e | grep '/battery' | head -1)
+
+	if [ -z "$BATTERY" ]; then
+		printf "%s\n" 'Could not find battery.' >&2
+		exit 1
+	fi
+
+	local STATUS=$($BAT_CMD -i "$BATTERY" | grep --color=never -E "$EXPRESSION")
+
+	if [ -z "$STATUS" ]; then
+		printf "%s\n" 'Could not determine battery status.' >&2
+		exit 1
+	fi
+
+	printf "%s\n" "$STATUS"
+}
+
+battery_level() {
+	local LEVEL="$(battery_status | grep 'percentage' | sed -e 's/.* \([0-9]\{1,3\}\)%.*/\1/')"
+
+	if [ -z "$LEVEL" ]; then
+		printf "%s\n" 'Could not determine battery level.' >&2
+		exit 1
+	fi
+
+	printf "%s\n" "$LEVEL"
+}
+
+print_battery_level() {
+	local LEVEL=$(battery_level)
+	exit_on_failure 0 $? ''
+
+	printf "%s\n" "Battery: $LEVEL%"
+}
+
+brightness_status() {
+	$CTL_CMD | grep -e 'Current' | head -1 | xargs
+}
+
+brightness_level() {
+	local LEVEL="$(brightness_status | sed -e 's/.* (\([0-9]\{1,3\}\)%).*/\1/')"
+
+	if [ -z "$LEVEL" ]; then
+		printf "%s\n" 'Could not determine brightness level.' >&2
+		exit 1
+	fi
+
+	printf "%s\n" "$LEVEL"
+}
+
+print_brightness_level() {
+	local BRIGHTNESS="$(brightness_level)"
+	exit_on_failure 0 $? ''
+
+	printf "%s\n" "Brightness: $BRIGHTNESS%"
+}
+
+set_brightness_cond() {
+	local CONDITION="$1"
+	local NEW_BRIGHTNESS="$2"
+
+	local CURRENT_BRIGHTNESS="$(brightness_level)"
+	exit_on_failure 0 $? ''
+
+	if [ "$CONDITION" = 'lt' ]; then
+		if [ "$NEW_BRIGHTNESS" -lt "$CURRENT_BRIGHTNESS" ]; then
+			$CTL_CMD set "$NEW_BRIGHTNESS%" > /dev/null
+		fi
+	elif [ "$CONDITION" = 'gt' ]; then
+		if [ "$NEW_BRIGHTNESS" -gt "$CURRENT_BRIGHTNESS" ]; then
+			$CTL_CMD set "$NEW_BRIGHTNESS%" > /dev/null
+		fi
+	fi
+}
+
+for cmd in "$BAT_CMD" "$CTL_CMD" ; do check_dependency $cmd; done
+
+case "$1" in
+	status)
+		print_battery_level
+		print_brightness_level
+		;;
+	increase)
+		printf "%s\n" 'Increasing monitor brightness.'
+		$CTL_CMD set +5% > /dev/null
+		print_brightness_level
+		;;
+	decrease)
+		printf "%s\n" 'Decreasing monitor brightness.'
+		$CTL_CMD set 5%- > /dev/null
+		print_brightness_level
+		;;
+	set)
+		LEVEL="$2"
+
+		if [ -z "$LEVEL" ] || ! [[ "$LEVEL" =~ ^[0-9]+$ ]]; then
+			printf "%s\n" 'Specified invalid brightness.' >&2
+			exit 1
+		fi
+
+		printf "%s\n" 'Setting screen brightness.'
+		$CTL_CMD set "$LEVEL%" > /dev/null
+		print_brightness_level
+		;;
+	*)
+		printf "%s\n" "Usage: $0 {status|increase|decrease}" >&2
+		exit 1
+esac

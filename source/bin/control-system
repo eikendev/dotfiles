@@ -1,0 +1,41 @@
+#!/usr/bin/env sh
+
+# See https://askubuntu.com/a/454077.
+
+system_dbus() {
+	dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "$1" boolean:true
+}
+
+case "$1" in
+	lock)
+		echo "Locking screen."
+		loginctl lock-session
+		;;
+	unlock)
+		echo "Unlocking screen."
+		loginctl unlock-session
+		;;
+	logout)
+		echo "Logging out."
+		loginctl terminate-user "$(whoami)"
+		;;
+	suspend)
+		echo "Suspending machine."
+		system_dbus "org.freedesktop.login1.Manager.Suspend"
+		;;
+	hibernate)
+		echo "Hibernating machine."
+		system_dbus "org.freedesktop.login1.Manager.Hibernate"
+		;;
+	reboot)
+		echo "Rebooting machine."
+		system_dbus "org.freedesktop.login1.Manager.Reboot"
+		;;
+	poweroff)
+		echo "Powering off machine."
+		system_dbus "org.freedesktop.login1.Manager.PowerOff"
+		;;
+	*)
+		printf "%s\n" "Usage: $0 {lock|unlock|logout|suspend|hibernate|reboot|poweroff}" >&2
+		exit 1
+esac

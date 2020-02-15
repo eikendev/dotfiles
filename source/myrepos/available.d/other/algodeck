@@ -1,0 +1,3 @@
+[$GIT_ROOT/other/algodeck]
+
+checkout = git clone 'https://github.com/teivah/algodeck' 'algodeck'

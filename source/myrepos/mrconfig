@@ -1,0 +1,9 @@
+[DEFAULT]
+
+git_gc = git gc --prune=now "$@"
+git_fetch = git fetch --all --tags --prune --quiet
+git_update = git pull --rebase --quiet
+
+jobs = 5
+
+include = find ~/.config/myrepos/enabled.d/* -type l -o -type f -exec cat '{}' \+

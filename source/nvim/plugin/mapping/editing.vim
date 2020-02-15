@@ -1,0 +1,98 @@
+scriptencoding utf-8
+
+" Quick macro execution.
+nnoremap Q @q
+
+" Do not overwrite yank when deleting a character.
+nnoremap x "_x
+
+" Do not overwrite yank when pasting.
+xnoremap <silent> <expr> p self#replace#replace()
+
+" Use tab for indenting in visual mode.
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
+xnoremap > <Nop>
+xnoremap < <Nop>
+nnoremap > >>
+nnoremap < <<
+
+" Paste from system clipboard.
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+xnoremap <Leader>p "+p
+
+" Yank into system clipboard.
+nnoremap <Leader>y "+y
+nnoremap <Leader>Y "+Y
+xnoremap <Leader>y "+y
+
+" Yank till the end of the line.
+nnoremap Y y$
+
+" Insert space and line in normal mode.
+nnoremap <A-h> i<Space><Esc>l
+nnoremap <A-l> a<Space><Esc>h
+nnoremap <A-j> m`o<Esc>^D``
+nnoremap <A-k> m`O<Esc>^D``
+
+" Delete space and line in normal mode.
+nnoremap <A-C-h> hx
+nnoremap <A-C-l> lxh
+nnoremap <A-C-j> m`jdd``
+nnoremap <A-C-k> m`kdd``
+
+" Move line up and down.
+nnoremap <Up> :move -2<CR>
+nnoremap <Down> :move +1<CR>
+
+" Replace line from within insert mode.
+inoremap <C-Del> <C-\><C-o>cc
+
+" Toggle semicolon at the end of the current line.
+nmap ; <Plug>(self-toggle-semicolon)
+
+" Reindent the current file.
+nnoremap == m`gg=G``
+
+" Easy substitution in visual mode.
+xnoremap s :s//g<Left><Left>
+
+" Replace current word with the word last yanked.
+nnoremap S m`"_diw"0P``
+
+" Sort using the '|' (pipe) character, see `map_bar`.
+xnoremap <Bar> :sort i<CR>
+
+" Select pasted text.
+nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
+
+" Close popup menu without leaving insert mode.
+imap <expr> <BS> pumvisible() ? "\<C-e>" : "<BS>"
+
+" Completion with tab key (causing flickering of the menu sometimes).
+inoremap <expr> <TAB> self#autocomplete#jump_forwards()
+snoremap <expr> <TAB> self#autocomplete#jump_forwards()
+inoremap <expr> <S-TAB> self#autocomplete#jump_backwards()
+
+" Increment and decrement the number under the cursor.
+nmap <Leader>+ <C-a>
+nmap <Leader>- <C-x>
+
+" Bubble lines in visual line mode, jump in character-wise visual mode.
+xnoremap <expr> J mode() ==# 'V' ? ":move '>+1<Enter>gv=gv" : '5j'
+xnoremap <expr> K mode() ==# 'V' ? ":move '<-2<Enter>gv=gv" : '5k'
+
+" Erase bad whitespace.
+nnoremap <silent> <Leader>w :EraseBadWhitespace<CR>
+
+" Delete a surrounding.
+nmap <Leader>sd <Plug>Dsurround
+" Change a surrounding.
+nmap <Leader>sc <Plug>Csurround
+" Surround a text object.
+nmap <Leader>so <Plug>Ysurround
+" Surround a line.
+nmap <Leader>sl <Plug>Yssurround
+" Wrap the selection.
+xmap <Leader>s <Plug>VSurround

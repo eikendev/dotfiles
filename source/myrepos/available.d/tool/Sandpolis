@@ -1,0 +1,3 @@
+[$GIT_ROOT/tool/Sandpolis]
+
+checkout = git clone 'https://github.com/Subterranean-Security/Sandpolis' 'Sandpolis'

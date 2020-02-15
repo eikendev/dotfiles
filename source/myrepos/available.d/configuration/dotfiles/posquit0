@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/dotfiles/posquit0]
+
+checkout = git clone 'https://github.com/posquit0/dotfiles' 'posquit0'

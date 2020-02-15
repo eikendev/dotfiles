@@ -1,0 +1,78 @@
+#!/usr/bin/env sh
+
+SYNC_ROOT="$HOME/.local/share"
+SERVICES='sync-news sync-repositories'
+
+iterate_systemctl() {
+	local COMMAND="$1"
+	local TYPE="$2"
+	local ACTION="$3"
+
+	for service in $SERVICES; do
+		echo "$ACTION $service.$TYPE."
+		systemctl --user "$COMMAND" "$service.$TYPE" 2> /dev/null
+	done
+}
+
+sync_status() {
+	for service in $SERVICES; do
+		if [ -f "$SYNC_ROOT/$service.lock" ]; then
+			echo "$service is running."
+		else
+			echo "$service is not running."
+		fi
+	done
+}
+
+sync_sync() {
+	iterate_systemctl 'start' 'service' 'Starting'
+}
+
+sync_start() {
+	iterate_systemctl 'start' 'timer' 'Starting'
+}
+
+sync_stop() {
+	iterate_systemctl 'stop' 'timer' 'Stopping'
+}
+
+sync_enable() {
+	iterate_systemctl 'enable' 'timer' 'Enabling'
+}
+
+sync_disable() {
+	iterate_systemctl 'disable' 'timer' 'Disabling'
+}
+
+sync_count() {
+	local COUNT="$(find $SYNC_ROOT -maxdepth 1 -mindepth 1 -type f -name 'sync-*.lock' | wc -l)"
+
+	echo "  $COUNT"
+}
+
+case "$1" in
+	status)
+		sync_status
+		;;
+	sync)
+		sync_sync
+		;;
+	start)
+		sync_start
+		;;
+	stop)
+		sync_stop
+		;;
+	enable)
+		sync_enable
+		;;
+	disable)
+		sync_disable
+		;;
+	count)
+		sync_count
+		;;
+	*)
+		echo "Usage: $0 {status|sync|start|stop|enable|disable|count}" >&2
+		exit 2
+esac

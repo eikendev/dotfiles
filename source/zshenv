@@ -1,0 +1,3 @@
+# This file is read for all zsh shells.
+
+source ~/.config/zsh/export.zsh

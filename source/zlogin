@@ -1,0 +1,13 @@
+# This file is read for login shells in zsh.
+
+# Execute code that does not affect the current session in the background.
+{
+	# Compile the completion dump to increase startup speed.
+	# https://github.com/paulmillr/dotfiles
+
+	zcompdump_file="${ZDOTDIR:-$HOME}/.zcompdump"
+
+	if [[ "$zcompdump_file" -nt "${zcompdump_file}.zwc" || ! -s "${zcompdump_file}.zwc" ]]; then
+		zcompile "$zcompdump_file"
+	fi
+} &!

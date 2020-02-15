@@ -1,0 +1,3 @@
+[$GIT_ROOT/library/sss]
+
+checkout = git clone 'https://github.com/dsprenkels/sss' 'sss'

@@ -1,0 +1,3 @@
+[$GIT_ROOT/other/interviews]
+
+checkout = git clone 'https://github.com/kdn251/interviews' 'interviews'

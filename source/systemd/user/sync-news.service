@@ -1,0 +1,9 @@
+[Unit]
+Description=Synchronize news
+JobRunningTimeoutSec=120
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=%h/bin/dot/sync-news

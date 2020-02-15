@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+REPO_CMD=gitool
+
+TITLE='Repository Synchronization'
+
+LOCK_DIR=~/.local/share
+LOCK_FILE="$LOCK_DIR/sync-repositories.lock"
+
+HOSTNAME="$(hostname)"
+DATA_DIR=~/coding/repositories
+DATA_FILE="$DATA_DIR/$HOSTNAME"
+
+source "$HOME/bin/dot/script-utils"
+
+for cmd in "$REPO_CMD"; do check_dependency $cmd; done
+
+lock
+
+mkdir -p "$DATA_DIR"
+exit_on_failure 1 1 'Could not create data directory.'
+
+printf "%s\n" 'Synchronizing repositories.'
+$REPO_CMD dump -d ~/git -f "$DATA_FILE"
+exit_on_failure 1 1 'Could not synchronize repositories.'
+
+printf "%s\n" 'Collecting statistics.'
+$REPO_CMD statistics -d ~/git
+exit_on_failure 1 1 'Could not collect statistics.'
+
+printf "%s\n" 'Synchronization successful.'
+exit 0

@@ -1,0 +1,3 @@
+[$GIT_ROOT/tool/kwprocessor]
+
+checkout = git clone 'https://github.com/hashcat/kwprocessor' 'kwprocessor'

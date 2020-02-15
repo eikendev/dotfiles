@@ -1,0 +1,3 @@
+[$GIT_ROOT/library/openssl]
+
+checkout = git clone 'git://git.openssl.org/openssl.git' 'openssl'

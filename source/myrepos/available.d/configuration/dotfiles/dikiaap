@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/dotfiles/dikiaap]
+
+checkout = git clone 'https://github.com/dikiaap/dotfiles' 'dikiaap'

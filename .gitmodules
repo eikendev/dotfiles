@@ -1,0 +1,27 @@
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
+[submodule "source/tmux/plugin/tmux-yank"]
+	path = source/tmux/plugin/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank
+[submodule "source/zsh/plugin/autopair"]
+	path = source/zsh/plugin/autopair
+	url = https://github.com/hlissner/zsh-autopair.git
+[submodule "source/zsh/plugin/autosuggestions"]
+	path = source/zsh/plugin/autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "source/zsh/plugin/forgit"]
+	path = source/zsh/plugin/forgit
+	url = https://github.com/wfxr/forgit.git
+[submodule "source/zsh/plugin/syntax-highlighting"]
+	path = source/zsh/plugin/syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "vendor/dasht"]
+	path = vendor/dasht
+	url = https://github.com/sunaku/dasht.git
+[submodule "vendor/turs"]
+	path = vendor/turs
+	url = https://github.com/eikendev/turs.git
+[submodule "source/zsh/plugin/autopairngit"]
+	path = source/zsh/plugin/autopairngit
+	url = https://github.com/hlissner/zsh-autopair.git

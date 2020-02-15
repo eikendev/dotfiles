@@ -1,0 +1,20 @@
+# Follow symbolic links.
+--follow
+
+# Exclude directories.
+--glob=!{.git,.svn}
+
+# Search hidden files and directories.
+--hidden
+
+# Don't print lines longer than this limit.
+--max-columns=256
+
+# Don't search files larger than this limit.
+--max-filesize=1G
+
+# Suppress all error messages.
+--no-messages
+
+# Searches case insensitively.
+--smart-case

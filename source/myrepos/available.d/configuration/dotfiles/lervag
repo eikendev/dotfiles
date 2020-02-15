@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/dotfiles/lervag]
+
+checkout = git clone 'https://github.com/lervag/dotfiles' 'lervag'

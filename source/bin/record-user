@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+MODE="$1"
+
+TITLE='Snapshot'
+
+LOCK_DIR=~/.local/share
+LOCK_FILE="$LOCK_DIR/record-$MODE.lock"
+
+source "$HOME/bin/dot/script-utils"
+
+DATETIME="$(date +%Y%m%d-%H%M%S)"
+DATAFILE="$HOME/download/record-$MODE-$DATETIME.opus"
+LOGFILE="$HOME/download/record-$MODE-$DATETIME.log"
+
+record_audio() {
+	local VOLUME="$1"
+
+	pactl list short sources | cut -c -1 | while read -r input
+	do
+		printf "%s\n" "Unmuting source $input, setting volume to $VOLUME%."
+		pactl set-source-mute "$input" 0
+		pactl set-source-volume "$input" "$VOLUME%"
+	done
+	exit_on_failure 0 1 'Could not unmute source.'
+
+	ffmpeg -hide_banner -f pulse -t 10:00 -i default -c:a libopus -b:a 96K -vbr constrained -application voip "$DATAFILE" > "$LOGFILE" 2>&1
+	exit_on_failure 0 1 'Could not record audio.'
+}
+
+record_webcam() {
+	ffmpeg -hide_banner -f v4l2 -t 02:00 -framerate 30 -video_size 640x480 -i /dev/video0 -c:v libvpx -crf 20 -b:v 1M "$DATAFILE" > "$LOGFILE" 2>&1
+	exit_on_failure 0 1 'Could not record webcam.'
+}
+
+for cmd in "ffmpeg" ; do check_dependency $cmd; done
+
+lock
+
+case "$MODE" in
+	audio)
+		printf "%s\n" 'Recording audio.'
+		VOLUME=${2:-50}
+		record_audio "$VOLUME"
+		;;
+	webcam)
+		printf "%s\n" 'Recording webcam.'
+		record_webcam
+		;;
+	*)
+		printf "%s\n" "Usage: $0 {audio|webcam} [volume]" >&2
+		exit 1
+esac
+
+printf "%s\n" 'Recording successful.'
+exit 0

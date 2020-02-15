@@ -1,0 +1,21 @@
+snippet hypersetup
+alias \hypersetup{
+options head
+	\hypersetup{
+		pdftitle = {${1}},
+		pdfauthor = {${2}},
+		pdfborder = {${3:0 0 0}}
+	}${4}
+
+snippet maketitle
+	\subject{${1}}
+	\title{${2}}
+	\author{%
+		${3}
+	}
+	\date{\today}
+	\maketitle
+	${4}
+
+snippet email
+	\href{mailto:${1}}{\texttt{$1}}

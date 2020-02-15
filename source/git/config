@@ -1,0 +1,55 @@
+[core]
+	#autocrlf = true
+	whitespace = trailing-space,tabwidth=4
+
+[alias]
+	hash = "rev-parse HEAD"
+	history = "log --first-parent --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
+	stats = "shortlog -sn --no-merges"
+	tree = "log --graph --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
+
+[commit]
+	verbose = true
+
+[diff]
+	prompt = false
+	tool = vimdiff
+
+[gc]
+	pruneexpire = now
+
+[gpg]
+	program = gpg2
+
+[merge]
+	tool = vimdiff
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "vimdiff"]
+	cmd = nvim -d "$BASE" "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+	trustExitCode = false
+
+[mergetool "fugitive"]
+	cmd = nvim "$MERGED" -c 'Gvdiffsplit!'
+	trustExitCode = false
+
+[pull]
+	rebase = true
+
+[push]
+	default = simple
+	followTags = true
+
+[rebase]
+	autoStash = true
+	stat = true
+
+[status]
+	branch = true
+
+[pager]
+	log  = diffr | less -R
+	show = diffr | less -R
+	diff = diffr | less -R

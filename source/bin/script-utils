@@ -1,0 +1,96 @@
+notify() {
+	local MESSAGE="$1"
+
+	notify-send -t 10000 "$TITLE" "$MESSAGE"
+}
+
+lock() {
+	local MESSAGE='Service already running.'
+
+	mkdir -p "$LOCK_DIR"
+
+	if [ -f "$LOCK_FILE" ]; then
+		printf "%s\n" "$MESSAGE" >&2
+		notify "$MESSAGE"
+		exit 1
+	fi
+
+	touch "$LOCK_FILE"
+	trap "unlock '$LOCK_FILE'" EXIT
+}
+
+unlock() {
+	local LOCK_FILE="$1"
+	local MESSAGE='Lock file does not exist.'
+
+	if ! [ -f "$LOCK_FILE" ]; then
+		printf "%s\n" "$MESSAGE" >&2
+		notify "$MESSAGE"
+		exit 1
+	fi
+
+	rm "$LOCK_FILE"
+}
+
+exit_on_failure() {
+	local PRESERVED_STATUS="$?"
+	local NOTIFY="$1"
+	local NEW_STATUS="$2"
+	local MESSAGE="$3"
+
+	if [ -z "$4" ]; then
+		local OLD_STATUS="$PRESERVED_STATUS"
+	else
+		local OLD_STATUS="$4"
+	fi
+
+	# If the last command failed, we cleanup and exit.
+	if ! [ "$OLD_STATUS" -eq 0 ]; then
+		if [ -n "$MESSAGE" ]; then
+			printf "%s\n" "$MESSAGE" >&2
+		fi
+
+		# Notify if we were told to do so.
+		if ! [ "$NOTIFY" -eq 0 ]; then
+			notify "$MESSAGE"
+		fi
+
+		exit "$NEW_STATUS"
+	fi
+}
+
+check_dependency() {
+	local COMMAND=$1
+	local MESSAGE="$COMMAND is not installed on your system."
+
+	if ! [ -x "$(command -v "$COMMAND")" ]; then
+		printf "%s\n" "$MESSAGE" >&2
+		notify "$MESSAGE"
+		exit 1
+	fi
+}
+
+check_connectivity() {
+	local TEST_CMD=wget
+	local TEST_URLS='https://www.google.com https://www.reddit.com https://twitter.com https://en.wikipedia.org https://www.amazon.com https://www.ebay.com'
+
+	check_dependency "$TEST_CMD"
+
+	for i in $(seq 4); do
+		for url in $TEST_URLS; do
+			$TEST_CMD -q \
+				--timeout=3 \
+				--tries=1 \
+				--output-document=/dev/null \
+				"$url" > /dev/null 2>&1
+
+			local RESULT=$?
+
+			if [ $RESULT -eq 0 ]; then
+				return 0
+			fi
+		done
+	done
+
+	exit_on_failure 0 1 'Connection not available.' $RESULT
+}

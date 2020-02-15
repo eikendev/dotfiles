@@ -1,0 +1,3 @@
+[$GIT_ROOT/configuration/vim/AlexVKO]
+
+checkout = git clone 'https://github.com/AlexVKO/VimKO' 'AlexVKO'
