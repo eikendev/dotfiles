@@ -24,6 +24,12 @@ packages:
 	go get -u arp242.net/uni
 	go get -u github.com/gohugoio/hugo
 
+.PHONY: reveal
+reveal:
+	chmod 600 ./source/ssh/config
+	git secret reveal
+	chmod 400 ./source/ssh/config
+
 .PHONY: submodules
 submodules:
 	git submodule update --init --recursive
