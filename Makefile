@@ -4,12 +4,18 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: packages submodules compile dotbot vim_plugins install_gef
+install: reveal packages submodules compile dotbot vim_plugins install_gef
 
 .PHONY: clean
 clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;
 	find -type d -name '.mypy_cache' -exec rm -rf {} +;
+
+.PHONY: reveal
+reveal:
+	chmod 600 ./source/ssh/config
+	git secret reveal
+	chmod 400 ./source/ssh/config
 
 .PHONY: packages
 packages:
@@ -23,12 +29,6 @@ packages:
 	cargo install websocat
 	go get -u arp242.net/uni
 	go get -u github.com/gohugoio/hugo
-
-.PHONY: reveal
-reveal:
-	chmod 600 ./source/ssh/config
-	git secret reveal
-	chmod 400 ./source/ssh/config
 
 .PHONY: submodules
 submodules:
