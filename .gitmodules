@@ -19,9 +19,3 @@
 [submodule "vendor/dasht"]
 	path = vendor/dasht
 	url = https://github.com/sunaku/dasht.git
-[submodule "vendor/turs"]
-	path = vendor/turs
-	url = https://github.com/eikendev/turs.git
-[submodule "source/zsh/plugin/autopairngit"]
-	path = source/zsh/plugin/autopairngit
-	url = https://github.com/hlissner/zsh-autopair.git

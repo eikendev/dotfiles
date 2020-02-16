@@ -1,3 +1,4 @@
+# Inspired by anishathalye.
 # SEE: https://www.anishathalye.com/2015/02/07/an-asynchronous-shell-prompt/
 
 autoload -Uz add-zsh-hook
@@ -48,8 +49,7 @@ function zle-line-init zle-keymap-select {
 	zle reset-prompt
 }
 
-if [ -x "$(command -v turs)" ]
-then
+if [ -x "$(command -v turs)" ]; then
 	zle -N zle-line-init
 	zle -N zle-keymap-select
 

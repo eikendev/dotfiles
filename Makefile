@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: dotbot reveal packages submodules compile vim_plugins install_gef
+install: dotbot reveal packages submodules vim_plugins install_gef
 
 .PHONY: clean
 clean:
@@ -33,6 +33,7 @@ packages:
 	cargo install hyperfine
 	cargo install pastel
 	cargo install tealdeer
+	cargo install turs
 	cargo install websocat
 	go get -u arp242.net/uni
 	go get -u github.com/gohugoio/hugo
@@ -41,10 +42,6 @@ packages:
 submodules:
 	git submodule update --init --recursive
 	git submodule update --remote
-
-.PHONY: compile
-compile:
-	cd vendor/turs && cargo build --release
 
 .PHONY: vim_plugins
 vim_plugins:
