@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Run all pre-commit hooks.
+
+for f in "$(dirname "$(readlink -f "$0")")"/pre-commit.d/*; do
+	$f "$@"
+done

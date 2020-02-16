@@ -1,5 +1,3 @@
 __pycache__/
 *.pyc
 .mypy_cache/
-
-.gitsecret/keys/random_seed
