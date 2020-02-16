@@ -39,6 +39,10 @@ if command -v tmux > /dev/null; then
 	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -f ~/.config/tmux/config
 fi
 
+# GPG needs to have this environment variable set.
+# SEE https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+export GPG_TTY=$(tty)
+
 # Setup hooks for direnv.
 eval "$(direnv hook zsh)"
 

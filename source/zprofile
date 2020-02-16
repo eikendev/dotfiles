@@ -3,7 +3,7 @@
 # The path is not set by the zshenv file.
 source "$ZSH_CONFIG/path.zsh"
 
-# Start an ssh agent.
+# Start an SSH agent.
 # https://unix.stackexchange.com/a/217223
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
 	eval `ssh-agent`
@@ -11,3 +11,7 @@ if [ ! -S ~/.ssh/ssh_auth_sock ]; then
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l > /dev/null || ssh-add
+
+if [ -z "$(pgrep -u $UID gpg-agent)" ]; then
+	eval $(gpg-agent --daemon)
+fi
