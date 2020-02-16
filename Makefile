@@ -4,12 +4,19 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: reveal packages submodules compile dotbot vim_plugins install_gef
+install: dotbot reveal packages submodules compile vim_plugins install_gef
 
 .PHONY: clean
 clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;
 	find -type d -name '.mypy_cache' -exec rm -rf {} +;
+
+.PHONY: dotbot
+dotbot:
+	set -e; \
+	cd "${BASEDIR}"; \
+	git submodule update --init --recursive "${DOTBOT_DIR}"; \
+	"${BASEDIR}/${DOTBOT_DIR}/bin/dotbot" -d "${BASEDIR}" -c "${DOTBOT_CONFIG}"
 
 .PHONY: reveal
 reveal:
@@ -38,13 +45,6 @@ submodules:
 .PHONY: compile
 compile:
 	cd vendor/turs && cargo build --release
-
-.PHONY: dotbot
-dotbot:
-	set -e; \
-	cd "${BASEDIR}"; \
-	git submodule update --init --recursive "${DOTBOT_DIR}"; \
-	"${BASEDIR}/${DOTBOT_DIR}/bin/dotbot" -d "${BASEDIR}" -c "${DOTBOT_CONFIG}"
 
 .PHONY: vim_plugins
 vim_plugins:
