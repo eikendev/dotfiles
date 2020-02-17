@@ -20,7 +20,7 @@ dotbot:
 
 .PHONY: reveal
 reveal:
-	chmod 600 ./source/ssh/config
+	test -f ./source/ssh/config && chmod 600 ./source/ssh/config
 	git secret reveal
 	chmod 400 ./source/ssh/config
 
