@@ -3,7 +3,7 @@
 	url = https://github.com/anishathalye/dotbot
 [submodule "source/tmux/plugin/tmux-yank"]
 	path = source/tmux/plugin/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
 [submodule "source/zsh/plugin/autopair"]
 	path = source/zsh/plugin/autopair
 	url = https://github.com/hlissner/zsh-autopair.git
