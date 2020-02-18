@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+# Author: eikendev (https://eiken.dev/)
+
+TITLE='Thunderbird Unread'
+
+ENV_FILE="$DOTFILES/local/sync-news.env"
+
+source "$HOME/bin/dot/script-utils"
+
+for cmd in inotifywait rg fd; do check_dependency $cmd; done
+
+THUNDERBIRD_HOME="$HOME/.thunderbird"
+THUNDERBIRD_PROFILE="$(sed -n '/Install/,$p' "$THUNDERBIRD_HOME/profiles.ini" | grep -m 1 -h -e 'Default=' | cut -c 9-)"
+THUNDERBIRD_IMAPDIR="$HOME/.thunderbird/$THUNDERBIRD_PROFILE/ImapMail"
+
+SCRIPT_HOME="$HOME/.local/share/thunderbird-unread"
+TARGET_FILE="$SCRIPT_HOME/count.all"
+
+if ! [ -d "$SCRIPT_HOME" ]; then
+	if ! mkdir -p "$SCRIPT_HOME"; then
+		printf "%s\n" 'Cannot create script home.' >&2
+		exit 1
+	fi
+fi
+
+if ! [ -f "$TARGET_FILE" ]; then
+	if ! touch "$TARGET_FILE"; then
+		printf "%s\n" 'Cannot create target file.' >&2
+		exit 1
+	fi
+fi
+
+accumulate_counts () {
+	paste --delimiters=' ' "$SCRIPT_HOME"/*.subcount > "$TARGET_FILE"
+}
+
+count_unread () {
+	local account="$1"
+	local total=0
+
+	local haystack
+	haystack="$(fd --extension msf --type file . "$account")"
+
+	for f in $haystack; do
+		local count
+		# shellcheck disable=SC2016
+		count="$(rg --no-filename --no-column --no-line-number --only-matching --replace '$1' '\(\^A2=(\d+)\)' "$f" | tail -1)"
+		if [ -z "$count" ]; then count=0; fi
+		total=$((total + count))
+	done
+
+	printf "%s\n" "Count for '$account' is '$total'."
+
+	local name
+	name="$(basename "$account")"
+
+	printf '%d' "$total" > "$SCRIPT_HOME/$name.subcount"
+
+	accumulate_counts &
+}
+
+monitor_account () {
+	local account="$1"
+
+	count_unread "$account" &
+
+	inotifywait -m -q -e modify -e move -e create -e delete -r "$account" | while read -r; do
+		count_unread "$account" &
+	done
+}
+
+while true; do
+	tb_pid="$(pgrep -u $UID -x thunderbird)"
+
+	if [ $? -ne 0 ]; then
+		printf '?' > "$TARGET_FILE"
+		pkill -P $$
+		sleep 5s
+		continue
+	fi
+
+	for account in "$THUNDERBIRD_IMAPDIR"/*; do
+		if [ -d "$account" ]; then
+			printf "%s\n" "Now monitoring '$account'."
+			monitor_account "$account" &
+		fi
+	done
+
+	tail --pid="$tb_pid" -f /dev/null
+done
