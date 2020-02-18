@@ -12,6 +12,6 @@ fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l > /dev/null || ssh-add
 
-if [ -z "$(pgrep -u $UID gpg-agent)" ]; then
+if [ -z "$(pgrep -u $UID -x gpg-agent)" ]; then
 	eval $(gpg-agent --daemon)
 fi

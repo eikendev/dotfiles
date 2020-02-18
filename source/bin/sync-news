@@ -29,4 +29,3 @@ $NEWS_CMD synchronize --directory ~/news --url "$FEED_URL" --username "$FEED_USE
 exit_on_failure 1 1 'Could not synchronize news.'
 
 printf "%s\n" 'Synchronization successful.'
-exit 0

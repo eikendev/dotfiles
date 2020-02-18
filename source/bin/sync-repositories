@@ -29,4 +29,3 @@ $REPO_CMD statistics -d ~/git
 exit_on_failure 1 1 'Could not collect statistics.'
 
 printf "%s\n" 'Synchronization successful.'
-exit 0
