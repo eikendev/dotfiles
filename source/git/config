@@ -10,7 +10,6 @@
 
 [commit]
 	verbose = true
-	gpgSign = true
 
 [diff]
 	prompt = false
