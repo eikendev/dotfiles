@@ -15,7 +15,7 @@ THUNDERBIRD_PROFILE="$(sed -n '/Install/,$p' "$THUNDERBIRD_HOME/profiles.ini" | 
 THUNDERBIRD_IMAPDIR="$HOME/.thunderbird/$THUNDERBIRD_PROFILE/ImapMail"
 
 SCRIPT_HOME="$HOME/.local/share/thunderbird-unread"
-TARGET_FILE="$SCRIPT_HOME/count.all"
+TARGET_FILE="$SCRIPT_HOME/all.count"
 
 if ! [ -d "$SCRIPT_HOME" ]; then
 	if ! mkdir -p "$SCRIPT_HOME"; then
@@ -31,8 +31,15 @@ if ! [ -f "$TARGET_FILE" ]; then
 	fi
 fi
 
+if ! rm "$SCRIPT_HOME"/*.subcount; then
+	printf "%s\n" 'Cannot clean up script home.' >&2
+	exit 1
+fi
+
 accumulate_counts () {
-	paste --delimiters=' ' "$SCRIPT_HOME"/*.subcount > "$TARGET_FILE"
+	local row
+	row="$(paste --delimiters=' ' - "$SCRIPT_HOME"/*.subcount)"
+	printf "%s %s   " '' "$row" > "$TARGET_FILE"
 }
 
 count_unread () {
@@ -80,7 +87,7 @@ while true; do
 		continue
 	fi
 
-	for account in "$THUNDERBIRD_IMAPDIR"/*; do
+	for account in "$THUNDERBIRD_IMAPDIR"/*.unread; do
 		if [ -d "$account" ]; then
 			printf "%s\n" "Now monitoring '$account'."
 			monitor_account "$account" &
