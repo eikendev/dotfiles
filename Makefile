@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: dotbot reveal packages submodules vim_plugins install_gef
+install: dotbot reveal packages submodules vim_plugins install_gef systemd
 
 .PHONY: githook
 githook:
@@ -57,3 +57,10 @@ vim_plugins:
 install_gef:
 	mkdir -p ~/.local/share/gef
 	wget -q -O ~/.local/share/gef/init.py https://github.com/hugsy/gef/raw/master/gef.py
+
+.PHONY: systemd
+systemd:
+	systemctl --user daemon-reload
+	systemctl --user enable --now thunderbird-unread.service
+	systemctl --user enable --now sync-news.timer
+	systemctl --user enable --now sync-repositories.timer
