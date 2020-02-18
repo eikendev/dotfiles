@@ -24,5 +24,5 @@ Git Hooks
 ---------
 
 To automate certain behavior in this repository, I created the ``githook/`` directory where all important hooks for Git are located.
-For convenience, you can simply issue ``make githooks``, which will install these hooks.
+For convenience, you can simply issue ``make githook``, which will install these hooks.
 The hooks will be updated every now and then, but the installation script should take that into account already.

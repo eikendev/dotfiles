@@ -6,7 +6,8 @@ DOTBOT_DIR=dotbot
 .PHONY: install
 install: dotbot reveal packages submodules vim_plugins install_gef
 
-.PHONY: githooks
+.PHONY: githook
+githook:
 	./githook/setup-hooks
 
 .PHONY: clean
