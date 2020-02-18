@@ -23,6 +23,8 @@ reveal:
 	test -f ./source/ssh/config && chmod 600 ./source/ssh/config
 	git secret reveal
 	chmod 400 ./source/ssh/config
+	@printf "%s\n" 'Adjusting permissions of secrets.'
+	@for f in $$(git secret list); do chmod go-rwx "$$f"; done
 
 .PHONY: packages
 packages:
