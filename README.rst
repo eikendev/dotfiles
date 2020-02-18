@@ -10,3 +10,19 @@ I've tried to give credit where appropriate, but I might have missed something.
 The two major parts of my dotfiles are located in the ``source/nvim/`` and ``source/zsh/`` directories.
 You may encounter encrypted files in other parts of this repository.
 These contain sensitive information, and are hence not publicly available.
+
+Installation
+============
+
+Dotbot
+------
+
+To install the configuration files, simply use the ``install`` Make target.
+You may not be able to decrypt some secrets, hence some things might not work as expected.
+
+Git Hooks
+---------
+
+To automate certain behavior in this repository, I created the ``githook/`` directory where all important hooks for Git are located.
+For convenience, you can simply issue ``make githooks``, which will install these hooks.
+The hooks will be updated every now and then, but the installation script should take that into account already.

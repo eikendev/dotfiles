@@ -6,6 +6,9 @@ DOTBOT_DIR=dotbot
 .PHONY: install
 install: dotbot reveal packages submodules vim_plugins install_gef
 
+.PHONY: githooks
+	./githook/setup-hooks
+
 .PHONY: clean
 clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;

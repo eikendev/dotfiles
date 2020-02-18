@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Run all hooks of this type.
+
+LINKNAME="$(basename "$0")"
+HOOK_TYPE="${LINKNAME%.*}"
+HOOK_BASEDIR="$(dirname "$(readlink -f "$0")")"
+
+if ! [ -d "$HOOK_BASEDIR"/"$HOOK_TYPE".d ]; then
+	# No base directory exists.
+	exit 0
+fi
+
+for f in "$HOOK_BASEDIR"/"$HOOK_TYPE".d/*; do
+	$f "$@"
+done
