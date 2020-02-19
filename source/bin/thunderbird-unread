@@ -8,7 +8,7 @@ ENV_FILE="$DOTFILES/local/sync-news.env"
 
 source "$HOME/bin/dot/script-utils"
 
-for cmd in inotifywait rg fd; do check_dependency $cmd; done
+for cmd in inotifywait rg; do check_dependency $cmd; done
 
 THUNDERBIRD_HOME="$HOME/.thunderbird"
 THUNDERBIRD_PROFILE="$(sed -n '/Install/,$p' "$THUNDERBIRD_HOME/profiles.ini" | grep -m 1 -h -e 'Default=' | cut -c 9-)"
@@ -31,7 +31,7 @@ if ! [ -f "$TARGET_FILE" ]; then
 	fi
 fi
 
-if ! rm "$SCRIPT_HOME"/*.subcount; then
+if ! rm -f "$SCRIPT_HOME"/*.subcount; then
 	printf "%s\n" 'Cannot clean up script home.' >&2
 	exit 1
 fi
@@ -46,14 +46,21 @@ count_unread () {
 	local account="$1"
 	local total=0
 
-	local haystack
-	haystack="$(fd --extension msf --type file . "$account")"
+	local counts
+	# shellcheck disable=SC2016
+	counts="$(rg \
+		--no-config \
+		--no-filename \
+		--no-column \
+		--no-line-number \
+		--only-matching \
+		--multiline \
+		--multiline-dotall \
+		--glob '*.msf' \
+		--replace '$count' \
+		'(\(\^A2=\d+\))*\p{any}*\(\^A2=(?P<count>\d+)\)' "$account")"
 
-	for f in $haystack; do
-		local count
-		# shellcheck disable=SC2016
-		count="$(rg --no-filename --no-column --no-line-number --only-matching --replace '$1' '\(\^A2=(\d+)\)' "$f" | tail -1)"
-		if [ -z "$count" ]; then count=0; fi
+	for count in $counts; do
 		total=$((total + count))
 	done
 
