@@ -39,7 +39,7 @@ fi
 accumulate_counts () {
 	local row
 	row="$(paste --delimiters=' ' "$SCRIPT_HOME"/*.subcount)"
-	printf "%s %s   " '' "$row" > "$TARGET_FILE"
+	printf "%s  %s   " '' "$row" > "$TARGET_FILE"
 }
 
 count_unread () {
