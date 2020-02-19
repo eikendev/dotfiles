@@ -3,6 +3,7 @@
 	whitespace = trailing-space,tabwidth=4
 
 [alias]
+	exec = "!exec "
 	hash = "rev-parse HEAD"
 	history = "log --first-parent --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
 	stats = "shortlog -sn --no-merges"
