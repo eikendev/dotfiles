@@ -36,10 +36,15 @@ if ! rm -f "$SCRIPT_HOME"/*.subcount; then
 	exit 1
 fi
 
+write_target () {
+	output="$1"
+	printf "%s  %s   " '' "$output" > "$TARGET_FILE"
+}
+
 accumulate_counts () {
 	local row
 	row="$(paste --delimiters=' ' "$SCRIPT_HOME"/*.subcount)"
-	printf "%s  %s   " '' "$row" > "$TARGET_FILE"
+	write_target "$row"
 }
 
 count_unread () {
@@ -88,7 +93,7 @@ while true; do
 	tb_pid="$(pgrep -u $UID -x thunderbird)"
 
 	if [ $? -ne 0 ]; then
-		printf '?' > "$TARGET_FILE"
+		write_target '?'
 		pkill -P $$
 		sleep 5s
 		continue
