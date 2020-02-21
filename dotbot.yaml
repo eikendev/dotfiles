@@ -31,6 +31,7 @@
     ~/.config/zsh: 'source/zsh'
     ~/.ctags: 'source/ctags'
     ~/.curlrc: 'source/curlrc'
+    ~/.direnvrc: 'source/direnvrc'
     ~/.gdbinit: 'source/gdbinit'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
