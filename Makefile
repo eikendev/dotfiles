@@ -41,6 +41,7 @@ packages:
 	cargo install tealdeer
 	cargo install turs
 	cargo install websocat
+	gem install travis
 	go get -u arp242.net/uni
 	go get -u github.com/gohugoio/hugo
 
