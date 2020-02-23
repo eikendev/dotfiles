@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: dotbot reveal packages submodules vim_plugins vim_mkspell install_gef systemd
+install: dotbot reveal packages submodules vim_plug vim_mkspell install_gef systemd
 
 .PHONY: githook
 githook:
@@ -50,9 +50,10 @@ submodules:
 	git submodule update --init --recursive
 	git submodule update --remote
 
-.PHONY: vim_plugins
-vim_plugins:
-	nvim --headless -c 'PlugUpgrade' -c 'PlugClean!' -c 'PlugUpdate' -c 'PlugInstall' -c 'quitall'
+.PHONY: vim_plug
+vim_plug:
+	curl -q -s -S -L --create-dirs -o ~/.local/share/nvim/site/autoload/plug.vim 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	nvim --headless -c 'silent PlugClean!' -c 'silent PlugUpdate' -c 'silent PlugInstall' -c 'quitall!'
 
 .PHONY: vim_mkspell
 vim_mkspell:
@@ -60,8 +61,7 @@ vim_mkspell:
 
 .PHONY: install_gef
 install_gef:
-	mkdir -p ~/.local/share/gef
-	wget -q -O ~/.local/share/gef/init.py https://github.com/hugsy/gef/raw/master/gef.py
+	curl -q -s -S -L --create-dirs -o ~/.local/share/gef/init.py 'https://github.com/hugsy/gef/raw/master/gef.py'
 
 .PHONY: systemd
 systemd:
