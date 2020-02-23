@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Author: eikendev (https://eiken.dev/)
+
+TMP_DIRECTORY=$(mktemp -d)
+DST_DIRECTORY="$HOME/.local/share/nvim/site/spell"
+
+download_asset_url () {
+	base="$1"
+	language="$2"
+	extension="$3"
+
+	wget --no-config --no-verbose -O "$TMP_DIRECTORY/$base.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$language.$extension"
+}
+
+for language in 'en_US' 'de_DE_frami'; do
+	base="$(printf "%s" "$language" | cut -d '_' -f 1)"
+
+	printf "%s\n" "Downloading dictionaries for '$language'."
+	download_asset_url "$base" "$language" 'aff'
+	download_asset_url "$base" "$language" 'dic'
+
+	printf "%s\n" "Generating language file for '$language'."
+	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $TMP_DIRECTORY/$base" -c 'quitall!'
+done
+
+rm -r "$TMP_DIRECTORY"

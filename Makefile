@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: dotbot reveal packages submodules vim_plugins install_gef systemd
+install: dotbot reveal packages submodules vim_plugins vim_mkspell install_gef systemd
 
 .PHONY: githook
 githook:
@@ -53,6 +53,10 @@ submodules:
 .PHONY: vim_plugins
 vim_plugins:
 	nvim --headless -c 'PlugUpgrade' -c 'PlugClean!' -c 'PlugUpdate' -c 'PlugInstall' -c 'quitall'
+
+.PHONY: vim_mkspell
+vim_mkspell:
+	vim-mkspell
 
 .PHONY: install_gef
 install_gef:
