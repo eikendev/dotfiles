@@ -43,15 +43,15 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Tell fzf its default setup.
 export FZF_DEFAULT_OPTS="
-	--no-mouse
-	--preview-window='right:60%'
-	--bind='alt-enter:accept'
-	--bind='alt-k:up'
-	--bind='alt-j:down'
-	--bind='ctrl-f:page-down'
-	--bind='ctrl-b:page-up'
-	--bind='ctrl-d:cancel'
-	--bind='?:toggle-preview'
+	--no-mouse \
+	--preview-window='right:60%' \
+	--bind='alt-enter:accept' \
+	--bind='alt-k:up' \
+	--bind='alt-j:down' \
+	--bind='ctrl-f:page-down' \
+	--bind='ctrl-b:page-up' \
+	--bind='ctrl-d:cancel' \
+	--bind='?:toggle-preview' \
 "
 
 # Tell python to read a startup file.
