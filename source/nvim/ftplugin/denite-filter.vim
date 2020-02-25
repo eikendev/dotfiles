@@ -6,8 +6,8 @@ setlocal noruler
 
 call deoplete#custom#buffer_option('auto_complete', v:false)
 
-imap <buffer> <CR> <Plug>(denite_filter_update)
-nmap <buffer> <BS> <Plug>(denite_filter_update)
+imap <buffer> <CR> <Plug>(denite_filter_quit)
+nmap <buffer> <BS> <Plug>(denite_filter_quit)
 
 inoremap <silent><buffer><expr> <A-CR> denite#do_map('do_action')
 nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
