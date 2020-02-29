@@ -61,10 +61,13 @@ export PYTHONSTARTUP="$HOME/.config/python/startup"
 export ZSH_CONFIG="$HOME/.config/zsh"
 
 # Use nvim if available.
+# https://unix.stackexchange.com/a/4861
 if [ -x "$(command -v nvim)" ]; then
     export EDITOR='nvim'
+    export VISUAL='nvim'
 else
     export EDITOR='vim'
+    export VISUAL='vim'
 fi
 
 # Set configuration paths for different applications.
