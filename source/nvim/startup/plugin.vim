@@ -165,9 +165,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	Plug 'Shougo/denite.nvim'
 
-	Plug 'eikendev/denite-man'
+	Plug 'eikendev/denite-fzf'
 
-	Plug 'nixprime/cpsm'
+	Plug 'eikendev/denite-man'
 
 	" Use vim-native features, e.g. macros instead!
 	"Plug 'terryma/vim-multiple-cursors'

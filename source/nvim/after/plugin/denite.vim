@@ -34,7 +34,7 @@ endif
 call denite#custom#source('_', 'max_candidates', 50000)
 
 " Use a custom matcher.
-call denite#custom#source('_', 'matchers', ['matcher/cpsm'])
+call denite#custom#source('_', 'matchers', ['matcher/fzf'])
 
 " Do not show terminals and help in buffer list.
 call denite#custom#var('buffer', 'exclude_filetypes', ['denite','terminal','help'])
