@@ -5,6 +5,13 @@
 TMP_DIRECTORY=$(mktemp -d)
 DST_DIRECTORY="$HOME/.local/share/nvim/site/spell"
 
+if ! [ -d "$DST_DIRECTORY" ]; then
+	if ! mkdir -p "$DST_DIRECTORY"; then
+		printf "%s\n" 'Cannot create spell directory.' >&2
+		exit 1
+	fi
+fi
+
 download_asset_url () {
 	base="$1"
 	language="$2"
