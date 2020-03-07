@@ -1,15 +1,18 @@
 {
 	"codeLens.enable": true,
+	"diagnostic.refreshOnInsertMode": true,
 	"diagnostic.displayByAle": true,
 	"diagnostic.errorSign": "✘",
 	"diagnostic.warningSign": "⚑",
 	"diagnostic.infoSign": "●",
 	"diagnostic.hintSign": "⚑",
+	"diagnostic.virtualText": true,
 	"suggest.noselect": false,
 	"suggest.removeDuplicateItems": true,
 	"suggest.enablePreview": true,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.snippetIndicator": "►",
+	"suggest.maxCompleteItemCount": 16,
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",
@@ -34,5 +37,6 @@
 	"rust-client.disableRustup": true,
 	"python.jediEnabled": false,
 	"python.linting.enabled": false,
+	"java.home": "/usr/lib/jvm/java",
 	"snippets.ultisnips.enable": false
 }
