@@ -12,8 +12,8 @@ nnoremap <silent> M :TmuxExecute make<CR>
 nnoremap <silent> X :TmuxExecute make run<CR>
 
 " Vimtex key mappings.
-nnoremap <silent> <Leader>lr :w<CR>:VimtexCompileSS<CR>
-nnoremap <silent> <Leader>lt :<C-u>Denite -no-empty vimtex<CR>
+nnoremap <silent> <Leader>vr :w<CR>:VimtexCompileSS<CR>
+nnoremap <silent> <Leader>vt :<C-u>Denite -no-empty vimtex<CR>
 
 " Linter movement and action triggering.
 nmap <Leader>af <Plug>(ale_fix)
