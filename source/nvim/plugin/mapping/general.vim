@@ -10,5 +10,8 @@ nnoremap ! :!
 " Enter command mode with space (now reserved for easymotion).
 "nnoremap <Space> :
 
+" Do not change position when existing insert mode.
+inoremap <expr><Esc> "<Esc>`^"
+
 " Terminal escape using double <Esc>.
 tnoremap <Esc><Esc> <C-\><C-n>

@@ -8,8 +8,8 @@ else
 	imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use <A-CR> to trigger completion.
-inoremap <silent><expr> <A-CR> coc#refresh()
+" Use <A-CR> to toggle completion.
+inoremap <silent><expr> <A-CR> pumvisible() ? "\<C-x>" : coc#refresh()
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <Tab>
@@ -17,6 +17,3 @@ inoremap <silent><expr> <Tab>
 \	coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 \	"\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Do not change position when existing insert mode.
-inoremap <expr><Esc> pumvisible() ? "\<C-x>" : "<Esc>`^"
