@@ -26,6 +26,11 @@ set mouse=a
 " Prevent the cursor from changing the current column when jumping.
 set nostartofline
 
+" Do not make backups for files.
+" Required by coc.nvim.
+set nobackup
+set nowritebackup
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFERS AND LOADING                                                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -34,6 +39,7 @@ set nostartofline
 set encoding=utf-8
 
 " Do not unload buffers.
+" Required by coc.nvim.
 set hidden
 
 " Read changed file automatically if no changes were made inside vim.
@@ -147,8 +153,12 @@ set completeopt+=noinsert
 " Get rid of annoying status messages.
 set shortmess=aoOTWIcF
 
+" Do not pass messages to |ins-completion-menu|.
+" Required by coc.nvim.
+set shortmess+=c
+
 " If this many milliseconds nothing is typed CursorHold event will trigger.
-set updatetime=500
+set updatetime=300
 
 " Mapping delays in milliseconds.
 set timeoutlen=800
@@ -189,8 +199,6 @@ endif
 
 if exists('$SUDO_USER')
 	set noswapfile
-	set nobackup
-	set nowritebackup
 	set noundofile
 	set shada=''
 endif

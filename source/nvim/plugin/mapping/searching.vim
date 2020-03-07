@@ -36,3 +36,9 @@ nnoremap <silent> <Leader>dw :TryWrite<CR>:call self#mapping#searching#grep(v:tr
 nnoremap <Leader>K :Dasht<Space>
 nnoremap <silent> <Leader>k :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
 vnoremap <silent> <Leader>k y:<C-U>call Dasht(getreg(0))<Return>
+
+" Go to code navigation.
+nmap <silent> <leader>lgd <Plug>(coc-definition)
+nmap <silent> <leader>lgy <Plug>(coc-type-definition)
+nmap <silent> <leader>lgi <Plug>(coc-implementation)
+nmap <silent> <leader>lgr <Plug>(coc-references)

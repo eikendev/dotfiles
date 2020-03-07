@@ -4,7 +4,8 @@ setlocal statusline=
 setlocal noshowmode
 setlocal noruler
 
-call deoplete#custom#buffer_option('auto_complete', v:false)
+" Disable completion in this buffer.
+let b:coc_suggest_disable = 1
 
 imap <buffer> <CR> <Plug>(denite_filter_quit)
 nmap <buffer> <BS> <Plug>(denite_filter_quit)

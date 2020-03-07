@@ -2,12 +2,6 @@ if !has('autocmd')
 	finish
 endif
 
-" Expand on completion.
-augroup completion
-	autocmd!
-	autocmd CompleteDone * call self#autocomplete#expand()
-augroup end
-
 " Toggle relative numbers in insert/normal mode.
 augroup togglenumbers
 	autocmd!
@@ -42,4 +36,10 @@ augroup onlywindow
 	\	'man',
 	\]
 	autocmd FileType * if index(g:onlywindow_fts, expand("<amatch>")) >= 0 | only | endif
+augroup end
+
+" Highlight the hovered symbol and its references when holding the cursor.
+augroup hoverhighlight
+	autocmd!
+	autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end

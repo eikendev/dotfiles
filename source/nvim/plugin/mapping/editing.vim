@@ -67,14 +67,6 @@ xnoremap <Bar> :sort i<CR>
 " Select pasted text.
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
-" Close popup menu without leaving insert mode.
-imap <expr> <BS> pumvisible() ? "\<C-e>" : "<BS>"
-
-" Completion with tab key (causing flickering of the menu sometimes).
-inoremap <expr> <TAB> self#autocomplete#jump_forwards()
-snoremap <expr> <TAB> self#autocomplete#jump_forwards()
-inoremap <expr> <S-TAB> self#autocomplete#jump_backwards()
-
 " Increment and decrement the number under the cursor.
 nmap <Leader>+ <C-a>
 nmap <Leader>- <C-x>
@@ -96,3 +88,17 @@ nmap <Leader>so <Plug>Ysurround
 nmap <Leader>sl <Plug>Yssurround
 " Wrap the selection.
 xmap <Leader>s <Plug>VSurround
+
+" Apply codeAction on the selected region.
+" Example: `<leader>lap` for current paragraph
+xmap <leader>la <Plug>(coc-codeaction-selected)
+nmap <leader>la <Plug>(coc-codeaction-selected)
+
+" Apply codeAction to the current line.
+nmap <leader>ll <Plug>(coc-codeaction)
+
+" Apply AutoFix on the current line.
+nmap <leader>lf <Plug>(coc-fix-current)
+
+" Rename symbol.
+nmap <leader>lr <Plug>(coc-rename)

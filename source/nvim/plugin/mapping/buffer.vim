@@ -10,7 +10,6 @@ nnoremap <silent> <S-Tab> :bp<CR>
 " Quickly save in normal mode.
 nnoremap <CR> :w<CR>
 nnoremap <A-CR> :wq<CR>
-inoremap <A-CR> <C-\><C-o>:wq<CR>
 
 " Reload all buffers.
 nnoremap <silent> <F5> :ReloadAllBuffers<CR>

@@ -103,27 +103,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 		let g:lexima_map_escape = ''
 		let g:lexima_enable_endwise_rules = 0
 
-	if (has('nvim'))
-		" TODO Try out neoclide/coc.nvim.
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-			let g:deoplete#enable_at_startup = 1
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		let g:coc_snippet_next = '<Tab>'
 
-		Plug 'deoplete-plugins/deoplete-tag'
-
-		Plug 'fszymanski/deoplete-emoji'
-
-		Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
-
-		Plug 'deoplete-plugins/deoplete-clang', { 'for': ['c', 'cpp'] }
-			let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so.9'
-			let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang/'
-
-		Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-			let g:deoplete#sources#rust#racer_binary = self#autocomplete#guess_racer_binary()
-			let g:deoplete#sources#rust#rust_source_path = self#autocomplete#guess_rust_source_path()
-			let g:deoplete#sources#rust#show_duplicates = 0
-			let g:deoplete#sources#rust#disable_keymap = 1
-	endif
+	Plug 'honza/vim-snippets'
 
 	" Linting "
 	"""""""""""
@@ -150,15 +133,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 		\	'vim': ['vint'],
 		\}
 		let g:ale_python_flake8_options = '--ignore=E501'
-
-	" Snippets "
-	""""""""""""
-
-	Plug 'Shougo/neosnippet'
-		let g:neosnippet#expand_word_boundary = 1
-		let g:neosnippet#snippets_directory = '$HOME/.config/nvim/snippet'
-
-	Plug 'Shougo/neosnippet-snippets', { 'do': 'rm -f neosnippets/_.snip' }
 
 	" Searching "
 	"""""""""""""

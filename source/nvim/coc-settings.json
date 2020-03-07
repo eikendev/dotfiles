@@ -1,0 +1,38 @@
+{
+	"codeLens.enable": true,
+	"diagnostic.displayByAle": true,
+	"diagnostic.errorSign": "✘",
+	"diagnostic.warningSign": "⚑",
+	"diagnostic.infoSign": "●",
+	"diagnostic.hintSign": "⚑",
+	"suggest.noselect": false,
+	"suggest.removeDuplicateItems": true,
+	"suggest.enablePreview": true,
+	"suggest.minTriggerInputLength": 1,
+	"suggest.snippetIndicator": "►",
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+			"initializationOptions": {
+		 	 	"cache": {
+		 	 		"directory": "/tmp/ccls"
+		 	 	}
+	 	 	}
+		},
+		"golang": {
+			"command": "go-langserver",
+			"filetypes": ["go"],
+			"initializationOptions": {
+				"gocodeCompletionEnabled": true,
+				"diagnosticsEnabled": true,
+				"lintTool": "golint"
+			}
+		}
+	},
+	"rust-client.disableRustup": true,
+	"python.jediEnabled": false,
+	"python.linting.enabled": false,
+	"snippets.ultisnips.enable": false
+}
