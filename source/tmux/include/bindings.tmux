@@ -25,8 +25,7 @@ unbind-key l
 ################################################################################
 
 # Use C-Space to toggle status bar.
-bind-key -n C-Space set-option status
-bind-key C-Space send-keys 'C-Space'
+bind-key Space set-option status
 
 # Analogous with the clearing of the shell.
 bind-key L clear-history
