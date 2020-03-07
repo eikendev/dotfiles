@@ -5,5 +5,5 @@
 " tnoremap <silent> <C-z> <C-\><C-n>:call self#terminal#toggle#()<Enter>
 ""
 function! self#terminal#toggle#() abort
-	call floaterm#doAction('toggle')
+	call floaterm#toggle()
 endfunction

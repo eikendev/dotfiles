@@ -1,4 +1,5 @@
 let g:floaterm_position = 'center'
+let g:floaterm_borderchars = ['', '', '', '', '', '', '', '']
 
 function s:update_floatterm_size()
 	let g:floaterm_height = &lines * 3 / 4
