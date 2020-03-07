@@ -14,10 +14,10 @@ function! self#mapping#searching#grep(populated, pattern) abort
 
 	if l:is_git !=# ''
 		let l:source = 'grep/git:::' . a:pattern
-		execute l:command . ' ' . l:source . ' -auto-action=highlight ' . l:argument . ' -path='
+		execute l:command . ' ' . l:source . l:argument . ' -path='
 	else
 		let l:source = 'grep:::' . a:pattern
-		execute l:command . ' ' . l:source . ' -auto-action=highlight' . l:argument
+		execute l:command . ' ' . l:source . l:argument
 	endif
 endfunction
 
