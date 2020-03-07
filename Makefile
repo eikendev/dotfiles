@@ -55,14 +55,6 @@ submodules:
 vim_plug:
 	curl -q -s -S -L --create-dirs -o ~/.local/share/nvim/site/autoload/plug.vim 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	nvim --headless -c 'silent PlugClean!' -c 'silent PlugUpdate' -c 'silent PlugInstall' -c 'quitall!'
-	nvim --headless \
-		-c 'silent CocInstall -sync coc-emoji' \
-		-c 'silent CocInstall -sync coc-python' \
-		-c 'silent CocInstall -sync coc-rls' \
-		-c 'silent CocInstall -sync coc-snippets' \
-		-c 'silent CocInstall -sync coc-tag' \
-		-c 'silent CocInstall -sync coc-vimtex' \
-		-c 'quitall!'
 
 .PHONY: vim_mkspell
 vim_mkspell:

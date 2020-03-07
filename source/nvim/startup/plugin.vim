@@ -105,6 +105,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		let g:coc_snippet_next = '<Tab>'
+		let g:coc_global_extensions = [
+		\	'coc-emoji',
+		\	'coc-java',
+		\	'coc-python',
+		\	'coc-rls',
+		\	'coc-snippets',
+		\	'coc-tabnine',
+		\	'coc-tag',
+		\	'coc-vimtex',
+		\]
 
 	Plug 'honza/vim-snippets'
 
