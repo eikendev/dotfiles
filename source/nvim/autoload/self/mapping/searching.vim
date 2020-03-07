@@ -6,7 +6,7 @@ function! self#mapping#searching#grep(populated, pattern) abort
 
 	if a:populated
 		let l:command = 'DeniteCursorWord'
-		let l:argument = '-immediately-1'
+		let l:argument = ''
 	else
 		let l:command = 'Denite'
 		let l:argument = ''
@@ -14,10 +14,10 @@ function! self#mapping#searching#grep(populated, pattern) abort
 
 	if l:is_git !=# ''
 		let l:source = 'grep/git:::' . a:pattern
-		execute l:command . ' ' . l:source . l:argument . ' -path='
+		execute l:command . ' ' . l:source . ' ' . l:argument . ' -path='
 	else
 		let l:source = 'grep:::' . a:pattern
-		execute l:command . ' ' . l:source . l:argument
+		execute l:command . ' ' . l:source . ' ' . l:argument
 	endif
 endfunction
 
