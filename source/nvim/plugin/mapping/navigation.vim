@@ -5,10 +5,10 @@ noremap <silent> <C-j> :TmuxNavigateDown<CR>
 noremap <silent> <C-k> :TmuxNavigateUp<CR>
 noremap <silent> <C-h> :TmuxNavigateLeft<CR>
 noremap <silent> <C-l> :TmuxNavigateRight<CR>
-inoremap <C-j> <ESC>:TmuxNavigateDown<CR>
-inoremap <C-k> <ESC>:TmuxNavigateUp<CR>
-inoremap <C-h> <ESC>:TmuxNavigateLeft<CR>
-inoremap <C-l> <ESC>:TmuxNavigateRight<CR>
+inoremap <C-j> <Esc>:TmuxNavigateDown<CR>
+inoremap <C-k> <Esc>:TmuxNavigateUp<CR>
+inoremap <C-h> <Esc>:TmuxNavigateLeft<CR>
+inoremap <C-l> <Esc>:TmuxNavigateRight<CR>
 
 " Jump to start and end of the line.
 noremap H 0
