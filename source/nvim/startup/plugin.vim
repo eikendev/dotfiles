@@ -22,6 +22,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'voldikss/vim-floaterm'
 
 	Plug 'Yggdroot/indentLine'
+		let g:indentLine_char = "┆"
 		let g:indentLine_fileTypeExclude = [
 		\	'denite',
 		\	'denite-filter',
