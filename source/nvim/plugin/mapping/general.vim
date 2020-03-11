@@ -12,3 +12,6 @@ inoremap <silent> <Esc> <Esc>:keepjumps normal! `^<CR>
 
 " Terminal escape using double <Esc>.
 tnoremap <Esc><Esc> <C-\><C-n>
+
+" Reload the currently used configuration.
+nnoremap <Leader>r :source $MYVIMRC<CR>
