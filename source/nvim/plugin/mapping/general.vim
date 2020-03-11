@@ -8,7 +8,7 @@ map! <Nul> <C-Space>
 nnoremap ! :!
 
 " Do not change position when existing insert mode.
-inoremap <Esc> <Esc>:keepjumps normal! `^<CR>
+inoremap <silent> <Esc> <Esc>:keepjumps normal! `^<CR>
 
 " Terminal escape using double <Esc>.
 tnoremap <Esc><Esc> <C-\><C-n>
