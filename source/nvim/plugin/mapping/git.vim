@@ -1,17 +1,11 @@
 " Manage hunks using gitgutter.
-nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>hh <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
 
 " Move to next or previous hunk.
 nmap <silent> [h :call GitPrevHunkWrap()<CR>
 nmap <silent> ]h :call GitNextHunkWrap()<CR>
-
-" Hunks as text objects.
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " Fugitive mappings.
 nnoremap <silent> <Leader>ga :Gwrite<CR>
