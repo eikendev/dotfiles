@@ -6,6 +6,9 @@ nnoremap <silent> * m`:keepjumps normal! *``<CR>
 " Enable jumping back after a search.
 nnoremap <silent> n :keepjumps normal! n<CR>
 
+" Jump to the tag under the cursor.
+nnoremap <silent> <Leader>jt <C-]>
+
 " Use space as easymotion prefix.
 map <Space> <Plug>(easymotion-prefix)
 
@@ -28,8 +31,7 @@ nnoremap <silent> <Leader>dm :TryWrite<CR>:Denite man -start-filter<CR>
 nnoremap <silent> <Leader>do :TryWrite<CR>:Denite outline<CR>
 nnoremap <silent> <Leader>dr :TryWrite<CR>:Denite register<CR>
 nnoremap <silent> <Leader>ds :TryWrite<CR>:Denite spell<CR>
-nnoremap <silent> <Leader>dT :TryWrite<CR>:call self#mapping#searching#tag(v:false, v:true)<CR>
-nnoremap <silent> <Leader>dt :TryWrite<CR>:call self#mapping#searching#tag(v:true, v:true)<CR>
+nnoremap <silent> <Leader>dt :TryWrite<CR>:call self#mapping#searching#tag(v:false, v:true)<CR>
 nnoremap <silent> <Leader>dw :TryWrite<CR>:call self#mapping#searching#grep(v:true, '')<CR>
 
 " Search documentation for related files.
