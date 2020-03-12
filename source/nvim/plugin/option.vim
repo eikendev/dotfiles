@@ -135,7 +135,9 @@ set suffixes=.bak,~,.swp,.o,.aux,.log,.bbl,.blg,.brf,.out,.toc,.pdf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Center cursor.
-set scrolloff=999
+" We cannot increase this further, since otherwise GitGutterPreviewHunk will
+" throw an error.
+set scrolloff=11
 
 " Recursively search for tags file.
 set tags=./tags;
