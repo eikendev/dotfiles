@@ -9,11 +9,14 @@ function git-replace-author {
 	local name_new="$2"
 	local email_new="$3"
 
-	git filter-branch --env-filter '
-		if [ "$GIT_AUTHOR_EMAIL" = "'$email_old'" ]; then
-			GIT_AUTHOR_NAME="'$name_new'";
-			GIT_AUTHOR_EMAIL="'$email_new'";
-			GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME";
-			GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
-		fi' -- --all
+	# https://htmlpreview.github.io/?https://github.com/newren/git-filter-repo/blob/docs/html/git-filter-repo.html#CALLBACKS
+	git filter-repo \
+		--commit-callback "
+			if commit.author_email == b'$email_old':
+			    commit.author_name = b'$name_new'
+			    commit.committer_name = b'$name_new'
+			    commit.author_email = b'$email_new'
+			    commit.committer_email = b'$email_new'
+		" \
+		--force
 }
