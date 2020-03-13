@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+CMD=rfcdl
+
+TITLE='RFCs Synchronization'
+
+LOCK_DIR=~/.local/share
+LOCK_FILE="$LOCK_DIR/sync-rfcs.lock"
+
+ENV_FILE="$DOTFILES/local/sync-rfcs.env"
+
+source "$HOME/bin/dot/script-utils"
+
+for cmd in "$CMD"; do check_dependency $cmd; done
+
+lock
+check_connectivity
+
+printf "%s\n" 'Synchronizing RFCs.'
+$CMD --directory ~/document/rfc
+exit_on_failure 1 1 'Could not synchronize RFCs.'
+
+printf "%s\n" 'Synchronization successful.'
