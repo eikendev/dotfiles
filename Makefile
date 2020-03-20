@@ -44,6 +44,7 @@ packages:
 	gem install travis
 	go get -u arp242.net/uni
 	go get -u github.com/gohugoio/hugo
+	go get -u github.com/OJ/gobuster
 	go get -u github.com/sourcegraph/go-langserver
 
 .PHONY: submodules
