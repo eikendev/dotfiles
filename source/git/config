@@ -54,3 +54,6 @@
 	log  = diffr | less -R
 	show = diffr | less -R
 	diff = diffr | less -R
+
+[user]
+	useConfigOnly = true
