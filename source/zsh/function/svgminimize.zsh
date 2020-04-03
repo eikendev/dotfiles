@@ -1,14 +1,14 @@
 # Minimize the file size of an SVG image.
 function svgminimize {
 	if [ $# -ne 1 ]; then
-		echo "Usage: $0 <input_file>" >&2
+		printf "Usage: $0 <input_file>\n" >&2
 		return 1
 	fi
 
 	local input_file="$1"
 
 	if ! [ -f "$input_file" ] ; then
-		echo "Input file does not exist." >&2
+		printf "%s\n" 'Input file does not exist.' >&2
 		return 1
 	fi
 

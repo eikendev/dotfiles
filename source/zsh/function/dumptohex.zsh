@@ -3,7 +3,7 @@ function dumptohex {
 	local file="$1"
 
 	if ! [ -f "$file" ] ; then
-		echo "Usage: $0 <file>" >&2
+		printf "Usage: $0 <file>\n" >&2
 		return 1
 	fi
 

@@ -1,7 +1,7 @@
 # Replace the name and the email of a Git author.
 function git-replace-author {
 	if [ $# -ne 3 ]; then
-		echo "Usage: $0 <email_old> <name_new> <email_new>" >&2
+		printf "Usage: $0 <email_old> <name_new> <email_new>\n" >&2
 		return 1
 	fi
 

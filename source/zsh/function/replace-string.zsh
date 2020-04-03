@@ -1,7 +1,7 @@
 # Replace string in all files of a directory.
 function replace-string {
 	if [ $# -ne 3 ]; then
-		echo "Usage: $0 <pattern> <string_old> <string_new>" >&2
+		printf "Usage: $0 <pattern> <string_old> <string_new>\n" >&2
 		return 1
 	fi
 

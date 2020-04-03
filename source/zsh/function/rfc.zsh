@@ -1,7 +1,7 @@
 # Display an RFC from local storage.
 function rfc {
 	if [ $# -ne 1 ]; then
-		echo "Usage: $0 <id>" >&2
+		printf "Usage: $0 <id>\n" >&2
 		return 1
 	fi
 
@@ -13,7 +13,7 @@ function rfc {
 		printf -v file "$directory/%04d.txt" "$id"
 
 		if ! [ -f "$file" ] ; then
-			echo "RFC not found in storage." >&2
+			printf "RFC not found in storage.\n" >&2
 			return 1
 		fi
 	fi

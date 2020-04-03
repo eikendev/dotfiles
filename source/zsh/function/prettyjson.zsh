@@ -3,12 +3,12 @@ function prettyjson {
 	local file="$1"
 
 	if ! [ -f "$file" ] ; then
-		echo "Usage: $0 <file>" >&2
+		printf "Usage: $0 <file>\n" >&2
 		return 1
 	fi
 
 	if ! [ -x "$(command -v python3)" ]; then
-		echo 'Python3 is not installed.' >&2
+		printf "%s\n" 'Python3 is not installed.' >&2
 		return 1
 	fi
 

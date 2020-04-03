@@ -4,10 +4,10 @@ function scratch {
 
 	directory=$(mktemp -d)
 
-	echo "Spawing subshell in '$directory'."
+	printf "Spawing subshell in '$directory'.\n"
 
 	(cd $directory; $SHELL)
 
-	echo 'Removing scratch directory.'
+	printf "%s\n" 'Removing scratch directory.'
 	rm -r "$directory"
 }

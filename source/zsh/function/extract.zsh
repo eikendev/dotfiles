@@ -3,13 +3,13 @@ function extract {
 	local file="$1"
 
 	if ! [ -f "$file" ] ; then
-		echo "Usage: $0 <file>" >&2
+		printf "Usage: $0 <file>\n" >&2
 		return 1
 	fi
 
 	local directory=${1%%.*}
 	if [ -e "$directory" ] ; then
-		echo "Directory '$directory' already exists." >&2
+		printf "Directory '$directory' already exists.\n" >&2
 		return 1
 	fi
 
@@ -36,14 +36,14 @@ function extract {
 		*.xz) unxz "$file" ;;
 		*.zip) unzip "$file" ;;
 		*)
-			echo 'Unknown compression format.' >&2
+			printf "%s\n" 'Unknown compression format.' >&2
 			return 1
 			;;
 	esac
 
 	if [ $? -ne 0 ] ; then
-		echo "Extractig file '$file' failed."
+		printf "Extractig file '$file' failed.\n"
 	else
-		echo "Extractig file '$file' was successful."
+		printf "Extractig file '$file' was successful.\n"
 	fi
 }

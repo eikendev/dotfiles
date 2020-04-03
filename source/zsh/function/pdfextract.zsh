@@ -1,7 +1,7 @@
 # Extract a part of a pdf file.
 function pdfextract {
 	if [ $# -ne 4 ]; then
-		echo "Usage: $0 <first_page> <last_page> <input_file> <output_file>" >&2
+		printf "Usage: $0 <first_page> <last_page> <input_file> <output_file>\n" >&2
 		return 1
 	fi
 
@@ -11,7 +11,7 @@ function pdfextract {
 	local input_file="$4"
 
 	if ! [ -f "$input_file" ] ; then
-		echo "Input file does not exist." >&2
+		printf "Input file does not exist.\n" >&2
 		return 1
 	fi
 

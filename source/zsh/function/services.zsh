@@ -1,7 +1,7 @@
 # Show services corresponding to given port.
 function services {
 	if [ $# -ne 1 ]; then
-		echo "Usage: $0 <port>" >&2
+		printf "Usage: $0 <port>\n" >&2
 		return 1
 	fi
 
