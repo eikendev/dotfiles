@@ -3,7 +3,7 @@ Description=Thunderbird Unread
 
 [Service]
 Type=simple
-ExecStart=%h/bin/dot/thunderbird-unread
+ExecStart=%h/bin/dot/thunderbird-unread-wrapper
 
 [Install]
 WantedBy=default.target

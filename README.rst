@@ -25,16 +25,3 @@ Git Hooks
 To automate certain behavior in this repository I created the ``githook/`` directory where all important hooks for Git are located.
 For convenience, you can simply issue ``make githook`` to install these hooks.
 The hooks will be updated from time to time, but the installation script should take that into account already.
-
-Thunderbird Unread
-------------------
-
-I've created a script that outputs how many emails are unread in each account of Thunderbird.
-It can automatically detect your default Thunderbird profile.
-
-Note that to use the script you have to provide it with the accounts you want to query.
-This is done by creating symbolic links in the ``ImapMail`` directory of Thunderbird.
-The links must have the file extension ``.unread`` and point to one of the IMAP directories (POP3 is not supported).
-By naming the links in the alphabetical order of your choice you can also choose the order of the output.
-
-Be aware that I have only tested the script using the Maildir format of Thunderbird.

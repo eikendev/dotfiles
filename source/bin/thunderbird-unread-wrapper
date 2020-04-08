@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+TITLE='Thunderbird Unread'
+
+source "$HOME/bin/dot/script-utils"
+
+for cmd in inotifywait rg; do check_dependency $cmd; done
+
+exec thunderbird-unread
