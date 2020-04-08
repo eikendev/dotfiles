@@ -10,11 +10,12 @@ LOCK_FILE="$LOCK_DIR/record-$MODE.lock"
 source "$HOME/bin/dot/script-utils"
 
 DATETIME="$(date +%Y%m%d-%H%M%S)"
-DATAFILE="$HOME/download/record-$MODE-$DATETIME.opus"
+DATAFILE="$HOME/download/record-$MODE-$DATETIME"
 LOGFILE="$HOME/download/record-$MODE-$DATETIME.log"
 
 record_audio() {
 	local VOLUME="$1"
+	local file="$DATAFILE.opus"
 
 	pactl list short sources | cut -c -1 | while read -r input
 	do
@@ -24,12 +25,21 @@ record_audio() {
 	done
 	exit_on_failure 0 1 'Could not unmute source.'
 
-	ffmpeg -hide_banner -f pulse -t 10:00 -i default -c:a libopus -b:a 96K -vbr constrained -application voip "$DATAFILE" > "$LOGFILE" 2>&1
+	ffmpeg -hide_banner -f pulse -t 10:00 -i default -c:a libopus -b:a 96K -vbr constrained -application voip "$file" > "$LOGFILE" 2>&1
 	exit_on_failure 0 1 'Could not record audio.'
 }
 
+record_screen() {
+	local file="$DATAFILE.webm"
+
+	ffmpeg -hide_banner -f x11grab -t 02:00 -s 1920x1080 -r 20 -i :0.0 -c:v libvpx-vp9 -crf 20 -b:v 1M "$file" > "$LOGFILE" 2>&1
+	exit_on_failure 0 1 'Could not record screen.'
+}
+
 record_webcam() {
-	ffmpeg -hide_banner -f v4l2 -t 02:00 -framerate 30 -video_size 640x480 -i /dev/video0 -c:v libvpx -crf 20 -b:v 1M "$DATAFILE" > "$LOGFILE" 2>&1
+	local file="$DATAFILE.webm"
+
+	ffmpeg -hide_banner -f v4l2 -t 02:00 -framerate 30 -video_size 640x480 -i /dev/video0 -c:v libvpx-vp9 -crf 20 -b:v 1M "$file" > "$LOGFILE" 2>&1
 	exit_on_failure 0 1 'Could not record webcam.'
 }
 
@@ -42,6 +52,10 @@ case "$MODE" in
 		printf "%s\n" 'Recording audio.'
 		VOLUME=${2:-50}
 		record_audio "$VOLUME"
+		;;
+	screen)
+		printf "%s\n" 'Recording screen.'
+		record_screen
 		;;
 	webcam)
 		printf "%s\n" 'Recording webcam.'
