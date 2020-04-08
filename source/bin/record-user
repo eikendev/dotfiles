@@ -62,7 +62,7 @@ case "$MODE" in
 		record_webcam
 		;;
 	*)
-		printf "%s\n" "Usage: $0 {audio|webcam} [volume]" >&2
+		printf "%s\n" "Usage: $0 {audio|screen|webcam} [volume]" >&2
 		exit 1
 esac
 
