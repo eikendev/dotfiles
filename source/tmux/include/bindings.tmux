@@ -48,13 +48,11 @@ bind-key '"' split-window -v -c "#{pane_current_path}"
 #bind-key | split-window -h -c "#{pane_current_path}"
 #bind-key - split-window -v -c "#{pane_current_path}"
 
-# Switch windows easily.
+# Switch windows vim-style.
 unbind-key n
-#bind-key -n C-Tab next-window
-bind-key k next-window
+bind-key j next-window
 unbind-key p
-#bind-key -n C-BTab previous-window
-bind-key j previous-window
+bind-key k previous-window
 
 # Switch back to the last window.
 bind-key u last-window
