@@ -43,8 +43,8 @@ nnoremap <A-C-j> m`jdd``
 nnoremap <A-C-k> m`kdd``
 
 " Move line up and down.
-nnoremap <Up> :move -2<CR>
-nnoremap <Down> :move +1<CR>
+nnoremap <A-K> :move -2<CR>
+nnoremap <A-J> :move +1<CR>
 
 " Replace line from within insert mode.
 inoremap <C-Del> <C-\><C-o>cc
