@@ -30,7 +30,7 @@ nnoremap <silent> <Leader>dh :TryWrite<CR>:Denite command_history<CR>
 nnoremap <silent> <Leader>dj :TryWrite<CR>:Denite jump<CR>
 nnoremap <silent> <Leader>dk :TryWrite<CR>:Denite mark<CR>
 nnoremap <silent> <Leader>dm :TryWrite<CR>:Denite man -start-filter<CR>
-nnoremap <silent> <Leader>do :TryWrite<CR>:Denite outline<CR>
+nnoremap <silent> <Leader>do :TryWrite<CR>:Denite outline -start-filter<CR>
 nnoremap <silent> <Leader>dr :TryWrite<CR>:Denite register<CR>
 nnoremap <silent> <Leader>ds :TryWrite<CR>:Denite spell<CR>
 nnoremap <silent> <Leader>dt :TryWrite<CR>:call self#mapping#searching#tag(v:false, v:true)<CR>
