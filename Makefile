@@ -43,6 +43,7 @@ packages:
 	cargo install websocat
 	gem install travis
 	go get -u arp242.net/uni
+	go get -u filippo.io/age/...
 	go get -u github.com/OJ/gobuster
 	go get -u github.com/sourcegraph/go-langserver
 
