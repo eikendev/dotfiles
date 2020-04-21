@@ -15,6 +15,7 @@
 [diff]
 	prompt = false
 	tool = vimdiff
+	algorithm = patience
 
 [gc]
 	pruneexpire = now
