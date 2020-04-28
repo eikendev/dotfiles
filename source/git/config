@@ -1,6 +1,9 @@
 [core]
-	#autocrlf = true
 	whitespace = trailing-space,tabwidth=4
+	pager = diffr | less -R
+
+[interactive]
+    diffFilter = diffr
 
 [alias]
 	exec = "!exec "
@@ -50,11 +53,6 @@
 
 [status]
 	branch = true
-
-[pager]
-	log  = diffr | less -R
-	show = diffr | less -R
-	diff = diffr | less -R
 
 [user]
 	useConfigOnly = true
