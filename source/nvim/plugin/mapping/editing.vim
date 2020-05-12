@@ -33,14 +33,8 @@ nnoremap Y y$
 " Insert space and line in normal mode.
 nnoremap <A-h> i<Space><Esc>l
 nnoremap <A-l> a<Space><Esc>h
-nnoremap <A-j> m`o<Esc>^D``
-nnoremap <A-k> m`O<Esc>^D``
-
-" Delete space and line in normal mode.
-nnoremap <A-C-h> hx
-nnoremap <A-C-l> lxh
-nnoremap <A-C-j> m`jdd``
-nnoremap <A-C-k> m`kdd``
+nnoremap <A-j> :PreserveExecute call append(line(".") + 0, "")<CR>
+nnoremap <A-k> :PreserveExecute call append(line(".") - 1, "")<CR>
 
 " Move line up and down.
 nnoremap <A-K> :move -2<CR>
@@ -53,13 +47,14 @@ inoremap <C-Del> <C-\><C-o>cc
 nmap ; <Plug>(self-toggle-semicolon)
 
 " Reindent the current file.
-nnoremap == m`gg=G``
+nnoremap == :PreserveNormal gg=G<CR>
 
-" Easy substitution in visual mode.
-xnoremap s :s//g<Left><Left>
+" Simpified substitutions.
+nnoremap s :%s//g<Left><Left>
+xnoremap S *<Esc>:%s///g<Left><Left>
 
 " Replace current word with the word last yanked.
-nnoremap S m`"_diw"0P``
+nnoremap <silent> S :PreserveNormal "_diw"0P<CR>
 
 " Sort using the '|' (pipe) character, see `map_bar`.
 xnoremap <Bar> :sort i<CR>
