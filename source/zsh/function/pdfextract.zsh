@@ -1,7 +1,7 @@
 # Extract a part of a pdf file.
 function pdfextract {
 	if [ $# -ne 4 ]; then
-		printf "Usage: $0 <first_page> <last_page> <input_file> <output_file>\n" >&2
+		printf "Usage: $0 <first_page> <last_page> <output_file> <input_file>\n" >&2
 		return 1
 	fi
 
