@@ -18,7 +18,7 @@ if [ -z "$VERSION" ] ; then
 	exit 1
 fi
 
-printf "%s\n" 'Update currently install packages.'
+printf "%s\n" 'Update currently installed packages.'
 confirm_continue
 sudo dnf upgrade --refresh
 
