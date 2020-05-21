@@ -100,6 +100,9 @@ set lazyredraw
 " Show live substitution results as one types.
 set inccommand=nosplit
 
+" Allow for free moving in block selection mode.
+set virtualedit=block
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SEARCHING                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
