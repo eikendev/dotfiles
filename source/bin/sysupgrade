@@ -28,7 +28,7 @@ sudo dnf install dnf-plugin-system-upgrade
 
 printf "%s\n" "Download packages for version $VERSION."
 confirm_continue
-sudo dnf system-upgrade download "--releasever=$VERSION"
+sudo dnf system-upgrade download --refresh --allowerasing "--releasever=$VERSION"
 
 printf "%s\n" 'Reboot and install packages.'
 confirm_continue
