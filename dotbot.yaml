@@ -21,7 +21,6 @@
     ~/.config/nvim: 'source/nvim'
     ~/.config/pip: 'source/pip'
     ~/.config/python: 'source/python'
-    ~/.config/redshift.conf: 'source/redshift.conf'
     ~/.config/ripgrep: 'source/ripgrep'
     ~/.config/systemd: 'source/systemd'
     ~/.config/tmux: 'source/tmux'
