@@ -6,4 +6,5 @@ source "$HOME/bin/dot/script-utils"
 
 for cmd in inotifywait rg; do check_dependency $cmd; done
 
+printf "%s\n" 'Launching Thunderbird Unread.'
 exec thunderbird-unread
