@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
+set -o errexit
+set -o errtrace
+
+basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+
 BAT_CMD=upower
 CTL_CMD=brightnessctl
 
 TITLE='Power Management'
 
-source "$HOME/bin/dot/script-utils"
+source "$basedir/script-utils"
 
 battery_status() {
 	local EXPRESSION='state|to\ full|to\ empty|percentage'

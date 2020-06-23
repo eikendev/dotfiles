@@ -1,4 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+
+basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 CMD=rfcdl
 
@@ -9,7 +14,7 @@ LOCK_FILE="$LOCK_DIR/sync-rfcs.lock"
 
 ENV_FILE="$DOTFILES/local/sync-rfcs.env"
 
-source "$HOME/bin/dot/script-utils"
+source "$basedir/script-utils"
 
 for cmd in "$CMD"; do check_dependency $cmd; done
 

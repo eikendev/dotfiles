@@ -6,4 +6,4 @@ StartLimitBurst=3
 
 [Service]
 Type=simple
-ExecStart=%h/bin/dot/sync-repositories
+ExecStart=%h/.dotfiles/bin/sync-repositories

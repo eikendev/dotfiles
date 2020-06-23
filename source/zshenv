@@ -1,3 +1,8 @@
 # This file is read for all zsh shells.
 
 source ~/.config/zsh/export.zsh
+
+# https://www.zsh.org/mla/users/2003/msg00600.html
+if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
+	source "$DOTFILES/source/zsh/path.zsh"
+fi

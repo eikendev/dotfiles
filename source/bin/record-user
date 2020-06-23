@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set -o errexit
+set -o errtrace
+
+basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+
 MODE="$1"
 
 TITLE='Snapshot'
@@ -7,7 +12,7 @@ TITLE='Snapshot'
 LOCK_DIR=~/.local/share
 LOCK_FILE="$LOCK_DIR/record-$MODE.lock"
 
-source "$HOME/bin/dot/script-utils"
+source "$basedir/script-utils"
 
 DATETIME="$(date +%Y%m%d-%H%M%S)"
 DATAFILE="$HOME/download/record-$MODE-$DATETIME"

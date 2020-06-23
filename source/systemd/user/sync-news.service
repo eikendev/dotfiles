@@ -6,4 +6,4 @@ StartLimitBurst=3
 
 [Service]
 Type=simple
-ExecStart=%h/bin/dot/sync-news
+ExecStart=%h/.dotfiles/bin/sync-news

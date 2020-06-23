@@ -1,4 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+
+basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 REPO_CMD=gitool
 
@@ -11,7 +16,7 @@ HOSTNAME="$(hostname)"
 DATA_DIR=~/coding/repositories
 DATA_FILE="$DATA_DIR/$HOSTNAME"
 
-source "$HOME/bin/dot/script-utils"
+source "$basedir/script-utils"
 
 for cmd in "$REPO_CMD"; do check_dependency $cmd; done
 
