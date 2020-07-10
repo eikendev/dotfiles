@@ -30,8 +30,8 @@ reveal:
 	@printf "%s\n" 'Adjusting permissions of secrets.'
 	@for f in $$(git secret list); do chmod go-rwx "$$f"; done
 
-.PHONY: packages
-packages:
+.PHONY: packages_cargo
+packages_cargo:
 	cargo install bandwhich
 	cargo install cargo-crev
 	cargo install diffr
@@ -41,11 +41,25 @@ packages:
 	cargo install tealdeer
 	cargo install turs
 	cargo install websocat
+	cargo install xsv
+
+.PHONY: packages_gem
+packages_gem:
 	gem install travis
+
+.PHONY: packages_go
+packages_go:
 	go get -u arp242.net/uni
 	go get -u filippo.io/age/...
 	go get -u github.com/OJ/gobuster
 	go get -u github.com/sourcegraph/go-langserver
+	go get -u github.com/tomnomnom/assetfinder
+	GO111MODULE=on go get -u github.com/lc/gau
+	GO111MODULE=on go get -u github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+	GO111MODULE=on go get -u github.com/projectdiscovery/subfinder/cmd/subfinder
+
+.PHONY: packages
+packages: packages_cargo packages_gem packages_go
 
 .PHONY: submodules
 submodules:
