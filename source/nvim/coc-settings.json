@@ -35,6 +35,7 @@
 		}
 	},
 	"rust-client.disableRustup": true,
+	"rust.clippy_preference": "on",
 	"python.jediEnabled": false,
 	"python.linting.enabled": false,
 	"java.home": "/usr/lib/jvm/java",
