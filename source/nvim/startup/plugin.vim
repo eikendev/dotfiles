@@ -146,7 +146,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 		\	'go': ['golint'],
 		\	'haskell': ['ghc', 'hlint'],
 		\	'python': ['flake8', 'mypy'],
-		\	'rust': ['cargo'],
+		\	'rust': ['cargo', 'rls'],
 		\	'sh': ['shellcheck'],
 		\	'tex': ['lacheck'],
 		\	'vim': ['vint'],
