@@ -36,6 +36,7 @@ packages_cargo:
 	cargo install cargo-crev
 	cargo install diffr
 	cargo install diskus
+	cargo install hexyl
 	cargo install hyperfine
 	cargo install pastel
 	cargo install rage
