@@ -38,6 +38,7 @@ packages_cargo:
 	cargo install diskus
 	cargo install hyperfine
 	cargo install pastel
+	cargo install rage
 	cargo install tealdeer
 	cargo install turs
 	cargo install websocat
@@ -50,13 +51,7 @@ packages_gem:
 .PHONY: packages_go
 packages_go:
 	go get -u arp242.net/uni
-	go get -u filippo.io/age/...
-	go get -u github.com/OJ/gobuster
 	go get -u github.com/sourcegraph/go-langserver
-	go get -u github.com/tomnomnom/assetfinder
-	GO111MODULE=on go get -u github.com/lc/gau
-	GO111MODULE=on go get -u github.com/projectdiscovery/nuclei/v2/cmd/nuclei
-	GO111MODULE=on go get -u github.com/projectdiscovery/subfinder/cmd/subfinder
 
 .PHONY: packages
 packages: packages_cargo packages_gem packages_go
