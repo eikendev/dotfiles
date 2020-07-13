@@ -17,7 +17,7 @@ download_asset_url () {
 	language="$2"
 	extension="$3"
 
-	wget --no-config --no-verbose -O "$TMP_DIRECTORY/$base.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$language.$extension"
+	wget --no-config -O "$TMP_DIRECTORY/$base.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$language.$extension"
 }
 
 for language in 'en_US' 'de_DE_frami'; do
