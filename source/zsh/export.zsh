@@ -60,6 +60,10 @@ export PYTHONSTARTUP="$HOME/.config/python/startup"
 # Define zsh configuration directory for convenience.
 export ZSH_CONFIG="$HOME/.config/zsh"
 
+# Use KDE file picker in Firefox.
+export XDG_CURRENT_DESKTOP=KDE
+export GTK_USE_PORTAL=1
+
 # Use nvim if available.
 # https://unix.stackexchange.com/a/4861
 if [ -x "$(command -v nvim)" ]; then
