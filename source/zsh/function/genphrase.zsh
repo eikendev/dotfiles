@@ -13,10 +13,10 @@ function genphrase {
 		return 1
 	fi
 
-	phrase="$(shuf --random-source=/dev/urandom --repeat --head-count="$count" "$file" | tr '\n' ' ')"
+	phrase="$(shuf --random-source=/dev/urandom --repeat --head-count="$count" "$file" | tr '\n' '-')"
 
 	# Remove trailing whitespace.
-	phrase="${phrase%% }"
+	phrase="${phrase%%-}"
 
 	printf "$phrase\n"
 }
