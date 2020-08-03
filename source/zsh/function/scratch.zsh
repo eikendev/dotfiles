@@ -9,5 +9,5 @@ function scratch {
 	(cd $directory; $SHELL)
 
 	printf "%s\n" 'Removing scratch directory.'
-	rm -r "$directory"
+	rm -rf "$directory"
 }
