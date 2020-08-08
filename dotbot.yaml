@@ -33,7 +33,6 @@
     ~/.gdbinit: 'source/gdbinit'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
-    ~/.mozilla/firefox/userChrome.css: 'source/mozilla/firefox/userChrome.css'
     ~/.mrconfig: 'source/myrepos/mrconfig'
     ~/.radare2rc: 'source/radare2rc'
     ~/.ghci: 'source/ghci'
@@ -49,4 +48,3 @@
 - shell:
   - ['chmod +x ./source/tmux/onedark.tmux', Setting file permissions for tmux]
   - ['chmod go-w ./source/ghci', Setting file permissions for GHCi]
-  - ['cp ./source/mozilla/firefox/userContent.css ~/.mozilla/firefox/default/chrome/userContent.css', Copying userContent.css to default Firefox profile]
