@@ -51,8 +51,9 @@ packages_gem:
 
 .PHONY: packages_go
 packages_go:
-	go get -u arp242.net/uni
-	go get -u github.com/sourcegraph/go-langserver
+	go get -u -v arp242.net/uni
+	go get -u -v github.com/sourcegraph/go-langserver
+	GO111MODULE=on go get -u -v github.com/charmbracelet/glow
 
 .PHONY: packages
 packages: packages_cargo packages_gem packages_go
