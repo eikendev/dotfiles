@@ -2,7 +2,7 @@
 Description=Thunderbird Unread
 
 [Service]
-Type=simple
+Type=fork
 ExecStart=%h/.dotfiles/bin/thunderbird-unread-wrapper
 
 [Install]

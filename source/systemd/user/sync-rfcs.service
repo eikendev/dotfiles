@@ -1,9 +1,10 @@
 [Unit]
 Description=Synchronize RFCs
-JobRunningTimeoutSec=120
+After=network-online.target
+JobRunningTimeoutSec=300
 StartLimitIntervalSec=60
 StartLimitBurst=3
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=%h/.dotfiles/bin/sync-rfcs
