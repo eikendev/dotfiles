@@ -4,6 +4,8 @@ Description=Thunderbird Unread
 [Service]
 Type=fork
 ExecStart=%h/.dotfiles/bin/thunderbird-unread-wrapper
+Restart=on-success
+RestartSec=5s
 
 [Install]
 WantedBy=default.target
