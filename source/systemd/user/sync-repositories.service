@@ -7,4 +7,4 @@ StartLimitBurst=3
 
 [Service]
 Type=oneshot
-ExecStart=%h/.dotfiles/bin/sync-repositories
+ExecStart=/usr/bin/systemd-inhibit --who="sync-repositories" --why="Prevent interrupting scheduled synchronization" %h/.dotfiles/bin/sync-repositories
