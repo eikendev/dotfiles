@@ -2,7 +2,7 @@
 Description=Thunderbird Unread
 
 [Service]
-Type=fork
+Type=simple
 ExecStart=%h/.dotfiles/bin/thunderbird-unread-wrapper
 Restart=on-success
 RestartSec=5s
