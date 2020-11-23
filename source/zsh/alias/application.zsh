@@ -73,3 +73,5 @@ alias Mb='make build'
 alias Mc='make clean'
 alias Mi='make install'
 alias Mr='make remove'
+
+alias diff2='git diff --no-index --color-words'
