@@ -13,7 +13,7 @@ function rfc {
 		printf -v file "$directory/%04d.txt" "$id"
 
 		if ! [ -f "$file" ] ; then
-			printf "RFC not found in storage.\n" >&2
+			printf "RFC not found.\n" >&2
 			return 1
 		fi
 	fi
