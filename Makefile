@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: githook dotbot reveal update packages submodules vim_plug vim_mkspell install_gef systemd
+install: githook dotbot reveal update packages submodules vim_plugin vim_mkspell install_gef systemd
 
 .PHONY: githook
 githook:
@@ -69,8 +69,8 @@ submodules:
 	git submodule update --init --recursive
 	git submodule update --remote
 
-.PHONY: vim_plug
-vim_plug:
+.PHONY: vim_plugin
+vim_plugin:
 	curl -q -s -S -L --create-dirs -o ~/.local/share/nvim/site/autoload/plug.vim 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	nvim --headless -c 'silent PlugClean!' -c 'silent PlugUpdate' -c 'silent PlugInstall' -c 'quitall!'
 	nvim --headless -c 'silent CocUpdateSync' -c 'quitall!'
