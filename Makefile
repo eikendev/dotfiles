@@ -39,6 +39,7 @@ update:
 packages_cargo:
 	cargo install bandwhich
 	cargo install cargo-crev
+	cargo install delta
 	cargo install diffr
 	cargo install diskus
 	cargo install hexyl
@@ -51,10 +52,6 @@ packages_cargo:
 	cargo install wrangler
 	cargo install xsv
 
-.PHONY: packages_gem
-packages_gem:
-	gem install travis
-
 .PHONY: packages_go
 packages_go:
 	go get -u -v arp242.net/uni
@@ -62,7 +59,7 @@ packages_go:
 	GO111MODULE=on go get -u -v github.com/charmbracelet/glow
 
 .PHONY: packages
-packages: packages_cargo packages_gem packages_go
+packages: packages_cargo packages_go
 
 .PHONY: submodules
 submodules:
