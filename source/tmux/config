@@ -1,3 +1,6 @@
 # vim: filetype=tmux
 
-source-file ~/.config/tmux/include/*.tmux
+source-file ~/.config/tmux/include/general.tmux
+source-file ~/.config/tmux/include/bindings.tmux
+source-file ~/.config/tmux/include/miscellaneous.tmux
+source-file ~/.config/tmux/include/plugins.tmux
