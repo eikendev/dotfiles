@@ -1,0 +1,5 @@
+[
+    // https://stackoverflow.com/a/43012779
+    { "key": "F3", "command": "workbench.action.terminal.focus"},
+    { "key": "F3", "command": "workbench.action.focusActiveEditorGroup", "when": "terminalFocus"}
+]
