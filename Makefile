@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: githook dotbot reveal update packages submodules vim_plugin vim_mkspell install_gef systemd
+install: githook dotbot reveal rustup submodules vim_plugin vim_mkspell install_gef systemd
 
 .PHONY: githook
 githook:
@@ -30,36 +30,10 @@ reveal:
 	@printf "%s\n" 'Adjusting permissions of secrets.'
 	@for f in $$(git secret list); do chmod go-rwx "$$f"; done
 
-.PHONY: update
-update:
+.PHONY: rustup
+rustup:
 	rustup update nightly
 	rustup update stable
-
-.PHONY: packages_cargo
-packages_cargo:
-	cargo install bandwhich
-	cargo install cargo-crev
-	cargo install delta
-	cargo install diffr
-	cargo install diskus
-	cargo install hexyl
-	cargo install hyperfine
-	cargo install pastel
-	cargo install rage
-	cargo install tealdeer
-	cargo install turs
-	cargo install websocat
-	cargo install wrangler
-	cargo install xsv
-
-.PHONY: packages_go
-packages_go:
-	go get -u -v arp242.net/uni
-	go get -u -v github.com/sourcegraph/go-langserver
-	GO111MODULE=on go get -u -v github.com/charmbracelet/glow
-
-.PHONY: packages
-packages: packages_cargo packages_go
 
 .PHONY: submodules
 submodules:
