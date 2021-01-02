@@ -1,7 +1,10 @@
 {
 	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
 	"editor.fontSize": 20,
+	"editor.insertSpaces": false,
 	"editor.minimap.enabled": false,
+	"editor.renderWhitespace": "trailing",
+	"files.insertFinalNewline": true,
 	"files.maxMemoryForLargeFilesMB": 1024,
 	"go.useLanguageServer": true,
 	"telemetry.enableCrashReporter": false,
