@@ -44,7 +44,6 @@ submodules:
 vim_plugin:
 	curl -q -s -S -L --create-dirs -o ~/.local/share/nvim/site/autoload/plug.vim 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	nvim --headless -c 'silent PlugClean!' -c 'silent PlugUpdate' -c 'silent PlugInstall' -c 'quitall!'
-	nvim --headless -c 'silent CocUpdateSync' -c 'quitall!'
 
 .PHONY: vim_mkspell
 vim_mkspell:
