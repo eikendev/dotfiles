@@ -11,8 +11,8 @@ command! CdGit call self#command#cd_git#(v:false)
 command! CdFile :cd %:p:h
 
 " Write with root permissions.
-command! W :w suda://%
-command! Wq :W | :q
+"command! W :w suda://%
+"command! Wq :W | :q
 
 " TODO: Resize to relative size.
 command! -nargs=* Gc :exec "Gcommit --verbose " . <q-args> | resize 30 | startinsert

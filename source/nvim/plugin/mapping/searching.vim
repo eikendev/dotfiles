@@ -36,11 +36,6 @@ nnoremap <silent> <Leader>ds :TryWrite<CR>:Denite spell<CR>
 nnoremap <silent> <Leader>dt :TryWrite<CR>:call self#mapping#searching#tag(v:false, v:true)<CR>
 nnoremap <silent> <Leader>dw :TryWrite<CR>:call self#mapping#searching#grep(v:true, '')<CR>
 
-" Search documentation for related files.
-nnoremap <Leader>K :Dasht<Space>
-nnoremap <silent> <Leader>k :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
-vnoremap <silent> <Leader>k y:<C-U>call Dasht(getreg(0))<Return>
-
 " Go to code navigation.
 nmap <silent> <leader>lgd <Plug>(coc-definition)
 nmap <silent> <leader>lgy <Plug>(coc-type-definition)
