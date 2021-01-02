@@ -1,6 +1,7 @@
 {
+	"editor.cursorSurroundingLines": 99999999,
 	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-	"editor.fontSize": 20,
+	"editor.fontSize": 18,
 	"editor.insertSpaces": false,
 	"editor.minimap.enabled": false,
 	"editor.renderWhitespace": "trailing",
@@ -8,5 +9,7 @@
 	"files.maxMemoryForLargeFilesMB": 1024,
 	"go.useLanguageServer": true,
 	"telemetry.enableCrashReporter": false,
-	"telemetry.enableTelemetry": false
+	"telemetry.enableTelemetry": false,
+	"window.zoomLevel": 1,
+	"workbench.startupEditor": "newUntitledFile"
 }
