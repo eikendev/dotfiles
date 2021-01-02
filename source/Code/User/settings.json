@@ -1,5 +1,9 @@
 {
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
-    "go.useLanguageServer": true
+	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+	"editor.fontSize": 20,
+	"editor.minimap.enabled": false,
+	"files.maxMemoryForLargeFilesMB": 1024,
+	"go.useLanguageServer": true,
+	"telemetry.enableCrashReporter": false,
+	"telemetry.enableTelemetry": false
 }
