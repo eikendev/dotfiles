@@ -14,7 +14,7 @@
 		"command": "workbench.action.tasks.test"
 	},
 	{
-		"key": "ctrl+j ctrl+o",
+		"key": "ctrl+j o",
 		"command": "outline.focus"
 	}
 ]
