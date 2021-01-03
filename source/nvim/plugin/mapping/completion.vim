@@ -9,11 +9,10 @@ else
 endif
 
 " Use <A-CR> to toggle completion.
-inoremap <silent><expr> <A-CR> pumvisible() ? "\<C-e>" : coc#refresh()
+inoremap <silent><expr> <A-CR> pumvisible() ? "\<C-e>" : "\<C-n>"
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <Tab>
 \	pumvisible() ? "\<C-n>" :
-\	coc#jumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-jump',''])\<CR>" :
 \	"\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"

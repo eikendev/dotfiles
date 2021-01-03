@@ -83,17 +83,3 @@ nmap <Leader>so <Plug>Ysurround
 nmap <Leader>sl <Plug>Yssurround
 " Wrap the selection.
 xmap <Leader>s <Plug>VSurround
-
-" Apply codeAction on the selected region.
-" Example: `<leader>lap` for current paragraph
-xmap <leader>la <Plug>(coc-codeaction-selected)
-nmap <leader>la <Plug>(coc-codeaction-selected)
-
-" Apply codeAction to the current line.
-nmap <leader>ll <Plug>(coc-codeaction)
-
-" Apply AutoFix on the current line.
-nmap <leader>lf <Plug>(coc-fix-current)
-
-" Rename symbol.
-nmap <leader>lr <Plug>(coc-rename)

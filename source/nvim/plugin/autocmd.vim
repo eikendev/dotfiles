@@ -37,11 +37,3 @@ augroup onlywindow
 	\]
 	autocmd FileType * if index(g:onlywindow_fts, expand("<amatch>")) >= 0 | only | endif
 augroup end
-
-"augroup cocactions
-"	autocmd!
-"	" Highlight the hovered symbol and its references when holding the cursor.
-"	autocmd CursorHold * silent call CocActionAsync('highlight')
-"	" Update signature help when jumping to placeholder.
-"	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"augroup end

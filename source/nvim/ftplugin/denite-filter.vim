@@ -4,9 +4,6 @@ setlocal statusline=
 setlocal noshowmode
 setlocal noruler
 
-" Disable completion in this buffer.
-let b:coc_suggest_disable = 1
-
 imap <buffer> <CR> <Plug>(denite_filter_quit)
 nmap <buffer> <BS> <Plug>(denite_filter_quit)
 

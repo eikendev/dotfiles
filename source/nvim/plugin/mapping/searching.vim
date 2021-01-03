@@ -35,9 +35,3 @@ nnoremap <silent> <Leader>dr :TryWrite<CR>:Denite register<CR>
 nnoremap <silent> <Leader>ds :TryWrite<CR>:Denite spell<CR>
 nnoremap <silent> <Leader>dt :TryWrite<CR>:call self#mapping#searching#tag(v:false, v:true)<CR>
 nnoremap <silent> <Leader>dw :TryWrite<CR>:call self#mapping#searching#grep(v:true, '')<CR>
-
-" Go to code navigation.
-nmap <silent> <leader>lgd <Plug>(coc-definition)
-nmap <silent> <leader>lgy <Plug>(coc-type-definition)
-nmap <silent> <leader>lgi <Plug>(coc-implementation)
-nmap <silent> <leader>lgr <Plug>(coc-references)
