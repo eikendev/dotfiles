@@ -9,10 +9,10 @@ set-option -g prefix C-a
 bind-key C-a send-prefix
 
 # Reload the configuration.
-bind-key r source-file ~/.config/tmux/config \; display-message "Reload done."
+bind-key r source-file ~/.config/tmux/config \; display-message "Reload successful."
 
 # Reload the configuration (and reset bindings).
-bind-key R run-shell ~/.config/tmux/script/reset.sh \; display-message "Reset done."
+bind-key R run-shell ~/.config/tmux/script/reset.sh \; display-message "Reset successful."
 
 # Unbind movement keys by default.
 unbind-key j
