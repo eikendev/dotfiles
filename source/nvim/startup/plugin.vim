@@ -23,6 +23,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 		\	'markdown',
 		\	'vim-plug',
 		\]
+		let g:indentLine_setConceal = 0
 
 	" Movement "
 	""""""""""""
