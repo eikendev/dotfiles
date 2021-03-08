@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 SYNC_ROOT="$HOME/.local/share"
-SERVICES='sync-news sync-repositories'
+SERVICES='sync-repositories'
 
 iterate_systemctl() {
 	local COMMAND="$1"
