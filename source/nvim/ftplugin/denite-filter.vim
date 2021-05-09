@@ -4,9 +4,6 @@ setlocal statusline=
 setlocal noshowmode
 setlocal noruler
 
-imap <buffer> <CR> <Plug>(denite_filter_quit)
-nmap <buffer> <BS> <Plug>(denite_filter_quit)
-
 inoremap <silent><buffer><expr> <A-CR> denite#do_map('do_action')
 nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 
