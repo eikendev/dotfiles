@@ -24,8 +24,8 @@ alias rgp='rg --no-filename --no-line-number --no-heading --color never '
 
 # Use lsd if available.
 if [ -x "$(command -v lsd)" ]; then
-	alias ls='lsd -A -l --group-dirs first --date relative'
-	alias lse='lsd -A -l --group-dirs first --date date'
+	alias ls='lsd -A -l --group-dirs first --date relative --icon never'
+	alias lse='lsd -A -l --group-dirs first --date date --icon never'
 else
 	alias ls='ls -a -l -h --color --group-directories-first'
 fi
