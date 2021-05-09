@@ -12,6 +12,7 @@
 - link:
     ~/.bash_profile: 'source/bash_profile'
     ~/.bashrc: 'source/bashrc'
+    ~/.config/alacritty: 'source/alacritty'
     ~/.config/bat: 'source/bat'
     ~/.config/cargo: 'source/cargo'
     ~/.config/Code: 'source/Code'

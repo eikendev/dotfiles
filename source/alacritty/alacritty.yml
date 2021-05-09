@@ -1,0 +1,19 @@
+window:
+    startup_mode: Maximized
+
+font:
+    normal:
+        family: Source Code Pro
+    size: 13
+
+colors:
+    primary:
+        background: '#000000'
+        foreground: '#eeeeee'
+
+background_opacity: 0.8
+
+live_config_reload: true
+
+scrolling:
+    history: 100000
