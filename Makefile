@@ -24,7 +24,7 @@ dotbot:
 
 .PHONY: reveal
 reveal:
-	test -f ./source/ssh/config && chmod 600 ./source/ssh/config
+	test -f ./source/ssh/config && chmod 600 ./source/ssh/config || true
 	git secret reveal
 	chmod 400 ./source/ssh/config
 	@printf "%s\n" 'Adjusting permissions of secrets.'

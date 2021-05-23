@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -xe
+
+# https://stackoverflow.com/a/3352015
+trim() {
+	local var="$*"
+	# remove leading whitespace characters
+	var="${var#"${var%%[![:space:]]*}"}"
+	# remove trailing whitespace characters
+	var="${var%"${var##*[![:space:]]}"}"
+	printf '%s' "$var"
+}
+
+synchronization=$(trim "$(statusinfo synchronization)")
+git=$(trim "$(statusinfo git ~/git/.statistics)")
+thunderbird=$(trim "$(cat ~/.local/share/thunderbird-unread/all.count)")
+memory=$(trim "$(statusinfo memory)")
+temperature=$(trim "$(statusinfo temperature)")
+
+printf "%s    %s    %s    %s    %s" "$synchronization" "$git" "$thunderbird" "$memory" "$temperature"
