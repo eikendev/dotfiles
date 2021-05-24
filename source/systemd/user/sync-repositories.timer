@@ -2,9 +2,8 @@
 Description=Synchronize repositories
 
 [Timer]
-OnBootSec=1min
-OnUnitActiveSec=3min
-RandomizedDelaySec=60sec
+OnBootSec=5min
+OnUnitActiveSec=30min
 
 [Install]
 WantedBy=timers.target
