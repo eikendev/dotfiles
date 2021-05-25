@@ -2,4 +2,4 @@
 !.gitignore
 !sync-*.service
 !sync-*.timer
-!thunderbird-unread.service
+!tbunread.service

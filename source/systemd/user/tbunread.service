@@ -1,0 +1,11 @@
+[Unit]
+Description=tbunread
+
+[Service]
+Type=simple
+ExecStart=%h/.dotfiles/bin/tbunread-wrapper
+Restart=on-success
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
