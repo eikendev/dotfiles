@@ -56,6 +56,6 @@ install_gef:
 .PHONY: systemd
 systemd:
 	systemctl --user daemon-reload
-	systemctl --user enable --now thunderbird-unread.service
 	systemctl --user enable --now sync-repositories.timer
 	systemctl --user enable --now sync-rfcs.timer
+	systemctl --user enable --now tbunread.service
