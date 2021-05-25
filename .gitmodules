@@ -19,6 +19,3 @@
 [submodule "vendor/dasht"]
 	path = vendor/dasht
 	url = https://github.com/sunaku/dasht.git
-[submodule "vendor/thunderbird-unread"]
-	path = vendor/thunderbird-unread
-	url = https://github.com/eikendev/thunderbird-unread.git

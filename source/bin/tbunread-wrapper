@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+set -o ERR_EXIT
+
+basedir="$(dirname "$(realpath "${(%):-%x}")")"
+
+TITLE='tbunread'
+
+source "$basedir/script-utils"
+
+for cmd in tbunread; do check_dependency $cmd; done
+
+printf "%s\n" 'Launching tbunread.'
+
+mkdir -p "$HOME/.local/share/tbunread"
+
+exec tbunread --output "$HOME/.local/share/tbunread/count"
