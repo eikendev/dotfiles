@@ -75,3 +75,7 @@ alias Mi='make install'
 alias Mr='make remove'
 
 alias diff2='git diff --no-index --color-words'
+
+# hackenv
+alias kali='hackenv --type=kali'
+alias parrot='hackenv --type=parrot'
