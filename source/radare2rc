@@ -10,8 +10,8 @@ e scr.color = 3
 # Set theme.
 eco solarized
 
-# Use UTF-8 for special characters.
-e scr.utf8 = true
+# Use fancy Unicode elements.
+scr.utf8.curvy = true
 
 # Resolve relative addresses.
 e asm.sub.rel = true
