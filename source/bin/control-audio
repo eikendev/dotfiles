@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 current_sink() {
-	pactl list short sinks | grep 'RUNNING' | awk '{print $1}'
+	local sink_name
+	sink_name="$(pactl info | grep 'Default Sink' | awk '{print $3}')"
+	pactl list short sinks | grep "$sink_name" | awk '{print $1}'
 }
 
 system_dbus() {
@@ -31,7 +33,7 @@ audio_previous() {
 
 switch_sink() {
 	local CURRENT_SINK_INDEX="$(current_sink)"
-	local CARDS="$(pactl list short sinks | grep -v 'SUSPENDED' | awk '{print $1}' | sort)"
+	local CARDS="$(pactl list short sinks | awk '{print $1}' | sort)"
 	local PICKNEXTCARD=1
 
 	for card in $CARDS; do
