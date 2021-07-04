@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 current_sink() {
-	pacmd list-sinks | grep '* index: ' | tr -dc '0-9'
+	pactl list short sinks | grep 'RUNNING' | awk '{print $1}'
 }
 
 system_dbus() {
@@ -31,7 +31,7 @@ audio_previous() {
 
 switch_sink() {
 	local CURRENT_SINK_INDEX="$(current_sink)"
-	local CARDS="$(pacmd list-sinks | grep "index: " | tr -dc '0-9\n' | sort)"
+	local CARDS="$(pactl list short sinks | grep -v 'SUSPENDED' | awk '{print $1}' | sort)"
 	local PICKNEXTCARD=1
 
 	for card in $CARDS; do
@@ -45,12 +45,12 @@ switch_sink() {
 	done
 
 	echo "Switching from sink $CURRENT_SINK_INDEX to sink $NEXT_SINK_INDEX."
-	pacmd set-default-sink "$NEXT_SINK_INDEX"
+	pactl set-default-sink "$NEXT_SINK_INDEX"
 
-	pacmd list-sink-inputs | grep index | cut -c 12- | while read -r input
+	pactl list short sink-inputs | awk '{print $1}' | while read -r input
 	do
 		echo "Moving input $input to sink $NEXT_SINK_INDEX."
-		pacmd move-sink-input "$input" "$NEXT_SINK_INDEX"
+		pactl move-sink-input "$input" "$NEXT_SINK_INDEX"
 	done
 }
 
