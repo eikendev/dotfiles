@@ -3,12 +3,10 @@
 # Hide all secrets.
 # SEE https://git-secret.io/
 
-for f in $(git secret list | sed 's/$/.secret/g'); do
-	git secret changes "$f" | grep '+++'
+printf "%s\n" "Hiding secrets..."
+git secret hide
 
-	if [ "$?" -eq 0 ]; then
-		printf "%s\n" "Hiding secret $f."
-		git secret hide "$f"
-		git add "$f"
-	fi
+for f in $(git secret list); do
+	printf "%s\n" "Adding secret $f..."
+	git add "$f.secret"
 done
