@@ -14,21 +14,32 @@ fi
 
 download_asset_url () {
 	base="$1"
-	language="$2"
+	lang_region="$2"
 	extension="$3"
 
-	wget --no-config -O "$TMP_DIRECTORY/$base.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$language.$extension"
+	wget --no-config -O "$TMP_DIRECTORY/$lang_region.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$lang_region.$extension"
 }
 
-for language in 'en_GB' 'en_US' 'de_DE_frami'; do
-	base="$(printf "%s" "$language" | cut -d '_' -f 1)"
+for language in 'en_GB en_US' 'de_DE_frami'; do
+	base="$(printf '%s' "$language" | cut -d '_' -f 1)"
 
-	printf "%s\n" "Downloading dictionaries for '$language'."
-	download_asset_url "$base" "$language" 'aff'
-	download_asset_url "$base" "$language" 'dic'
+	for lang_region in $language; do
+		printf "Downloading dictionaries for '%s'...\n" "$lang_region"
+		download_asset_url "$base" "$lang_region" 'aff'
+		download_asset_url "$base" "$lang_region" 'dic'
+	done
 
-	printf "%s\n" "Generating language file for '$language'."
-	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $TMP_DIRECTORY/$base" -c 'quitall!'
+	# https://stackoverflow.com/a/19657765
+	lang_regions=( $language )
+
+	# https://stackoverflow.com/a/13216833
+	lang_regions=( "${lang_regions[@]/#/$TMP_DIRECTORY\/}" )
+
+	# https://stackoverflow.com/a/13471141
+	lang_regions="${lang_regions[*]// /|}"
+
+	printf "Generating language file for '%s'...\n" "$base"
+	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $lang_regions" -c 'quitall!'
 done
 
 rm -r "$TMP_DIRECTORY"
