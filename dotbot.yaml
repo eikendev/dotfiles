@@ -22,6 +22,7 @@
     ~/.config/myrepos: 'source/myrepos'
     ~/.config/nvim: 'source/nvim'
     ~/.config/pip: 'source/pip'
+    ~/.config/pypoetry: 'source/pypoetry'
     ~/.config/python: 'source/python'
     ~/.config/ripgrep: 'source/ripgrep'
     ~/.config/systemd: 'source/systemd'

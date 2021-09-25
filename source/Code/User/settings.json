@@ -20,11 +20,13 @@
 	"outline.showStructs": false,
 	"outline.showTypeParameters": false,
 	"outline.showVariables": false,
+	"python.formatting.provider": "black",
 	"python.linting.enabled": true,
 	"python.linting.flake8Args": ["--ignore=E501"],
 	"python.linting.flake8Enabled": true,
 	"telemetry.enableCrashReporter": false,
 	"telemetry.enableTelemetry": false,
 	"window.zoomLevel": 1,
-	"workbench.startupEditor": "newUntitledFile"
+	"workbench.startupEditor": "newUntitledFile",
+	"editor.formatOnSave": true
 }
