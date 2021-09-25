@@ -9,7 +9,7 @@ export LC_MONETARY='de_DE.UTF-8'
 export LC_TIME='en_GB.UTF-8'
 
 # Set the default browser.
-export BROWSER='firefox'
+#export BROWSER='firefox'
 
 # Set the default desktop wallpaper.
 export WALLPAPER='/usr/share/backgrounds/default.png'
@@ -61,8 +61,8 @@ export PYTHONSTARTUP="$HOME/.config/python/startup"
 export ZSH_CONFIG="$HOME/.config/zsh"
 
 # Use KDE file picker in Firefox.
-export XDG_CURRENT_DESKTOP=KDE
-export GTK_USE_PORTAL=1
+#export XDG_CURRENT_DESKTOP=KDE
+#export GTK_USE_PORTAL=1
 
 # Use nvim if available.
 # https://unix.stackexchange.com/a/4861
@@ -73,6 +73,8 @@ else
     export EDITOR='vim'
     export VISUAL='vim'
 fi
+
+export HACKENV_MEMORY='4194304'
 
 # Set configuration paths for different applications.
 export BAT_CONFIG_PATH="$HOME/.config/bat"

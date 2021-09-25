@@ -10,7 +10,6 @@ alias ln='ln --interactive --verbose'
 # Use nvim if available.
 if [ -x "$(command -v nvim)" ]; then
 	alias vim='nvim'
-	alias v='vim'
 fi
 
 # Quickly display file contents.
