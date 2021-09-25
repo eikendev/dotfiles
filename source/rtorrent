@@ -1,3 +1,11 @@
-directory = ~/download/rtorrent
+directory = ~/download/rtorrent/complete
+
+session.path.set = ~/download/rtorrent/session
+
+schedule2 = watch_directory,5,5,load.start=~/download/rtorrent/watch/*.torrent
+schedule2 = untied_directory,5,5,stop_untied=
+schedule2 = tied_directory,5,5,start_tied=
 
 download_rate = 0
+
+pieces.hash.on_completion.set = yes
