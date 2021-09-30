@@ -1,3 +1,0 @@
-[$GIT_ROOT/tool/pdlist]
-
-checkout = git clone 'https://github.com/gnebbia/pdlist' 'pdlist'

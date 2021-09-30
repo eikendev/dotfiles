@@ -1,3 +1,0 @@
-[$GIT_ROOT/configuration/dotfiles/gerardbm]
-
-checkout = git clone 'https://github.com/gerardbm/dotfiles' 'gerardbm'

@@ -1,3 +1,0 @@
-[$GIT_ROOT/tool/slowloris]
-
-checkout = git clone 'https://github.com/gkbrk/slowloris' 'slowloris'

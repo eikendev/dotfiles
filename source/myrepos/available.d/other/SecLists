@@ -1,3 +1,0 @@
-[$GIT_ROOT/other/SecLists]
-
-checkout = git clone 'https://github.com/danielmiessler/SecLists.git' 'SecLists'

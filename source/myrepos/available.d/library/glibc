@@ -1,3 +1,0 @@
-[$GIT_ROOT/library/glibc]
-
-checkout = git clone 'git://sourceware.org/git/glibc.git' 'glibc'

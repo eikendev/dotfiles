@@ -1,3 +1,0 @@
-[$GIT_ROOT/configuration/dotfiles/kana]
-
-checkout = git clone 'https://github.com/kana/config' 'kana'
