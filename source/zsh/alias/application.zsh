@@ -30,16 +30,13 @@ else
 fi
 
 # Display size of files and folders under current directory.
-alias du='du --max-depth=1 --si'
+alias duc='du --max-depth=1 --si'
 
 # Display all disk usage statistics with si units and fs types.
-alias df='df --all --si --print-type'
+alias dfa='df --all --si --print-type'
 
 # Truncate file completely.
 alias trunc='truncate --size=0'
-
-# Improve UI of network latency.
-alias ping='prettyping'
 
 # Color IP addresses for better readability.
 alias ip='ip -color'
