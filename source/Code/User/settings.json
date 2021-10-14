@@ -2,6 +2,7 @@
 	"editor.cursorSurroundingLines": 99999999,
 	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
 	"editor.fontSize": 18,
+	"editor.guides.bracketPairs": true,
 	"editor.insertSpaces": false,
 	"editor.minimap.enabled": false,
 	"editor.renderWhitespace": "trailing",
