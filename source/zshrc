@@ -35,7 +35,7 @@ done
 unset file
 
 # Start tmux if the current shell is not inside one.
-if command -v tmux > /dev/null; then
+if [ -x "$(command -v tmux)" ]; then
 	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -f ~/.config/tmux/config
 fi
 
@@ -44,11 +44,21 @@ fi
 export GPG_TTY=$(tty)
 
 # Setup hooks for direnv.
-eval "$(direnv hook zsh)"
+if [ -x "$(command -v direnv)" ]; then
+	eval "$(direnv hook zsh)"
+fi
 
 # Source plugins.
 source "$ZSH_CONFIG/plugin.zsh"
-source "$ZSH_CONFIG/plugin/autopair/autopair.zsh"
-source "$ZSH_CONFIG/plugin/autosuggestions/zsh-autosuggestions.zsh"
-source "$ZSH_CONFIG/plugin/forgit/forgit.plugin.zsh"
-source "$ZSH_CONFIG/plugin/syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -f "$ZSH_CONFIG/plugin/autopair/autopair.zsh" ]; then
+	source "$ZSH_CONFIG/plugin/autopair/autopair.zsh"
+fi
+if [ -f "$ZSH_CONFIG/plugin/autosuggestions/zsh-autosuggestions.zsh" ]; then
+	source "$ZSH_CONFIG/plugin/autosuggestions/zsh-autosuggestions.zsh"
+fi
+if [ -f "$ZSH_CONFIG/plugin/forgit/forgit.plugin.zsh" ]; then
+	source "$ZSH_CONFIG/plugin/forgit/forgit.plugin.zsh"
+fi
+if [ -f "$ZSH_CONFIG/plugin/syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+	source "$ZSH_CONFIG/plugin/syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
