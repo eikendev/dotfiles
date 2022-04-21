@@ -22,6 +22,3 @@ alias   Gs='git status --short'
 alias   GS='git show'
 alias   Gt='git tree'
 alias   Gu='git reset --soft HEAD~1'
-
-# Manage Git repositories.
-alias mr='mr -d $GIT_ROOT'
