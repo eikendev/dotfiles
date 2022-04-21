@@ -1,14 +1,22 @@
 {
+	"editor.bracketPairColorization.enabled": true,
+	"editor.cursorBlinking": "solid",
 	"editor.cursorSurroundingLines": 99999999,
 	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
 	"editor.fontSize": 18,
+	"editor.formatOnSave": true,
 	"editor.guides.bracketPairs": true,
 	"editor.insertSpaces": false,
 	"editor.minimap.enabled": false,
 	"editor.renderWhitespace": "trailing",
+	"editor.suggestSelection": "first",
 	"files.insertFinalNewline": true,
 	"files.maxMemoryForLargeFilesMB": 1024,
 	"go.useLanguageServer": true,
+	"gopls": {
+		"formatting.gofumpt": true,
+		"ui.semanticTokens": true
+	},
 	"outline.showArrays": false,
 	"outline.showBooleans": false,
 	"outline.showFields": false,
@@ -23,11 +31,159 @@
 	"outline.showVariables": false,
 	"python.formatting.provider": "black",
 	"python.linting.enabled": true,
-	"python.linting.flake8Args": ["--ignore=E501"],
+	"python.linting.flake8Args": [
+		"--ignore=E501"
+	],
 	"python.linting.flake8Enabled": true,
 	"telemetry.enableCrashReporter": false,
 	"telemetry.enableTelemetry": false,
-	"window.zoomLevel": 1,
+	"telemetry.telemetryLevel": "off",
+	"vim.easymotion": true,
+	"vim.easymotionKeys": "abcdefghijklmnopqrstuvwxyz0123456789",
+	"vim.enableNeovim": true,
+	"vim.leader": ",",
 	"workbench.startupEditor": "newUntitledFile",
-	"editor.formatOnSave": true
+	"vim.visualModeKeyBindingsNonRecursive": [
+		{
+			"before": [
+				"<leader>",
+				"y"
+			],
+			"after": [
+				"\"",
+				"+",
+				"y"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"p"
+			],
+			"after": [
+				"\"",
+				"+",
+				"p"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"c"
+			],
+			"commands": [
+				"editor.action.commentLine"
+			]
+		}
+	],
+	"vim.normalModeKeyBindingsNonRecursive": [
+		{
+			"before": [
+				"<leader>",
+				"p"
+			],
+			"after": [
+				"o",
+				"<Esc>",
+				"\"",
+				"+",
+				"p"
+			]
+		},
+		{
+			"before": [
+				"x"
+			],
+			"after": [
+				"\"",
+				"_",
+				"x"
+			]
+		},
+		{
+			"before": [
+				"u"
+			],
+			"commands": [
+				"undo"
+			]
+		},
+		{
+			"before": [
+				"C-r"
+			],
+			"commands": [
+				"redo"
+			]
+		},
+		{
+			"before": [
+				"<CR>"
+			],
+			"commands": [
+				"workbench.action.files.save"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"f"
+			],
+			"commands": [
+				"workbench.action.quickOpen"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g"
+			],
+			"commands": [
+				"workbench.action.findInFiles"
+			]
+		},
+		{
+			"before": [
+				"<backspace>"
+			],
+			"commands": [
+				"workbench.action.closeActiveEditor"
+			]
+		},
+		{
+			"before": [
+				"tab"
+			],
+			"commands": [
+				"workbench.action.quickOpenPreviousRecentlyUsedEditor"
+			]
+		},
+		{
+			"before": [
+				"#"
+			],
+			"commands": [
+				"workbench.action.quickOpenPreviousRecentlyUsedEditor",
+				"workbench.action.acceptSelectedQuickOpenItem"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"c"
+			],
+			"commands": [
+				"editor.action.commentLine"
+			]
+		},
+		{
+			"before": [
+				"?"
+			],
+			"commands": [
+				"editor.action.showHover"
+			]
+		}
+	],
+	"window.zoomLevel": 1
 }
