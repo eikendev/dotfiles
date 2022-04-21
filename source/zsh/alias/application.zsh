@@ -19,7 +19,7 @@ alias b='bat'
 alias vimx='vim -u NONE'
 
 # Only print matching lines with ripgrep.
-alias rgp='rg --no-filename --no-line-number --no-heading --color never '
+alias rgp='rg --no-filename --no-line-number --no-heading --color never'
 
 # Use lsd if available.
 if [ -x "$(command -v lsd)" ]; then
@@ -63,12 +63,6 @@ alias py='python3'
 
 # Start tmux in debug mode.
 alias tmux-debug='tmux -Ltest kill-server; tmux -vv -Ltest -f/dev/null new'
-
-# Shortcuts for common Make targets.
-alias Mb='make build'
-alias Mc='make clean'
-alias Mi='make install'
-alias Mr='make remove'
 
 alias diff2='git diff --no-index --color-words'
 
