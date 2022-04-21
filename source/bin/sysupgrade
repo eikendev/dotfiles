@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Find more info at [1].
+# [1] https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+
 set -e
 
 VERSION=$1
