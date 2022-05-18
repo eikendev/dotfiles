@@ -12,17 +12,20 @@ TITLE='RFCs Synchronization'
 LOCK_DIR=~/.local/share
 LOCK_FILE="$LOCK_DIR/sync-rfcs.lock"
 
-ENV_FILE="$DOTFILES/local/sync-rfcs.env"
+RFCS_DIR=~/rfcs
 
 source "$basedir/script-utils"
 
 for cmd in "$CMD"; do check_dependency $cmd; done
 
 lock
+
+mkdir -p "$RFCS_DIR"
+
 check_connectivity
 
 printf "%s\n" 'Synchronizing RFCs.'
-$CMD --directory ~/document/rfc
+$CMD --directory "$RFCS_DIR"
 exit_on_failure 1 1 'Could not synchronize RFCs.'
 
 printf "%s\n" 'Synchronization successful.'
