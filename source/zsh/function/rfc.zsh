@@ -6,7 +6,7 @@ function rfc {
 	fi
 
 	local id="$1"
-	local directory="$HOME/document/rfc"
+	local directory="$HOME/rfcs"
 	local file="$directory/$id.txt"
 
 	if ! [ -f "$file" ] ; then
