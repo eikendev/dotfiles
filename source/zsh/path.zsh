@@ -1,5 +1,6 @@
 # https://stackoverflow.com/a/18077919
 
+PATH+=:"$HOME/bin"
 PATH+=:"$HOME/.local/bin"
 PATH+=:"$GOPATH/bin"
 PATH+=:"$DOTFILES/bin"
