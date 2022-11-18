@@ -2,6 +2,7 @@
 
 PATH+=:"$HOME/bin"
 PATH+=:"$HOME/.local/bin"
+PATH+=:"$HOME/.nimble/bin"
 PATH+=:"$GOPATH/bin"
 PATH+=:"$DOTFILES/bin"
 PATH+=:"$DOTFILES/vendor/dasht/bin"
