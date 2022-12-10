@@ -57,5 +57,4 @@ install_gef:
 systemd:
 	systemctl --user daemon-reload
 	systemctl --user enable --now sync-repositories.timer
-	systemctl --user enable --now sync-rfcs.timer
 	systemctl --user enable --now tbunread.service
