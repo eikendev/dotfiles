@@ -13,6 +13,3 @@
 [submodule "source/zsh/plugin/syntax-highlighting"]
 	path = source/zsh/plugin/syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "vendor/dasht"]
-	path = vendor/dasht
-	url = https://github.com/sunaku/dasht.git
