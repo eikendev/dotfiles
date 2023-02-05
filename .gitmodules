@@ -10,9 +10,6 @@
 [submodule "source/zsh/plugin/autosuggestions"]
 	path = source/zsh/plugin/autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "source/zsh/plugin/forgit"]
-	path = source/zsh/plugin/forgit
-	url = https://github.com/wfxr/forgit.git
 [submodule "source/zsh/plugin/syntax-highlighting"]
 	path = source/zsh/plugin/syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
