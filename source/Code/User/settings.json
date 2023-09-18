@@ -44,6 +44,9 @@
 	"vim.enableNeovim": true,
 	"vim.leader": ",",
 	"workbench.startupEditor": "newUntitledFile",
+	"extensions.experimental.affinity": {
+		"vscodevim.vim": 1
+	},
 	"vim.visualModeKeyBindingsNonRecursive": [
 		{
 			"before": [
@@ -97,6 +100,22 @@
 		},
 		{
 			"before": [
+				"|"
+			],
+			"after": [
+				":",
+				"s",
+				"o",
+				"r",
+				"t",
+				"<space>",
+				"i",
+				"<cr>"
+			],
+			"comment": "Sort selection"
+		},
+		{
+			"before": [
 				"<leader>",
 				"c"
 			],
@@ -117,10 +136,12 @@
 		},
 		{
 			"before": [
-				"´´"
+				"´",
+				"´"
 			],
 			"after": [
-				"``"
+				"`",
+				"`"
 			],
 			"comment": "Friendly jumping marks for international keyboards"
 		},
@@ -167,7 +188,7 @@
 		},
 		{
 			"before": [
-				" "
+				"<space>"
 			],
 			"after": [
 				"<leader>",
@@ -177,7 +198,7 @@
 		},
 		{
 			"before": [
-				" ",
+				"<space>",
 				"<leader>"
 			],
 			"after": [
@@ -304,6 +325,26 @@
 		},
 		{
 			"before": [
+				"S"
+			],
+			"after": [
+				"m",
+				"`",
+				"\"",
+				"_",
+				"d",
+				"i",
+				"w",
+				"\"",
+				"0",
+				"P",
+				"`",
+				"`"
+			],
+			"comment": "Substitute word under curser with yank buffer"
+		},
+		{
+			"before": [
 				"<leader>",
 				"<leader>"
 			],
@@ -360,30 +401,9 @@
 			"commands": [
 				"editor.action.showHover"
 			]
-		},
-		{
-			"before": [
-				"i"
-			],
-			"after": [
-				"m",
-				"^",
-				"i"
-			]
 		}
 	],
 	"vim.insertModeKeyBindingsNonRecursive": [
-		{
-			"before": [
-				"<esc>"
-			],
-			"after": [
-				"<esc>",
-				"`",
-				"^"
-			],
-			"silent": true
-		}
 	],
 	"window.zoomLevel": 1
 }
