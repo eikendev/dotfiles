@@ -47,6 +47,26 @@
 	"vim.visualModeKeyBindingsNonRecursive": [
 		{
 			"before": [
+				"<tab>"
+			],
+			"after": [
+				">",
+				"g",
+				"v"
+			]
+		},
+		{
+			"before": [
+				"<s-tab>"
+			],
+			"after": [
+				"<",
+				"g",
+				"v"
+			]
+		},
+		{
+			"before": [
 				"<leader>",
 				"y"
 			],
@@ -65,6 +85,14 @@
 				"\"",
 				"+",
 				"p"
+			]
+		},
+		{
+			"before": [
+				"p"
+			],
+			"after": [
+				"P"
 			]
 		},
 		{
@@ -80,16 +108,94 @@
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
 			"before": [
-				"<leader>",
-				"p"
+				"´"
 			],
 			"after": [
-				"o",
-				"<Esc>",
-				"\"",
-				"+",
-				"p"
-			]
+				"`"
+			],
+			"comment": "Friendly jumping marks for international keyboards"
+		},
+		{
+			"before": [
+				"´´"
+			],
+			"after": [
+				"``"
+			],
+			"comment": "Friendly jumping marks for international keyboards"
+		},
+		{
+			"before": [
+				"!"
+			],
+			"after": [
+				":",
+				"!"
+			],
+			"comment": "Quick command execution"
+		},
+		{
+			"before": [
+				"H"
+			],
+			"after": [
+				"0"
+			],
+			"comment": "Jump to start of the line"
+		},
+		{
+			"before": [
+				"L"
+			],
+			"after": [
+				"$"
+			],
+			"comment": "Jump to end of the line"
+		},
+		{
+			"before": [
+				"*"
+			],
+			"after": [
+				"m",
+				"`",
+				"*",
+				"`",
+				"`"
+			],
+			"comment": "Jump to end of the line"
+		},
+		{
+			"before": [
+				" "
+			],
+			"after": [
+				"<leader>",
+				"<leader>"
+			],
+			"comment": "Replace easymotion activation prefix"
+		},
+		{
+			"before": [
+				" ",
+				"<leader>"
+			],
+			"after": [
+				"<leader>",
+				"<leader>",
+				"/"
+			],
+			"comment": "Activate easymotion multi-input search"
+		},
+		{
+			"before": [
+				"Q"
+			],
+			"after": [
+				"@",
+				"q"
+			],
+			"comment": "Quick macro execution"
 		},
 		{
 			"before": [
@@ -99,7 +205,42 @@
 				"\"",
 				"_",
 				"x"
-			]
+			],
+			"comment": "Do not overwrite yank when deleting a character"
+		},
+		{
+			"before": [
+				"<leader>",
+				"p"
+			],
+			"after": [
+				"\"",
+				"+",
+				"p"
+			],
+			"comment": "Paste from system clipboard"
+		},
+		{
+			"before": [
+				"<leader>",
+				"y"
+			],
+			"after": [
+				"\"",
+				"+",
+				"y"
+			],
+			"comment": "Yank into system clipboard"
+		},
+		{
+			"before": [
+				"Y"
+			],
+			"after": [
+				"y",
+				"$"
+			],
+			"comment": "Yank till the end of the line"
 		},
 		{
 			"before": [
@@ -119,7 +260,7 @@
 		},
 		{
 			"before": [
-				"<CR>"
+				"<cr>"
 			],
 			"commands": [
 				"workbench.action.files.save"
@@ -128,6 +269,7 @@
 		{
 			"before": [
 				"<leader>",
+				"d",
 				"f"
 			],
 			"commands": [
@@ -137,10 +279,36 @@
 		{
 			"before": [
 				"<leader>",
-				"g"
+				"d",
+				"d"
 			],
 			"commands": [
 				"workbench.action.findInFiles"
+			]
+		},
+		{
+			"before": [
+				"s"
+			],
+			"after": [
+				":",
+				"%",
+				"s",
+				"/",
+				"/",
+				"g",
+				"<left>",
+				"<left>"
+			],
+			"comment": "Simpified substitution"
+		},
+		{
+			"before": [
+				"<leader>",
+				"<leader>"
+			],
+			"commands": [
+				"workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
 			]
 		},
 		{
@@ -153,10 +321,18 @@
 		},
 		{
 			"before": [
-				"tab"
+				"<tab>"
 			],
 			"commands": [
-				"workbench.action.quickOpenPreviousRecentlyUsedEditor"
+				"workbench.action.nextEditor"
+			]
+		},
+		{
+			"before": [
+				"<s-tab>"
+			],
+			"commands": [
+				"workbench.action.previousEditor"
 			]
 		},
 		{
@@ -184,6 +360,29 @@
 			"commands": [
 				"editor.action.showHover"
 			]
+		},
+		{
+			"before": [
+				"i"
+			],
+			"after": [
+				"m",
+				"^",
+				"i"
+			]
+		}
+	],
+	"vim.insertModeKeyBindingsNonRecursive": [
+		{
+			"before": [
+				"<esc>"
+			],
+			"after": [
+				"<esc>",
+				"`",
+				"^"
+			],
+			"silent": true
 		}
 	],
 	"window.zoomLevel": 1
