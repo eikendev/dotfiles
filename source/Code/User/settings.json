@@ -309,6 +309,16 @@
 		},
 		{
 			"before": [
+				"<leader>",
+				"d",
+				"o"
+			],
+			"commands": [
+				"workbench.action.gotoSymbol"
+			]
+		},
+		{
+			"before": [
 				"s"
 			],
 			"after": [
