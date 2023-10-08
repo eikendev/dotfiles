@@ -34,6 +34,8 @@ reveal:
 rustup:
 	rustup update nightly
 	rustup update stable
+	cargo install -f cargo-edit
+	cargo install -f cargo-geiger
 
 .PHONY: submodules
 submodules:
@@ -56,5 +58,4 @@ install_gef:
 .PHONY: systemd
 systemd:
 	systemctl --user daemon-reload
-	systemctl --user enable --now sync-repositories.timer
 	systemctl --user enable --now tbunread.service
