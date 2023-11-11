@@ -11,7 +11,8 @@ colors:
         background: '#000000'
         foreground: '#eeeeee'
 
-background_opacity: 0.8
+window:
+    opacity: 0.8
 
 live_config_reload: true
 
