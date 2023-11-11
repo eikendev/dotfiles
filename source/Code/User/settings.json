@@ -2,14 +2,33 @@
 	"editor.bracketPairColorization.enabled": true,
 	"editor.cursorBlinking": "solid",
 	"editor.cursorSurroundingLines": 99999999,
-	"editor.fontFamily": "'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+	"editor.fontFamily": "'Monaspace Neon Light', 'Source Code Pro', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+	"editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss06', 'ss07', 'ss08', 'calt'",
 	"editor.fontSize": 18,
 	"editor.formatOnSave": true,
 	"editor.guides.bracketPairs": true,
 	"editor.insertSpaces": false,
 	"editor.minimap.enabled": false,
 	"editor.renderWhitespace": "trailing",
+	"editor.semanticTokenColorCustomizations": {
+		"[One Dark Pro]": {
+			"enabled": true,
+			"rules": {
+				"variable.local": "#ABB2BF",
+				"parameter": "#F3AEAE"
+			}
+		},
+		"[One Dark Pro Darker]": {
+			"enabled": true,
+			"rules": {
+				"variable.local": "#ABB2BF",
+				"parameter": "#F3AEAE"
+			}
+		}
+	},
 	"editor.suggestSelection": "first",
+	"workbench.colorTheme": "One Dark Pro",
+	"oneDarkPro.editorTheme": "One Dark Pro Darker",
 	"files.insertFinalNewline": true,
 	"files.maxMemoryForLargeFilesMB": 1024,
 	"go.useLanguageServer": true,
@@ -44,6 +63,8 @@
 	"vim.enableNeovim": true,
 	"vim.leader": ",",
 	"workbench.startupEditor": "newUntitledFile",
+	"window.zoomLevel": 1,
+	"editor.acceptSuggestionOnCommitCharacter": false,
 	"extensions.experimental.affinity": {
 		"vscodevim.vim": 1
 	},
@@ -413,7 +434,5 @@
 			]
 		}
 	],
-	"vim.insertModeKeyBindingsNonRecursive": [
-	],
-	"window.zoomLevel": 1
+	"vim.insertModeKeyBindingsNonRecursive": []
 }
