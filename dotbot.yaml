@@ -16,6 +16,7 @@
     ~/.config/bat: 'source/bat'
     ~/.config/cargo: 'source/cargo'
     ~/.config/Code: 'source/Code'
+    ~/.config/ddcutil: 'source/ddcutil'
     ~/.config/docker: 'source/docker'
     ~/.config/git: 'source/git'
     ~/.config/htop: 'source/htop'
