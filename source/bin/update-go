@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+version="$(go version | cut -d' ' -f 3)"
+release="$(curl -q -s -S -L 'https://golang.org/VERSION?m=text' | grep '^go')"
+
+if [[ "$version" == "$release" ]]; then
+	printf "%s\n" "Local Go version $release is up-to-date." >&2
+    exit 0
+else
+	printf "%s\n" "Local Go version is $version. A new release $release is available." >&2
+fi
+
+printf "%s\n" "Installing $release binary..." >&2
+go install golang.org/dl/$release@latest
+
+printf "%s\n" "Downloading full $release..." >&2
+$release download
+
+printf "%s\n" "Updating Go binaries in ~/bin..." >&2
+ln -sf "$($release env GOROOT)"/bin/* ~/bin/
+
+version="$(go version | cut -d' ' -f 3)"
+printf "%s\n" "Local Go version is now $version." >&2

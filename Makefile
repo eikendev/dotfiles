@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: githook submodules dotbot rustup vim_plugin vim_mkspell install_gef systemd
+install: githook submodules dotbot update_go rustup choosenim vim_plugin vim_mkspell install_gef systemd
 
 .PHONY: githook
 githook:
@@ -30,12 +30,20 @@ reveal:
 	@printf "%s\n" 'Adjusting permissions of secrets.'
 	@for f in $$(git secret list); do chmod go-rwx "$$f"; done
 
+.PHONY: update_go
+update_go:
+	./bin/update-go
+
 .PHONY: rustup
 rustup:
 	rustup update nightly
 	rustup update stable
 	cargo install -f cargo-edit
 	cargo install -f cargo-geiger
+
+.PHONY: choosenim
+choosenim:
+	choosenim update stable
 
 .PHONY: submodules
 submodules:
