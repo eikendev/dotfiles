@@ -1,0 +1,4 @@
+git:
+  log:
+    showGraph: 'always'
+    showWholeGraph: true

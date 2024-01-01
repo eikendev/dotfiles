@@ -20,6 +20,7 @@
     ~/.config/docker: 'source/docker'
     ~/.config/git: 'source/git'
     ~/.config/htop: 'source/htop'
+    ~/.config/lazygit: 'source/lazygit'
     ~/.config/nvim: 'source/nvim'
     ~/.config/pip: 'source/pip'
     ~/.config/pypoetry: 'source/pypoetry'

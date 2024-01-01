@@ -22,3 +22,5 @@ alias   Gs='git status --short'
 alias   GS='git show'
 alias   Gt='git tree'
 alias   Gu='git reset --soft HEAD~1'
+
+alias lg='lazygit'
