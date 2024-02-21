@@ -4,11 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: githook submodules dotbot update_go rustup choosenim vim_plugin vim_mkspell install_gef systemd
-
-.PHONY: githook
-githook:
-	./githook/setup-hooks
+install: submodules dotbot update_go rustup choosenim vim_plugin vim_mkspell install_gef systemd
 
 .PHONY: clean
 clean:
@@ -21,14 +17,6 @@ dotbot:
 	cd "${BASEDIR}"; \
 	git submodule update --init --recursive "${DOTBOT_DIR}"; \
 	"${BASEDIR}/${DOTBOT_DIR}/bin/dotbot" -d "${BASEDIR}" -c "${DOTBOT_CONFIG}"
-
-.PHONY: reveal
-reveal:
-	test -f ./source/ssh/config && chmod 600 ./source/ssh/config || true
-	git secret reveal
-	chmod 400 ./source/ssh/config
-	@printf "%s\n" 'Adjusting permissions of secrets.'
-	@for f in $$(git secret list); do chmod go-rwx "$$f"; done
 
 .PHONY: update_go
 update_go:

@@ -41,7 +41,6 @@
     ~/.ghci: 'source/ghci'
     ~/.rtorrent.rc: 'source/rtorrent'
     ~/.sqliterc: 'source/sqliterc'
-    ~/.ssh/config: 'source/ssh/config'
     ~/.wgetrc: 'source/wgetrc'
     ~/.zlogin: 'source/zlogin'
     ~/.zprofile: 'source/zprofile'
