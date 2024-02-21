@@ -39,7 +39,7 @@
 	pruneexpire = now
 
 [gpg]
-	program = gpg2
+	format = ssh
 
 [merge]
 	tool = vimdiff
@@ -83,3 +83,5 @@
 
 [init]
 	defaultBranch = main
+[gpg "ssh"]
+	allowedSignersFile = /home/user/.ssh/allowed_signers
