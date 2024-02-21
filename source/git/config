@@ -33,7 +33,7 @@
 [diff]
 	prompt = false
 	tool = vimdiff
-	algorithm = patience
+	algorithm = histogram
 
 [gc]
 	pruneexpire = now
@@ -57,7 +57,7 @@
 	trustExitCode = false
 
 [pull]
-	rebase = true
+	ff = only
 
 [push]
 	autoSetupRemote = true
