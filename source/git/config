@@ -87,5 +87,8 @@
 [gpg "ssh"]
 	allowedSignersFile = /home/user/.ssh/allowed_signers
 
-[includeIf "hasconfig:remote.*.url:git@eikendev.github.com:*/**"]
-	path = ~/coding/git/eikendev.github.gitconfig
+[includeIf "hasconfig:remote.*.url:git@eikendev.*.com:*/**"]
+	path = ~/coding/git/eikendev.gitconfig
+
+[includeIf "hasconfig:remote.*.url:git@git.eiken.dev:*/**"]
+	path = ~/coding/git/eikendev.gitconfig
