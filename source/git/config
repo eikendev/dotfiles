@@ -83,5 +83,9 @@
 
 [init]
 	defaultBranch = main
+
 [gpg "ssh"]
 	allowedSignersFile = /home/user/.ssh/allowed_signers
+
+[includeIf "hasconfig:remote.*.url:git@eikendev.github.com:*/**"]
+	path = ~/coding/git/eikendev.github.gitconfig
