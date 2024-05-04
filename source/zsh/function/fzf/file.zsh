@@ -6,20 +6,35 @@ function fff {
 	[[ -n "$files" ]] && ${EDITOR:-vi} "${files[@]}"
 }
 
-# Open files with particular content.
-function ffg() {
-	local files
+# Open a file with particular content.
+# https://news.ycombinator.com/item?id=38474106
+function ffg {
+	local result
+	local file
+	local line
 
 	if [ ! "$#" -gt 0 ]; then
-		echo "Usage: $0 <pattern> [mode]" >&2
+		echo "Usage: $0 <pattern>" >&2
 		return 1;
 	fi
 
-	files=($(rg --files-with-matches --no-messages --smart-case $2 "$1" | fzf -m -0 --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --smart-case --pretty --context 10 $1 || rg --smart-case --pretty --context 10 $1 {}"))
-	[[ -n "$files" ]] && ${EDITOR:-vi} "${files[@]}"
+	result=$(rg --smart-case --color=always --line-number --no-heading "$@" |
+		fzf --ansi \
+		--color 'hl:-1:underline,hl+:-1:underline:reverse' \
+		--delimiter ':' \
+		--preview "bat --color=always {1} --highlight-line {2}" \
+		--preview-window 'border-left,+{2}+3/3,~3')
+	file=${result%%:*}
+	line=${result#*:}
+	line=${line%%:*}
+
+	if [[ -n "$file" ]]; then
+		$EDITOR +"${line}" "$file"
+	fi
 }
 
 # Open files with a todo in them.
 function fft() {
 	ffg 'TODO' '-w'
 }
+
