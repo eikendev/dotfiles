@@ -23,6 +23,7 @@
     ~/.config/lazygit: 'source/lazygit'
     ~/.config/nvim: 'source/nvim'
     ~/.config/pip: 'source/pip'
+    ~/.config/pnpm: 'source/pnpm'
     ~/.config/pypoetry: 'source/pypoetry'
     ~/.config/python: 'source/python'
     ~/.config/ripgrep: 'source/ripgrep'
