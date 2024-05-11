@@ -434,5 +434,8 @@
 			]
 		}
 	],
-	"vim.insertModeKeyBindingsNonRecursive": []
+	"vim.insertModeKeyBindingsNonRecursive": [],
+	"svelte.enable-ts-plugin": true,
+	"workbench.editor.limit.enabled": true,
+	"workbench.editor.limit.value": 8
 }
