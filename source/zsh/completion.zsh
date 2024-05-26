@@ -1,6 +1,9 @@
 # Enable autocompletion.
 autoload -Uz compinit && compinit
 
+# Used because Fedora ships task with binary name 'go-task'.
+compdef _task go-task
+
 # Autocomplete hidden files.
 _comp_options+=(globdots)
 

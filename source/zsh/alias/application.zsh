@@ -38,6 +38,9 @@ alias dfa='df --all --si --print-type'
 # Truncate file completely.
 alias trunc='truncate --size=0'
 
+# Use a Taskfile.
+alias task='go-task'
+
 # Color IP addresses for better readability.
 alias ip='ip -color'
 
