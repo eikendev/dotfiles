@@ -82,9 +82,9 @@ fi
 export HACKENV_MEMORY='4194304'
 
 # Set configuration paths for different applications.
-export BAT_CONFIG_PATH="$HOME/.config/bat"
+export BAT_CONFIG_PATH="$HOME/.config/bat/batrc"
 export CARGO_HOME="$HOME/.config/cargo"
 export GOPATH="$HOME/.local/share/go"
 export DOCKER_CONFIG="$HOME/.config/docker"
-export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep"
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 export RUSTUP_HOME="$HOME/.local/share/rustup"
