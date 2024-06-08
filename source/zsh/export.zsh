@@ -8,6 +8,9 @@ export LC_MEASUREMENT='de_DE.UTF-8'
 export LC_MONETARY='de_DE.UTF-8'
 export LC_TIME='en_GB.UTF-8'
 
+# Explicitly set a custom location for user-specific configuration files.
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Set the default browser.
 #export BROWSER='firefox'
 
