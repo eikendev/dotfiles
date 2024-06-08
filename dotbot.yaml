@@ -40,7 +40,6 @@
     ~/.config/zsh: 'source/zsh'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
-    ~/.ghci: 'source/ghci'
     ~/.rtorrent.rc: 'source/rtorrent'
     ~/.zlogin: 'source/zlogin'
     ~/.zprofile: 'source/zprofile'
@@ -49,4 +48,3 @@
 
 - shell:
   - ['chmod +x ./source/tmux/onedark.tmux', Setting file permissions for tmux]
-  - ['chmod go-w ./source/ghci', Setting file permissions for GHCi]

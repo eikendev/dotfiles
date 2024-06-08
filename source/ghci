@@ -1,5 +1,0 @@
--- Inspired by docwhat.
--- SEE https://github.com/docwhat/dotfiles
-
--- Colored prompt
-:set prompt  "\001\ESC[0;34m\002\STX%s\n\001\ESC[1;32m\002\STXλ> \001\ESC[m\002\STX"
