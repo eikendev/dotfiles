@@ -32,7 +32,6 @@
     ~/.config/youtube-dl: 'source/youtube-dl'
     ~/.config/zathura: 'source/zathura'
     ~/.config/zsh: 'source/zsh'
-    ~/.ctags: 'source/ctags'
     ~/.curlrc: 'source/curlrc'
     ~/.direnvrc: 'source/direnvrc'
     ~/.gdbinit: 'source/gdbinit'
