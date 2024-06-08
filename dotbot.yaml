@@ -36,7 +36,6 @@
     ~/.config/tmux: 'source/tmux'
     ~/.config/wget: 'source/wget'
     ~/.config/youtube-dl: 'source/youtube-dl'
-    ~/.config/zathura: 'source/zathura'
     ~/.config/zsh: 'source/zsh'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
