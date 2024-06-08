@@ -29,6 +29,9 @@ printf "%s\n" 'Install necessary DNF plugins.'
 confirm_continue
 sudo dnf install dnf-plugin-system-upgrade
 
+printf "%s\n" 'Validate the GPG keys via https://fedoraproject.org/security'
+confirm_continue
+
 printf "%s\n" "Download packages for version $VERSION."
 confirm_continue
 sudo dnf system-upgrade download --refresh --allowerasing "--releasever=$VERSION"
