@@ -1,0 +1,17 @@
+# Only use ASCII characters to name files.
+--restrict-filenames
+
+# Embed subtitles in the video file if available.
+--embed-subs
+
+# Embed metadata in the video file (e.g. title, description).
+--embed-metadata
+
+# Embed the thumbnail in the video file.
+--embed-thumbnail
+
+# Embed chapters in the video file if available.
+--embed-chapters
+
+# Set the number of concurrent connections (default is 1).
+--concurrent-fragments 5
