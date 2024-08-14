@@ -34,6 +34,7 @@
     ~/.config/sqlite3: 'source/sqlite3'
     ~/.config/systemd: 'source/systemd'
     ~/.config/tmux: 'source/tmux'
+    ~/.config/wezterm: 'source/wezterm'
     ~/.config/wget: 'source/wget'
     ~/.config/yt-dlp: 'source/yt-dlp'
     ~/.config/zsh: 'source/zsh'
