@@ -49,7 +49,7 @@ vim_mkspell:
 
 .PHONY: install_gef
 install_gef:
-	curl -q -s -S -L --create-dirs -o ~/.local/share/gef/init.py 'https://github.com/hugsy/gef/raw/master/gef.py'
+	curl -q -s -S -L --create-dirs -o ~/.local/share/gef/init.py 'https://raw.githubusercontent.com/hugsy/gef/main/gef.py'
 
 .PHONY: systemd
 systemd:
