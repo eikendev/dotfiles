@@ -20,6 +20,7 @@
     ~/.config/ddcutil: 'source/ddcutil'
     ~/.config/direnv: 'source/direnv'
     ~/.config/docker: 'source/docker'
+    ~/.config/fish: 'source/fish'
     ~/.config/gdb: 'source/gdb'
     ~/.config/git: 'source/git'
     ~/.config/htop: 'source/htop'

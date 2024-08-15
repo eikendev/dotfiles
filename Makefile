@@ -4,7 +4,7 @@ DOTBOT_CONFIG=dotbot.yaml
 DOTBOT_DIR=dotbot
 
 .PHONY: install
-install: submodules dotbot update_go rustup choosenim vim_plugin vim_mkspell install_gef systemd
+install: submodules dotbot update_go update_fisher rustup choosenim vim_plugin vim_mkspell install_gef systemd
 
 .PHONY: clean
 clean:
@@ -21,6 +21,10 @@ dotbot:
 .PHONY: update_go
 update_go:
 	./bin/update-go
+
+.PHONY: update_fisher
+update_fisher:
+	fish -c 'fisher update'
 
 .PHONY: rustup
 rustup:
