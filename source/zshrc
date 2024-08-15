@@ -36,7 +36,7 @@ unset file
 
 # Start tmux if the current shell is not inside one.
 if [ -x "$(command -v tmux)" ]; then
-	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -f ~/.config/tmux/config
+	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
 # GPG needs to have this environment variable set.
