@@ -9,4 +9,6 @@ if status is-interactive
 	if command -v direnv > /dev/null
 		eval (direnv hook fish)
 	end
+
+	starship init fish | source
 end

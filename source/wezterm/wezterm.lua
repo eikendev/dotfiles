@@ -34,7 +34,7 @@ config.color_schemes = {
 	['MaterialDarker'] = scheme
 }
 
-config.font = wezterm.font 'Monaspace Neon'
+config.font = wezterm.font_with_fallback { 'Monaspace Neon', 'Symbols Nerd Font', 'Noto Color Emoji' }
 config.font_size = 13
 config.harfbuzz_features = {'calt', 'ss01', 'ss02', 'ss03', 'ss07', 'ss09', 'liga'}
 
