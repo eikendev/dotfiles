@@ -4,4 +4,9 @@ if status is-interactive
 			exec tmux
 		end
 	end
+
+	# Setup hooks for direnv.
+	if command -v direnv > /dev/null
+		eval (direnv hook fish)
+	end
 end
