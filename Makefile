@@ -1,13 +1,13 @@
-BASEDIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+BASEDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-DOTBOT_CONFIG=dotbot.yaml
-DOTBOT_DIR=dotbot
+DOTBOT_CONFIG := dotbot.yaml
+DOTBOT_DIR := dotbot
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 
 .PHONY: install
-install: submodules dotbot update_go update_fisher rustup choosenim fish_completions vim_plugin vim_mkspell install_gef systemd
+install: submodules dotbot update_go update_fisher rustup choosenim fish_completions vim_plugin vim_mkspell install_gef systemd fonts
 
 .PHONY: clean
 clean:
@@ -66,3 +66,7 @@ install_gef:
 systemd:
 	systemctl --user daemon-reload
 	systemctl --user enable --now tbunread.service
+
+.PHONY: fonts
+fonts:
+	bash ./scripts/install-fonts.sh
