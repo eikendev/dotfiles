@@ -1,5 +1,5 @@
-function scratch
-    set -l directory (mktemp -d)
+function scratch -d "Create a temporary directory, open a subshell in it, and remove the directory upon exit."
+    set directory (mktemp -d)
 
     printf "Spawning subshell in '$directory'.\n" >&2
 
