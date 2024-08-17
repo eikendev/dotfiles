@@ -33,6 +33,7 @@
     ~/.config/radare2: 'source/radare2'
     ~/.config/ripgrep: 'source/ripgrep'
     ~/.config/sqlite3: 'source/sqlite3'
+    ~/.config/starship.toml: 'source/starship.toml'
     ~/.config/systemd: 'source/systemd'
     ~/.config/tmux: 'source/tmux'
     ~/.config/wezterm: 'source/wezterm'
