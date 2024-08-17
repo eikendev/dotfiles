@@ -12,155 +12,79 @@ FONT_DIR="$XDG_DATA_HOME/fonts"
 FIRACODE_REPO='tonsky/FiraCode'
 MONASPACE_REPO='githubnext/monaspace'
 SOURCE_CODE_PRO_REPO='adobe-fonts/source-code-pro'
+NERD_FONTS_REPO='ryanoasis/nerd-fonts'
 
-NERD_FONTS_ZIP='NerdFontsSymbolsOnly.zip'
-NERD_FONTS_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$NERD_FONTS_ZIP"
+NERD_FONTS_FLAVOR='NerdFontsSymbolsOnly'
 
 NOTO_EMOJI_TTF='NotoColorEmoji.ttf'
-NOTO_EMOJI_URL="https://github.com/googlefonts/noto-emoji/raw/main/fonts/$NOTO_EMOJI_TTF"
+NOTO_EMOJI_URL='https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf'
 
-# Function to print messages to stderr
 log() {
-    printf "%s\n" "$*" >&2
+    printf '%s\n' "$*" >&2
 }
 
-# Function to create a temporary directory
-create_temp_dir() {
-    mktemp -d
-}
-
-# Function to retrieve the latest release URL from GitHub
 get_latest_release_url() {
-    local REPO=$1
-    log "Retrieving the latest release URL for $REPO..."
-    curl -s "https://api.github.com/repos/$REPO/releases/latest" | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url'
+    local repo="$1"
+    local grep_filter="$2"
+
+    log 'Retrieving the latest release URL for' "$repo..."
+
+    if [ -n "$grep_filter" ]; then
+        curl -s "https://api.github.com/repos/$repo/releases/latest" | jq -r ".assets[] | select(.name | endswith(\".zip\")) | select(.name | contains(\"$grep_filter\")) | .browser_download_url"
+    else
+        curl -s "https://api.github.com/repos/$repo/releases/latest" | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url'
+    fi
 }
 
-# Function to download and install Monaspace
-install_monaspace() {
+install_font() {
+    local repo="$1"
+    local font_name="$2"
+    local ext="$3"
+    local grep_filter="$4"
+
     local temp_dir
-    temp_dir=$(create_temp_dir)
-    local dest_dir="$FONT_DIR/Monaspace"
+    temp_dir=$(mktemp -d)
+    local dest_dir="$FONT_DIR/$font_name"
 
     local url
-    url="$(get_latest_release_url "$MONASPACE_REPO")"
+    url=$(get_latest_release_url "$repo" "$grep_filter")
     local zip
-    zip="$(basename "$url")"
+    zip=$(basename "$url")
 
-    log 'Downloading Monaspace...'
+    log 'Downloading' "$font_name..."
     curl -q -s -S -L -o "$temp_dir/$zip" "$url"
 
-    log 'Extracting Monaspace...'
+    log 'Extracting' "$font_name..."
     unzip "$temp_dir/$zip" -d "$temp_dir"
 
-    log 'Installing Monaspace...'
+    log 'Installing' "$font_name..."
     mkdir -p "$dest_dir"
-    cp "$temp_dir"/**/*.otf "$dest_dir"
+    cp "$temp_dir"/**/*."$ext" "$dest_dir"
 
     rm -rf "$temp_dir"
 }
 
-# Function to download and install Fira Code
-install_fira_code() {
-    local temp_dir
-    temp_dir=$(create_temp_dir)
-    local dest_dir="$FONT_DIR/FiraCode"
-
-    local url
-    url="$(get_latest_release_url "$FIRACODE_REPO")"
-    local zip
-    zip="$(basename "$url")"
-
-    log 'Downloading Fira Code...'
-    curl -q -s -S -L -o "$temp_dir/$zip" "$url"
-
-    log 'Extracting Fira Code...'
-    unzip "$temp_dir/$zip" -d "$temp_dir"
-
-    log 'Installing Fira Code...'
-    mkdir -p "$dest_dir"
-    cp "$temp_dir"/**/*.ttf "$dest_dir"
-
-    rm -rf "$temp_dir"
-}
-
-# Function to download and install Source Code Pro
-install_source_code_pro() {
-    local temp_dir
-    temp_dir=$(create_temp_dir)
-    local dest_dir="$FONT_DIR/SourceCodePro"
-
-    local url
-    url="$(get_latest_release_url "$SOURCE_CODE_PRO_REPO" | grep OTF)"
-    local zip
-    zip="$(basename "$url")"
-
-    log 'Downloading Source Code Pro...'
-    curl -q -s -S -L -o "$temp_dir/$zip" "$url"
-
-    log 'Extracting Source Code Pro...'
-    unzip "$temp_dir/$zip" -d "$temp_dir"
-
-    log 'Installing Source Code Pro...'
-    mkdir -p "$dest_dir"
-    cp "$temp_dir"/**/*.otf "$dest_dir"
-
-    rm -rf "$temp_dir"
-}
-
-# Function to download and install Nerd Fonts
-install_nerd_fonts() {
-    local temp_dir
-    temp_dir=$(create_temp_dir)
-    local dest_dir="$FONT_DIR/NerdFonts"
-
-    log 'Downloading Nerd Fonts...'
-    curl -q -s -S -L -o "$temp_dir/$NERD_FONTS_ZIP" "$NERD_FONTS_URL"
-
-    log 'Extracting Nerd Fonts...'
-    unzip "$temp_dir/$NERD_FONTS_ZIP" -d "$temp_dir"
-
-    log 'Installing Nerd Fonts...'
-    mkdir -p "$dest_dir"
-    cp "$temp_dir"/**/*.ttf "$dest_dir"
-
-    rm -rf "$temp_dir"
-}
-
-# Function to download and install Noto Emoji
 install_noto_emoji() {
-    local temp_dir
-    temp_dir=$(create_temp_dir)
-    local dest_dir="$FONT_DIR/NotoEmoji"
+    local dest_dir="$FONT_DIR/Noto Emoji"
 
-    log 'Downloading Noto Emoji...'
-    curl -q -s -S -L -o "$temp_dir/$NOTO_EMOJI_TTF" "$NOTO_EMOJI_URL"
-
-    log 'Installing Noto Emoji...'
+    log 'Downloading and installing Noto Emoji...'
     mkdir -p "$dest_dir"
-    cp "$temp_dir/$NOTO_EMOJI_TTF" "$dest_dir"
-
-    rm -rf "$temp_dir"
-}
-
-# Function to update font cache
-update_font_cache() {
-    log 'Updating font cache...'
-    fc-cache -f "$FONT_DIR"
+    curl -q -s -S -L -o "$dest_dir/$NOTO_EMOJI_TTF" "$NOTO_EMOJI_URL"
 }
 
 mkdir -p "$FONT_DIR"
 
-install_monaspace
+install_font "$MONASPACE_REPO" 'Monaspace' 'otf'
 
-install_fira_code
+install_font "$FIRACODE_REPO" 'Fira Code' 'ttf'
 
-install_source_code_pro
+install_font "$SOURCE_CODE_PRO_REPO" 'Source Code Pro' 'otf' 'OTF'
 
-install_nerd_fonts
+install_font "$NERD_FONTS_REPO" 'Nerd Fonts' 'ttf' "$NERD_FONTS_FLAVOR"
 
 install_noto_emoji
 
-update_font_cache
+log 'Updating font cache...'
+fc-cache -f "$FONT_DIR"
 
 log 'Fonts installed successfully.'
