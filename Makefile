@@ -3,6 +3,8 @@ BASEDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 DOTBOT_CONFIG := dotbot.yaml
 DOTBOT_DIR := dotbot
 
+SCRIPTS_DIR := ./scripts
+
 XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 
@@ -56,7 +58,7 @@ vim_plugin:
 
 .PHONY: vim_mkspell
 vim_mkspell:
-	vim-mkspell
+	$(SCRIPTS_DIR)/vim-mkspell
 
 .PHONY: install_gef
 install_gef:
@@ -69,4 +71,4 @@ systemd:
 
 .PHONY: fonts
 fonts:
-	bash ./scripts/install-fonts.sh
+	$(SCRIPTS_DIR)/install-fonts

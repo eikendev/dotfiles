@@ -1,9 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-# Author: eikendev (https://eiken.dev/)
+set -e
 
-TMP_DIRECTORY=$(mktemp -d)
-DST_DIRECTORY="$HOME/.local/share/nvim/site/spell"
+TMP_DIR=$(mktemp -d)
+
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+DST_DIRECTORY="$XDG_DATA_HOME/nvim/site/spell"
 
 if ! [ -d "$DST_DIRECTORY" ]; then
 	if ! mkdir -p "$DST_DIRECTORY"; then
@@ -17,10 +20,10 @@ download_asset_url () {
 	lang_region="$2"
 	extension="$3"
 
-	wget --no-config -O "$TMP_DIRECTORY/$lang_region.$extension" "https://cgit.freedesktop.org/libreoffice/dictionaries/plain/$base/$lang_region.$extension"
+	curl -q -s -S -L -o "$TMP_DIR/$lang_region.$extension" "https://github.com/LibreOffice/dictionaries/raw/master/$base/$lang_region.$extension"
 }
 
-for language in 'en_GB en_US' 'de_DE_frami'; do
+for language in 'en_US' 'de_DE_frami'; do
 	base="$(printf '%s' "$language" | cut -d '_' -f 1)"
 
 	for lang_region in $language; do
@@ -33,7 +36,7 @@ for language in 'en_GB en_US' 'de_DE_frami'; do
 	lang_regions=( $language )
 
 	# https://stackoverflow.com/a/13216833
-	lang_regions=( "${lang_regions[@]/#/$TMP_DIRECTORY\/}" )
+	lang_regions=( "${lang_regions[@]/#/$TMP_DIR\/}" )
 
 	# https://stackoverflow.com/a/13471141
 	lang_regions="${lang_regions[*]// /|}"
@@ -42,4 +45,4 @@ for language in 'en_GB en_US' 'de_DE_frami'; do
 	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $lang_regions" -c 'quitall!'
 done
 
-rm -r "$TMP_DIRECTORY"
+rm -r "$TMP_DIR"
