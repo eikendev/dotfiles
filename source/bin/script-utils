@@ -1,9 +1,3 @@
-notify() {
-	local MESSAGE="$1"
-
-	notify-send -t 10000 "$TITLE" "$MESSAGE"
-}
-
 lock() {
 	local MESSAGE='Service already running.'
 
@@ -68,29 +62,4 @@ check_dependency() {
 		notify "$MESSAGE"
 		exit 1
 	fi
-}
-
-check_connectivity() {
-	local TEST_CMD=wget
-	local TEST_URLS='https://www.google.com https://www.reddit.com https://twitter.com https://en.wikipedia.org https://www.amazon.com https://www.ebay.com'
-
-	check_dependency "$TEST_CMD"
-
-	for i in $(seq 4); do
-		for url in $TEST_URLS; do
-			$TEST_CMD -q \
-				--timeout=3 \
-				--tries=1 \
-				--output-document=/dev/null \
-				"$url" > /dev/null 2>&1
-
-			local RESULT=$?
-
-			if [ $RESULT -eq 0 ]; then
-				return 0
-			fi
-		done
-	done
-
-	exit_on_failure 0 1 'Connection not available.' $RESULT
 }
