@@ -34,18 +34,13 @@
     ~/.config/sqlite3: 'source/sqlite3'
     ~/.config/starship.toml: 'source/starship.toml'
     ~/.config/systemd: 'source/systemd'
-    ~/.config/tmux: 'source/tmux'
     ~/.config/wezterm: 'source/wezterm'
     ~/.config/wget: 'source/wget'
     ~/.config/yt-dlp: 'source/yt-dlp'
-    ~/.config/zsh: 'source/zsh'
+    ~/.config/zellij: 'source/zellij'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
     ~/.rtorrent.rc: 'source/rtorrent'
-    ~/.zlogin: 'source/zlogin'
-    ~/.zprofile: 'source/zprofile'
-    ~/.zshenv: 'source/zshenv'
-    ~/.zshrc: 'source/zshrc'
 
 - shell:
   - ['chmod +x ./source/tmux/onedark.tmux', Setting file permissions for tmux]
