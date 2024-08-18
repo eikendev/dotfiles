@@ -3,7 +3,8 @@ Description=tbunread
 
 [Service]
 Type=simple
-ExecStart=%h/.dotfiles/bin/tbunread-wrapper
+ExecStartPre=/usr/bin/mkdir -p %h/.local/share/tbunread
+ExecStart=%h/.config/cargo/bin/tbunread --output %h/.local/share/tbunread/count
 Restart=on-success
 RestartSec=5s
 
