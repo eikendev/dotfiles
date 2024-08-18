@@ -50,11 +50,6 @@ alias units='units --history /dev/null'
 alias kali='hackenv --type=kali'
 alias parrot='hackenv --type=parrot'
 
-# Track the working path of nnn.
-# -e to open text files using $VISUAL
-# -H to show hidden files
-alias n='nnn-cd -e -H'
-
 # Do not track subsequent commands.
 alias incognito='set -e fish_history'
 
