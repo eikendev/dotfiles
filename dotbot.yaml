@@ -41,6 +41,3 @@
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
     ~/.rtorrent.rc: 'source/rtorrent'
-
-- shell:
-  - ['chmod +x ./source/tmux/onedark.tmux', Setting file permissions for tmux]
