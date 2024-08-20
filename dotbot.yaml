@@ -36,6 +36,7 @@
     ~/.config/systemd: 'source/systemd'
     ~/.config/wezterm: 'source/wezterm'
     ~/.config/wget: 'source/wget'
+    ~/.config/yazi: 'source/yazi'
     ~/.config/yt-dlp: 'source/yt-dlp'
     ~/.config/zellij: 'source/zellij'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
