@@ -53,8 +53,7 @@ fish_completions:
 
 .PHONY: vim_plugin
 vim_plugin:
-	curl -q -s -S -L --create-dirs -o $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	nvim --headless -c 'silent PlugClean!' -c 'silent PlugUpdate' -c 'silent PlugInstall' -c 'quitall!'
+	nvim --headless -c 'silent Lazy sync' -c 'quitall!'
 
 .PHONY: vim_mkspell
 vim_mkspell:
