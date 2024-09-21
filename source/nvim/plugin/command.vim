@@ -29,9 +29,5 @@ command! SmartClose call self#command#smart_close#()
 command! ToggleSemicolon call self#misc#toggle_end_char(';') | call repeat#set("\<Plug>(self-toggle-semicolon)")
 nnoremap <silent> <Plug>(self-toggle-semicolon) :ToggleSemicolon<CR>
 
-command! TerminalOpen call self#terminal#open#()
-command! TerminalToggle call self#terminal#toggle#()
-command! -nargs=* -complete=shellcmd TerminalExecute call self#terminal#execute#(<q-args>)
-
 command! -nargs=1 PreserveNormal call self#mapping#preserve#normal(<q-args>)
 command! -nargs=1 PreserveExecute call self#mapping#preserve#execute(<q-args>)
