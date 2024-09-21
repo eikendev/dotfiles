@@ -14,9 +14,6 @@ command! CdFile :cd %:p:h
 "command! W :w suda://%
 "command! Wq :W | :q
 
-" TODO: Resize to relative size.
-command! -nargs=* Gc :exec "Gcommit --verbose " . <q-args> | resize 30 | startinsert
-
 command! ToggleQuickfixList call self#command#toggle_somelist#('quickfix')
 command! ToggleLocationList call self#command#toggle_somelist#('location')
 
