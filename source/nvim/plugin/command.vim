@@ -33,9 +33,5 @@ command! TerminalOpen call self#terminal#open#()
 command! TerminalToggle call self#terminal#toggle#()
 command! -nargs=* -complete=shellcmd TerminalExecute call self#terminal#execute#(<q-args>)
 
-command! TmuxOpen call self#terminal#tmux_open#()
-command! TmuxToggle call self#terminal#tmux_toggle#()
-command! -nargs=* -complete=shellcmd TmuxExecute call self#terminal#tmux_execute#(<q-args>)
-
 command! -nargs=1 PreserveNormal call self#mapping#preserve#normal(<q-args>)
 command! -nargs=1 PreserveExecute call self#mapping#preserve#execute(<q-args>)
