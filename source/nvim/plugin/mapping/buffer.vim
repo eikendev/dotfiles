@@ -48,6 +48,3 @@ xnoremap <Leader>dg :diffget<CR>
 
 " Update diff in diffmode.
 nnoremap du :diffupdate<CR>
-
-" Toggle hex edit mode.
-nnoremap <silent> <Leader>x :ToggleHexEdit<CR>

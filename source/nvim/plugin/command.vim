@@ -10,14 +10,9 @@ command! VimSource :source $MYVIMRC
 command! CdGit call self#command#cd_git#(v:false)
 command! CdFile :cd %:p:h
 
-" Write with root permissions.
-"command! W :w suda://%
-"command! Wq :W | :q
-
 command! ToggleQuickfixList call self#command#toggle_somelist#('quickfix')
 command! ToggleLocationList call self#command#toggle_somelist#('location')
 
-command! ToggleHexEdit call self#command#toggle_hex_edit#()
 command! ToggleConceallevel call self#command#toggle_conceallevel#()
 
 command! SmartClose call self#command#smart_close#()
