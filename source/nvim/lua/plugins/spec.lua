@@ -58,13 +58,6 @@ return {
 	{ 'tpope/vim-eunuch' },
 
 	{
-		'scrooloose/nerdcommenter',
-		init = function()
-			vim.g.NERDAltDelims_c = 1
-		end
-	},
-
-	{
 		'tpope/vim-surround',
 		init = function()
 			vim.g.surround_no_mappings = 1
