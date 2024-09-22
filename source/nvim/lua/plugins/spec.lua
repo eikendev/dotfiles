@@ -43,15 +43,6 @@ return {
 	},
 
 	{
-		'vim-airline/vim-airline',
-		init = function()
-			vim.g.airline_symbols_ascii = 1
-			vim.g.airline_exclude_preview = 1
-			vim.g.airline_section_z = '%{self#util#number_of_buffers()}B %3p%% %5l/%L %2c'
-		end
-	},
-
-	{
 		'airblade/vim-gitgutter',
 		init = function()
 			vim.g.gitgutter_map_keys = 0
