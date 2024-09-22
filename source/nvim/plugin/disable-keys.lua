@@ -12,5 +12,5 @@ keymap('n', '<Right>', '', opts)
 keymap('i', '<Right>', '<ESC>', opts)
 
 -- Disable F1 key
-keymap('n', '<F1>', '<nop>', opts)
+-- keymap('n', '<F1>', '<nop>', opts)  -- Overwritten in telescope.lua
 keymap('i', '<F1>', '<nop>', opts)

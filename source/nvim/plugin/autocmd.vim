@@ -13,7 +13,7 @@ augroup end
 augroup terminalsettings
 	autocmd!
 	if has('nvim')
-		" Set filetype so that denite can filter out terminals.
+		" Set filetype so that plugins can filter out terminals.
 		autocmd TermOpen * setlocal filetype=terminal
 		autocmd TermOpen * setlocal nonumber
 		autocmd TermOpen * setlocal signcolumn=no

@@ -64,12 +64,6 @@ return {
 		end
 	},
 
-	{ 'Shougo/denite.nvim' },
-
-	{ 'eikendev/denite-fzf' },
-
-	{ 'eikendev/denite-man' },
-
 	{ 'editorconfig/editorconfig-vim' },
 
 	{
