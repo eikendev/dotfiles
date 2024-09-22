@@ -64,8 +64,6 @@ return {
 		end
 	},
 
-	{ 'junegunn/vim-easy-align' },
-
 	{ 'Shougo/denite.nvim' },
 
 	{ 'eikendev/denite-fzf' },
