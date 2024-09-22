@@ -73,15 +73,6 @@ return {
 
 	{ 'junegunn/vim-easy-align' },
 
-	{
-		'cohama/lexima.vim',
-		init = function()
-			vim.g.lexima_no_default_rules = 1
-			vim.g.lexima_map_escape = ''
-			vim.g.lexima_enable_endwise_rules = 0
-		end
-	},
-
 	{ 'Shougo/denite.nvim' },
 
 	{ 'eikendev/denite-fzf' },
