@@ -11,8 +11,6 @@ return {
 
 	{ 'tpope/vim-repeat' },
 
-	{ 'kana/vim-textobj-user' },
-
 	{
 		'kana/vim-textobj-line',
 		dependencies = {
