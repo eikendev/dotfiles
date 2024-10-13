@@ -9,7 +9,7 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 
 .PHONY: install
-install: submodules dotbot update_go update_fisher rustup choosenim fish_completions vim_plugin vim_mkspell install_gef systemd fonts
+install: submodules dotbot update_go update_fisher rustup choosenim fish_completions vim_plugins vim_mkspell install_gef systemd fonts
 
 .PHONY: clean
 clean:
@@ -51,9 +51,9 @@ submodules:
 fish_completions:
 	curl -q -s -S -L --create-dirs -o $(XDG_CONFIG_HOME)/fish/completions/task.fish 'https://raw.githubusercontent.com/go-task/task/main/completion/fish/task.fish'
 
-.PHONY: vim_plugin
-vim_plugin:
-	nvim --headless -c 'silent Lazy sync' -c 'quitall!'
+.PHONY: vim_plugins
+vim_plugins:
+	nvim --headless -c 'Lazy sync' -c 'lua vim.loop.timer_start(vim.loop.new_timer(), 10000, 0, vim.schedule_wrap(function() vim.cmd("quitall!") end))'
 
 .PHONY: vim_mkspell
 vim_mkspell:
