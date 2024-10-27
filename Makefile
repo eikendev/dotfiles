@@ -9,7 +9,7 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 
 .PHONY: install
-install: submodules dotbot update_go update_fisher rustup choosenim fish_completions vim_plugins vim_mkspell install_gef systemd fonts
+install: submodules dotbot update_go update_fisher rustup fish_completions vim_plugins vim_mkspell install_gef systemd fonts
 
 .PHONY: clean
 clean:
@@ -35,12 +35,6 @@ update_fisher:
 rustup:
 	rustup update nightly
 	rustup update stable
-	cargo install -f cargo-edit
-	cargo install -f cargo-geiger
-
-.PHONY: choosenim
-choosenim:
-	choosenim update stable
 
 .PHONY: submodules
 submodules:
