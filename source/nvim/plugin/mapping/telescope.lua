@@ -1,8 +1,18 @@
 local set = vim.keymap.set
 
+local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
-local config = require("telescope.config")
 local utils = require('telescope.utils')
+
+set('i', '<M-j>', function()
+  local prompt_bufnr = vim.api.nvim_get_current_buf()
+  actions.move_selection_next(prompt_bufnr)
+end, { desc = 'Move selection down in Telescope' })
+
+set('i', '<M-k>', function()
+  local prompt_bufnr = vim.api.nvim_get_current_buf()
+  actions.move_selection_previous(prompt_bufnr)
+end, { desc = 'Move selection up in Telescope' })
 
 set('n', '<f1>', builtin.help_tags, { desc = 'Lists available help tags' })
 set('n', '<leader><leader>', builtin.buffers, { desc = 'Lists open buffers in current neovim instance' })

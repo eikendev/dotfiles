@@ -12,8 +12,18 @@ return {
 						['<C-h>'] = false,  -- Multiplexer navigation rather than showing help
 						['<C-k>'] = false,  -- Multiplexer navigation rather than scrolling preview window
 						['<C-u>'] = false,  -- Clear the prompt rather than scroll the previewer
-						['<M-j>'] = require('telescope.actions').move_selection_next,  -- Alt+j to move down
-						['<M-k>'] = require('telescope.actions').move_selection_previous,  -- Alt+k to move up
+						['<M-j>'] = false,  -- Disable as it is later remapped for moving selection down
+						['<M-k>'] = false,  -- Disable as it is later remapped for moving selection up
+						['<Up>'] = false,
+						['<Down>'] = false,
+						['<Left>'] = false,
+						['<Right>'] = false,
+					},
+					n = {
+						['<Up>'] = false,
+						['<Down>'] = false,
+						['<Left>'] = false,
+						['<Right>'] = false,
 					},
 				},
 				preview = {
