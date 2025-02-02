@@ -3,7 +3,7 @@ function scratch -d "Create a temporary directory, open a subshell in it, and re
 
     printf "Spawning subshell in '$directory'.\n" >&2
 
-    cd $directory; $SHELL
+    env fish_history='' $SHELL -C "cd $directory"
 
     printf "%s\n" 'Removing scratch directory.' >&2
     rm -rf "$directory"
