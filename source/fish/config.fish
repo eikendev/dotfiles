@@ -6,7 +6,5 @@ if status is-interactive
 		eval (direnv hook fish)
 	end
 
-	zoxide init fish --cmd j | source
-
 	starship init fish | source
 end
