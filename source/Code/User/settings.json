@@ -143,6 +143,30 @@
 			"commands": [
 				"editor.action.commentLine"
 			]
+		},
+		{
+			"before": ["<leader>", "a", "i"],
+			"commands": ["inlineChat.start"]
+		},
+		{
+			"before": ["<leader>", "a", "f"],
+			"commands": ["github.copilot.chat.fix"]
+		},
+		{
+			"before": ["<leader>", "a", "e"],
+			"commands": ["github.copilot.chat.explain.palette"]
+		},
+		{
+			"before": ["<leader>", "a", "r"],
+			"commands": ["github.copilot.chat.review"]
+		},
+		{
+			"before": ["<leader>", "a", "d"],
+			"commands": ["github.copilot.chat.generateDocs"]
+		},
+		{
+			"before": ["<leader>", "a", "t"],
+			"commands": ["github.copilot.chat.generateTests"]
 		}
 	],
 	"vim.normalModeKeyBindingsNonRecursive": [
@@ -432,6 +456,18 @@
 			"commands": [
 				"editor.action.showHover"
 			]
+		},
+		{
+			"before": ["<leader>", "a", "f"],
+			"commands": ["github.copilot.chat.fix"]
+		},
+		{
+			"before": ["<leader>", "a", "e"],
+			"commands": ["github.copilot.chat.explain.palette"]
+		},
+		{
+			"before": ["<leader>", "a", "c"],
+			"commands": ["workbench.action.chat.openEditSession"]
 		}
 	],
 	"vim.insertModeKeyBindingsNonRecursive": [],
