@@ -7,4 +7,8 @@ if status is-interactive
 	end
 
 	starship init fish | source
+
+	if command -v jj > /dev/null
+		jj util completion fish | source
+	end
 end
