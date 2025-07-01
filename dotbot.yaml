@@ -16,7 +16,6 @@
     $XDG_CONFIG_HOME/curlrc: 'source/curlrc'
     $XDG_CONFIG_HOME/ddcutil: 'source/ddcutil'
     $XDG_CONFIG_HOME/direnv: 'source/direnv'
-    $XDG_CONFIG_HOME/docker: 'source/docker'
     $XDG_CONFIG_HOME/fish: 'source/fish'
     $XDG_CONFIG_HOME/gdb: 'source/gdb'
     $XDG_CONFIG_HOME/git: 'source/git'

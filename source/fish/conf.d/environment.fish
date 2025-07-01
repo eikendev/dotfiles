@@ -46,6 +46,6 @@ set -gx HACKENV_MEMORY '4194304'
 set -gx BAT_CONFIG_PATH "$HOME/.config/bat/batrc"
 set -gx CARGO_HOME "$HOME/.config/cargo"
 set -gx GOPATH "$HOME/.local/share/go"
-set -gx DOCKER_CONFIG "$HOME/.config/docker"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
 set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
