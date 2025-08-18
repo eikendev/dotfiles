@@ -530,8 +530,12 @@
 	"workbench.editor.limit.value": 8,
 	"python.analysis.typeCheckingMode": "standard",
 	"kilo-code.allowedCommands": [
-		"git log",
 		"git diff",
-		"git show"
+		"git log",
+		"git show",
+		"make build",
+		"make test",
+		"npm install",
+		"npm test"
 	]
 }
