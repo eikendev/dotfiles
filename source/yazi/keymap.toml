@@ -1,7 +1,7 @@
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
 # https://yazi-rs.github.io/docs/tips/#smart-enter
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "l"
 run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
