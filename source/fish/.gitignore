@@ -1,0 +1,10 @@
+completions/fisher.fish
+completions/fzf_configure_bindings.fish
+conf.d/autopair.fish
+conf.d/fzf.fish
+fish_plugins
+fish_variables
+functions/_autopair_*.fish
+functions/_fzf_*.fish
+functions/fisher.fish
+functions/fzf_configure_bindings.fish

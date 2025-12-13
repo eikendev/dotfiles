@@ -9,7 +9,7 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 
 .PHONY: install
-install: submodules dotbot update_go update_fisher rustup fish_completions vim_plugins vim_mkspell install_gef systemd fonts
+install: submodules dotbot update_go install_fish_plugins rustup fish_completions vim_plugins vim_mkspell install_gef systemd fonts
 
 .PHONY: clean
 clean:
@@ -27,9 +27,9 @@ dotbot:
 update_go:
 	./bin/update-go
 
-.PHONY: update_fisher
-update_fisher:
-	fish -c 'fisher update'
+.PHONY: install_fish_plugins
+install_fish_plugins:
+	$(SCRIPTS_DIR)/install-fish-plugins
 
 .PHONY: rustup
 rustup:

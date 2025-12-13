@@ -1,0 +1,119 @@
+#!/usr/bin/env fish
+
+# Allow overriding the desired plugin file via env
+set -q FISH_DESIRED_PLUGIN_FILE; or set FISH_DESIRED_PLUGIN_FILE "$HOME/.config/fish/desired_plugins"
+
+function log
+	printf '%s\n' $argv >&2
+end
+
+function die
+	log $argv
+	exit 1
+end
+
+function ensure_fisher --description 'Ensure fisher is installed'
+	if type -q fisher
+		return
+	end
+
+	log "fisher not found. Installing fisher..."
+	curl -sSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source \
+		; or die "Failed to download fisher"
+
+	fisher install jorgebucaran/fisher \
+		; or die "Failed to install jorgebucaran/fisher"
+
+	type -q fisher \
+		; or die "fisher still not found after installation"
+
+	log "fisher installed successfully"
+end
+
+function main
+	set -l file $FISH_DESIRED_PLUGIN_FILE
+
+	if not test -f "$file"
+		die "File not found: $file"
+	end
+
+	ensure_fisher
+
+	fisher update
+
+	set -l desired_plugins
+
+	while read -l line
+		set line (string trim -- $line)
+
+		# Skip empty lines
+		if test -z "$line"
+			continue
+		end
+
+		# Skip comments
+		if string match -q '#*' -- "$line"
+			continue
+		end
+
+		if not contains -- $line $desired_plugins
+			set -a desired_plugins $line
+		end
+	end < $file
+
+	if test (count $desired_plugins) -eq 0
+		log "No plugins listed in $file"
+		return
+	end
+
+	set -l installed (fisher list)
+
+	log "Desired plugins:"
+	for p in $desired_plugins
+		log "  - $p"
+	end
+
+	set -l missing
+	for p in $desired_plugins
+		if not contains -- $p $installed
+			set -a missing $p
+		end
+	end
+
+	if test (count $missing) -eq 0
+		log "All desired plugins are already installed."
+		log "Plugin sync done."
+		return
+	end
+
+	log "Missing plugins to install:"
+	for p in $missing
+		log "  - $p"
+	end
+
+	for p in $missing
+		log "Installing $p..."
+		fisher install $p \
+			; or die "fisher install $p failed"
+	end
+
+	set -l extra
+	for p in $installed
+		if not contains -- $p $desired_plugins
+			set -a extra $p
+		end
+	end
+
+	if test (count $extra) -gt 0
+		log "Plugins installed but NOT listed in $file:"
+		for p in $extra
+			log "  - $p"
+		end
+		log "To remove them:"
+		log "  fisher remove $extra"
+	end
+
+	log "Plugin sync done."
+end
+
+main
