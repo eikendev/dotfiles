@@ -12,6 +12,13 @@ function die
 	exit 1
 end
 
+function ensure_curl --description 'Ensure curl is available'
+	if type -q curl
+		return
+	end
+	die "curl not found. Please install curl and re-run this script."
+end
+
 function ensure_fisher --description 'Ensure fisher is installed'
 	if type -q fisher
 		return
@@ -31,6 +38,8 @@ function ensure_fisher --description 'Ensure fisher is installed'
 end
 
 function main
+	ensure_curl
+
 	set -l file $FISH_DESIRED_PLUGIN_FILE
 
 	if not test -f "$file"

@@ -1,7 +1,9 @@
 completions/fisher.fish
 completions/fzf_configure_bindings.fish
+completions/task.fish
 conf.d/autopair.fish
 conf.d/fzf.fish
+conf.d/rustup.fish
 fish_plugins
 fish_variables
 functions/_autopair_*.fish

@@ -1,0 +1,79 @@
+#!/usr/bin/env fish
+
+function log --description 'Print a message to stderr'
+	printf '%s\n' $argv >&2
+end
+
+function die --description 'Log an error message and exit with status 1'
+	log $argv
+	exit 1
+end
+
+function ensure_curl --description 'Ensure curl is available'
+	if type -q curl
+		return
+	end
+	die "curl not found. Please install curl and re-run this script."
+end
+
+function ensure_rustup --description 'Ensure rustup is installed and available on PATH'
+	if type -q rustup
+		return
+	end
+
+	ensure_curl
+
+	log "rustup not found. Installing via official installer..."
+
+	# Non-interactive install:
+	# -y -> no prompts
+	# --default-toolchain stable -> install stable as default
+	# host triple is auto-detected for the current architecture
+	set -l rustup_args -y --default-toolchain stable --no-modify-path
+
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+		| sh -s -- $rustup_args \
+		; or die "Failed to run rustup installer"
+
+	# Try to add ~/.cargo/bin to PATH for this session if rustup is still missing
+	if not type -q rustup
+		set -l cargo_bin "$HOME/.cargo/bin"
+		if test -d "$cargo_bin"
+			# Prepend to PATH for current shell session
+			set -gx PATH "$cargo_bin" $PATH
+		end
+	end
+
+	type -q rustup \
+		; or die "rustup still not found after installation. Check that ~/.cargo/bin is on your PATH."
+	log "rustup installed and available"
+end
+
+function update_rustup_and_toolchains --description 'Update rustup and desired toolchains'
+	log "Updating rustup (self update)..."
+	rustup self update \
+		; or die "rustup self update failed"
+
+	for chain in nightly stable
+		log "Updating toolchain: $chain"
+		rustup update $chain \
+			; or die "Failed to update toolchain: $chain"
+	end
+end
+
+function main --description 'Script entry point'
+	ensure_rustup
+
+	if not type -q cargo
+		# cargo is provided by toolchains; updating should pull it in
+		log "cargo not found yet; it should be installed with the toolchains"
+	end
+
+	update_rustup_and_toolchains
+
+	if not type -q cargo
+		log "Warning: cargo still not found after updates. Ensure ~/.cargo/bin is on your PATH."
+	end
+end
+
+main
