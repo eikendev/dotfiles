@@ -529,13 +529,6 @@
 	"workbench.editor.limit.enabled": true,
 	"workbench.editor.limit.value": 8,
 	"python.analysis.typeCheckingMode": "standard",
-	"kilo-code.allowedCommands": [
-		"git diff",
-		"git log",
-		"git show",
-		"make build",
-		"make test",
-		"npm install",
-		"npm test"
-	]
+	"diffEditor.renderSideBySide": true,
+	"update.showReleaseNotes": false
 }
