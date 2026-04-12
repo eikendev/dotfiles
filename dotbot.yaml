@@ -21,6 +21,7 @@
     $XDG_CONFIG_HOME/git: 'source/git'
     $XDG_CONFIG_HOME/htop: 'source/htop'
     $XDG_CONFIG_HOME/lazygit: 'source/lazygit'
+    $XDG_CONFIG_HOME/MangoHud: 'source/MangoHud'
     $XDG_CONFIG_HOME/nvim: 'source/nvim'
     $XDG_CONFIG_HOME/pip: 'source/pip'
     $XDG_CONFIG_HOME/pnpm: 'source/pnpm'
