@@ -8,19 +8,21 @@ set -gx ZELLIJ_AUTO_EXIT true
 if status is-interactive
 	fish_vi_key_bindings
 
-	if type -q zellij
-		eval (zellij setup --generate-auto-start fish | string collect)
-	end
-
 	if type -q direnv
-		eval (direnv hook fish)
+		direnv hook fish | source
 	end
 
-	if type -q starship
-		starship init fish | source
-	end
+	if test -n "$TERM"; and tty >/dev/null 2>&1
+		if type -q starship
+			starship init fish | source
+		end
 
-	if type -q jj
-		jj util completion fish | source
+		if type -q jj
+			jj util completion fish | source
+		end
+
+		if type -q zellij
+			eval (zellij setup --generate-auto-start fish | string collect)
+		end
 	end
 end
