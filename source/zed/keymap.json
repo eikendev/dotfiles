@@ -1,0 +1,110 @@
+[
+	{
+		// Normal mode only.
+		"context": "vim_mode == normal && !menu",
+		"bindings": {
+			"acute": [ // pls fix
+				"workspace::SendKeystrokes",
+				"`"
+			],
+			"acute acute": [ // pls fix
+				"workspace::SendKeystrokes",
+				"` `"
+			],
+			"shift-h": [
+				"workspace::SendKeystrokes",
+				"0"
+			],
+			"shift-l": [
+				"workspace::SendKeystrokes",
+				"$"
+			],
+			"shift-y": [
+				"workspace::SendKeystrokes",
+				"y $"
+			],
+			"shift-q": [
+				"workspace::SendKeystrokes",
+				"@ q"
+			],
+			"x": [
+				"workspace::SendKeystrokes",
+				"\" _ x"
+			],
+			"u": "editor::Undo",
+			"ctrl-r": "editor::Redo",
+			"enter": "workspace::Save",
+			", d f": "file_finder::Toggle",
+			", d d": "pane::DeploySearch",
+			", d o": "outline::Toggle",
+			", ,": [
+				"tab_switcher::Toggle",
+				{
+					"select_last": true
+				}
+			],
+			"backspace": [
+				"pane::CloseActiveItem",
+				{
+					"close_pinned": false
+				}
+			],
+			"tab": "pane::ActivateNextItem",
+			"shift-tab": "pane::ActivatePreviousItem",
+			"#": "pane::ActivateLastItem",
+			"?": "editor::Hover",
+			", a i": "assistant::InlineAssist",
+			", a c": "assistant::InlineAssist",
+			"space": "vim::HelixJumpToWord"
+		}
+	},
+	{
+		// Visual mode only.
+		"context": "vim_mode == visual && !menu",
+		"bindings": {
+			"tab": "editor::Indent",
+			"shift-tab": "editor::Outdent",
+			", y": [
+				"workspace::SendKeystrokes",
+				"\" + y"
+			],
+			", p": [
+				"workspace::SendKeystrokes",
+				"\" + p"
+			],
+			"p": [
+				"workspace::SendKeystrokes",
+				"shift-p"
+			],
+			"|": [
+				"workspace::SendKeystrokes",
+				": s o r t space i enter"
+			],
+			", c": [
+				"editor::ToggleComments",
+				{
+					"advance_downwards": false
+				}
+			],
+			", a i": "assistant::InlineAssist",
+			"space": "vim::HelixJumpToWord"
+		}
+	},
+	{
+		"context": "Workspace && !Editor && !menu",
+		"bindings": {
+			", d d": "pane::DeploySearch",
+			", d f": "file_finder::Toggle",
+		}
+	},
+	{
+		// Make ctrl-w h/j/k/l work consistently when focus is in docks/panels.
+		"context": "Dock",
+		"bindings": {
+			"ctrl-w h": "workspace::ActivatePaneLeft",
+			"ctrl-w j": "workspace::ActivatePaneDown",
+			"ctrl-w k": "workspace::ActivatePaneUp",
+			"ctrl-w l": "workspace::ActivatePaneRight"
+		}
+	}
+]

@@ -1,0 +1,68 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+	"base_keymap": "VSCode",
+	"vim_mode": true,
+	"vertical_scroll_margin": 100000000.0,
+	"minimap": {
+		"show": "never",
+	},
+	"cursor_blink": false,
+	"max_tabs": 8,
+	"buffer_font_family": "Monaspace Neon Light",
+	"buffer_font_fallbacks": [
+		"Source Code Pro",
+		"Droid Sans Fallback"
+	],
+	"buffer_font_size": 18.0,
+	"buffer_font_features": {
+		"ss01": true,
+		"ss02": true,
+		"ss03": true,
+		"ss06": true,
+		"ss07": true,
+		"ss08": true,
+		"calt": true,
+	},
+	"colorize_brackets": true,
+	"show_whitespaces": "trailing",
+	"ensure_final_newline_on_save": true,
+	"hard_tabs": true,
+	"format_on_save": "on",
+	"formatter": "language_server",
+	"telemetry": {
+		"diagnostics": false,
+		"metrics": false,
+	},
+	"ui_font_size": 16,
+	"theme": {
+		"mode": "system",
+		"light": "One Light",
+		"dark": "One Dark",
+	},
+	"project_panel": {
+		"dock": "left"
+	},
+	"terminal": {
+		"dock": "bottom"
+	},
+	"vim": {
+		"default_mode": "normal",
+		"use_system_clipboard": "always",
+		"use_regex_search": true,
+		"use_smartcase_find": true,
+		"gdefault": false,
+		"highlight_on_yank_duration": 200,
+	},
+	"auto_install_extensions": {
+		"html": true,
+		"make": true,
+		"toml": true,
+	},
+}
