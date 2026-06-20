@@ -23,3 +23,5 @@
 *.log
 *.sql
 *.sqlite
+
+**/.claude/settings.local.json
