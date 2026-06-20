@@ -39,6 +39,7 @@
     $XDG_CONFIG_HOME/zellij: 'source/zellij'
     ~/.bash_profile: 'source/bash_profile'
     ~/.bashrc: 'source/bashrc'
+    ~/.claude: 'source/claude'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
     ~/.rtorrent.rc: 'source/rtorrent'
