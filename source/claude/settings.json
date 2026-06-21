@@ -1,16 +1,110 @@
 {
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "LS",
+      "WebFetch",
+      "WebSearch",
+      "Edit",
+      "Write",
+      "Bash(rg *)",
+      "Bash(fd *)",
+      "Bash(ls *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git grep *)",
+      "Bash(git branch *)",
+      "Bash(git rev-parse *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm build *)",
+      "Bash(make build)",
+      "Bash(make check)",
+      "Bash(make clean)",
+      "Bash(make fmt)",
+      "Bash(make lint)",
+      "Bash(make test)",
+      "mcp__context7__*"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.env)",
+      "Read(**/*.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Edit(.git/**)",
+      "Edit(./.git/**)",
+      "Write(.git/**)",
+      "Write(./.git/**)",
+      "Edit(.venv/**)",
+      "Edit(./.venv/**)",
+      "Write(.venv/**)",
+      "Write(./.venv/**)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(curl *)",
+      "Bash(wget *)"
+    ],
+    "ask": [
+      "Bash",
+      "Task",
+      "Edit(Makefile)",
+      "Edit(./Makefile)",
+      "Edit(**/Makefile)",
+      "Write(Makefile)",
+      "Write(./Makefile)",
+      "Write(**/Makefile)"
+    ],
+    "defaultMode": "default"
+  },
   "enabledPlugins": {
     "code-simplifier@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true
+    "security-guidance@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyWrite": [
+        "./.env",
+        "./.env.*",
+        "./**/.env",
+        "./**/.env.*",
+        "./**/*.env",
+        "./**/*.env.*",
+        "./**/*.pem",
+        "./**/*.key"
+      ],
+      "denyRead": [
+        "./.env",
+        "./.env.*",
+        "./**/.env",
+        "./**/.env.*",
+        "./**/*.env",
+        "./**/*.env.*",
+        "./**/*.pem",
+        "./**/*.key"
+      ]
+    }
   },
   "tui": "fullscreen",
-  "theme": "dark",
-  "editorMode": "vim",
-  "voiceEnabled": true,
   "voice": {
     "enabled": true,
     "mode": "hold"
-  }
+  },
+  "theme": "dark",
+  "editorMode": "vim",
+  "voiceEnabled": true
 }
