@@ -98,7 +98,7 @@ keybinds clear-defaults=true {
 	}
 	tmux {
 		bind "space" { ToggleFloatingPanes; SwitchToMode "normal"; }
-		bind "Ctrl t" { NewTab; }
+		bind "n" { NewTab; SwitchToMode "normal"; }
 		bind "\"" { NewPane "down"; SwitchToMode "normal"; }
 		bind "#" { ToggleTab; }
 		bind "%" { NewPane "right"; SwitchToMode "normal"; }
