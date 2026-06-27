@@ -1,0 +1,23 @@
+state_file = "auto"
+
+[hotkey]
+enabled = false
+
+[audio]
+device = "default"
+sample_rate = 16000
+max_duration_secs = 600
+
+[audio.feedback]
+enabled = false
+
+[whisper]
+model = "large-v3-turbo"
+language = "auto"
+on_demand_loading = true
+
+[output]
+mode = "clipboard"
+
+[output.notification]
+on_transcription = true

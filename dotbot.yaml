@@ -31,6 +31,7 @@
     $XDG_CONFIG_HOME/sqlite3: 'source/sqlite3'
     $XDG_CONFIG_HOME/starship.toml: 'source/starship.toml'
     $XDG_CONFIG_HOME/systemd: 'source/systemd'
+    $XDG_CONFIG_HOME/voxtype: 'source/voxtype'
     $XDG_CONFIG_HOME/wezterm: 'source/wezterm'
     $XDG_CONFIG_HOME/wget: 'source/wget'
     $XDG_CONFIG_HOME/yazi: 'source/yazi'
