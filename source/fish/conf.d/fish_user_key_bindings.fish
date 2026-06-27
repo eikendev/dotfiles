@@ -15,4 +15,15 @@ function fish_user_key_bindings
 	# Disable up/down arrow keys.
 	bind -M insert \e\[A true
 	bind -M insert \e\[B true
+
+	# Replace the default ctrl-alt-* chords with an Alt+f leader.
+	if type -q fzf_configure_bindings
+		fzf_configure_bindings \
+			--directory=alt-f,d \
+			--git_log=alt-f,l \
+			--git_status=alt-f,s \
+			--history=ctrl-r \
+			--processes=alt-f,p \
+			--variables=alt-f,v
+	end
 end
