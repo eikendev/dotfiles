@@ -26,7 +26,7 @@ install-fish-completions:
 
 .PHONY: install-vim-plugins
 install-vim-plugins:
-	nvim --headless -c 'Lazy sync' -c 'lua vim.loop.timer_start(vim.loop.new_timer(), 10000, 0, vim.schedule_wrap(function() vim.cmd("quitall!") end))'
+	nvim --headless '+Lazy! sync' +qa
 
 .PHONY: vim-mkspell
 vim-mkspell:
