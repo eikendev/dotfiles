@@ -1,31 +1,20 @@
-BASEDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-
 DOTBOT_CONFIG := dotbot.yaml
-DOTBOT_DIR := dotbot
 
 SCRIPTS_DIR := ./scripts
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
 .PHONY: install
-install: submodules dotbot install-fish-plugins install-fish-completions install-vim-plugins vim-mkspell install-fonts systemd
+install: dotbot install-fish-plugins install-fish-completions install-vim-plugins vim-mkspell install-fonts systemd
 
 .PHONY: clean
 clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;
 	find -type d -name '.mypy_cache' -exec rm -rf {} +;
 
-.PHONY: submodules
-submodules:
-	git submodule update --init --recursive
-	git submodule update --remote
-
 .PHONY: dotbot
 dotbot:
-	set -e; \
-	cd "${BASEDIR}"; \
-	git submodule update --init --recursive "${DOTBOT_DIR}"; \
-	"${BASEDIR}/${DOTBOT_DIR}/bin/dotbot" -d "${BASEDIR}" -c "${DOTBOT_CONFIG}"
+	uv tool run dotbot@latest -c "${DOTBOT_CONFIG}"
 
 .PHONY: install-fish-plugins
 install-fish-plugins:
