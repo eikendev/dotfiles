@@ -1,5 +1,5 @@
 set -g fish_greeting
-set -Ux fish_color_command blue
+set -g fish_color_command blue
 
 # Zellij settings
 set -gx ZELLIJ_AUTO_EXIT true
