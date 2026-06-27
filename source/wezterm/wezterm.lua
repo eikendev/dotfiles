@@ -20,6 +20,23 @@ config.keys = {
 }
 
 config.mouse_bindings = {
+	-- Disable copy-on-select by dropping the copy on each left-button Up event
+	-- (one per streak: 1=drag, 2=word, 3=line). Streak 1 keeps link opening.
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "NONE",
+		action = act.OpenLinkAtMouseCursor,
+	},
+	{
+		event = { Up = { streak = 2, button = "Left" } },
+		mods = "NONE",
+		action = act.Nop,
+	},
+	{
+		event = { Up = { streak = 3, button = "Left" } },
+		mods = "NONE",
+		action = act.Nop,
+	},
 	{
 		event = { Down = { streak = 1, button = "Right" } },
 		mods = "NONE",
