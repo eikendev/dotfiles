@@ -4,7 +4,7 @@ alias cp='cp --interactive --verbose'
 alias ln='ln --interactive --verbose'
 
 # Use nvim if available.
-if test -x (command -v nvim)
+if command -q nvim
     alias vim='nvim'
 end
 
@@ -15,7 +15,7 @@ alias vimx='vim -u NONE'
 alias rgp='rg --no-filename --no-line-number --no-heading --color never'
 
 # Use lsd if available.
-if test -x (command -v lsd)
+if command -q lsd
     alias ls='lsd -A -l --group-dirs first --date relative --icon never'
     alias lse='lsd -A -l --group-dirs first --date date --icon never'
 else
