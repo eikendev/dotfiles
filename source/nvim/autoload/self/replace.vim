@@ -1,10 +1,10 @@
 " NOTE Inspired by https://github.com/LucHermitte/lh-misc/
 
 function! self#replace#restore()
-	if &clipboard == 'unnamed'
-		let @* = s:restore_reg
-	elseif &clipboard == 'unnamedplus'
+	if &clipboard =~# 'unnamedplus'
 		let @+ = s:restore_reg
+	elseif &clipboard =~# 'unnamed'
+		let @* = s:restore_reg
 	else
 		let @" = s:restore_reg
 	endif
