@@ -1,3 +1,6 @@
 *
-!.gitignore
-!settings.json
+!*/
+!/.gitignore
+!/settings.json
+!/commands/**
+!/skills/**
