@@ -1,6 +1,7 @@
+---
 name: TruffleHog
 
-on:
+"on":
   push:
     branches:
       - main

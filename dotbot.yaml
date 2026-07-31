@@ -1,8 +1,9 @@
+---
 - defaults:
     link:
-      create: true # Create parent directories.
-      relink: true # Overwrite incorrect links.
-      relative: true # Use relative symbolic links.
+      create: true  # Create parent directories.
+      relink: true  # Overwrite incorrect links.
+      relative: true  # Use relative symbolic links.
 
 - clean: ['~']
 
