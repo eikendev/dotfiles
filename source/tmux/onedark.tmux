@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2034 # Full palette kept for reference, not all colors are used below.
 onedark_black="#282c34"
 onedark_white="#abb2bf"
 onedark_red="#e06c75"
@@ -16,7 +17,8 @@ onedark_comment_grey="#5c6370"
 __get_tmux() {
    local option=$1
    local default_value=$2
-   local option_value="$(tmux show-option -gqv "$option")"
+   local option_value
+   option_value="$(tmux show-option -gqv "$option")"
 
    if [ -z "$option_value" ]; then
       echo "$default_value"
