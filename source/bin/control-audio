@@ -32,8 +32,10 @@ audio_previous() {
 }
 
 switch_sink() {
-	local CURRENT_SINK_INDEX="$(current_sink)"
-	local CARDS="$(pactl list short sinks | awk '{print $1}' | sort)"
+	local CURRENT_SINK_INDEX
+	CURRENT_SINK_INDEX="$(current_sink)"
+	local CARDS
+	CARDS="$(pactl list short sinks | awk '{print $1}' | sort)"
 	local PICKNEXTCARD=1
 
 	for card in $CARDS; do

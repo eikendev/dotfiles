@@ -13,7 +13,7 @@ else
 fi
 
 printf "%s\n" "Installing $release binary..." >&2
-go install golang.org/dl/$release@latest
+go install golang.org/dl/"$release"@latest
 
 printf "%s\n" "Downloading full $release..." >&2
 $release download
