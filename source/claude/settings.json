@@ -66,6 +66,9 @@
     "enabled": true,
     "failIfUnavailable": true,
     "allowUnsandboxedCommands": false,
+    "network": {
+      "allowAllUnixSockets": true
+    },
     "filesystem": {
       "denyWrite": [
         "./.env",
