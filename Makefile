@@ -40,3 +40,23 @@ install-fonts:
 systemd:
 	systemctl --user daemon-reload
 	systemctl --user enable --now tbunread.service
+
+.PHONY: lint
+lint: lint-shell lint-fish lint-yaml
+
+.PHONY: lint-shell
+lint-shell:
+	git ls-files scripts source \
+		| xargs grep -lE '^#!.*(bash|/bin/sh)' \
+		| xargs -r uv tool run --from shellcheck-py shellcheck -x
+
+.PHONY: lint-fish
+lint-fish:
+	{ git ls-files scripts source | grep '\.fish$$'; \
+		git ls-files scripts source | xargs grep -lE '^#!.*fish'; } \
+		| sort -u \
+		| xargs -r -n1 fish --no-execute
+
+.PHONY: lint-yaml
+lint-yaml:
+	git ls-files '*.yaml' '*.yml' | xargs -r uv tool run yamllint
