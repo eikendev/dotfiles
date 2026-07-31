@@ -8,20 +8,22 @@ basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 BAT_CMD=upower
 CTL_CMD=brightnessctl
 
-TITLE='Power Management'
-
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=./script-utils
 source "$basedir/script-utils"
 
 battery_status() {
 	local EXPRESSION='state|to\ full|to\ empty|percentage'
-	local BATTERY=$($BAT_CMD -e | grep '/battery' | head -1)
+	local BATTERY
+	BATTERY=$($BAT_CMD -e | grep '/battery' | head -1)
 
 	if [ -z "$BATTERY" ]; then
 		printf "%s\n" 'Could not find battery.' >&2
 		exit 1
 	fi
 
-	local STATUS=$($BAT_CMD -i "$BATTERY" | grep --color=never -E "$EXPRESSION")
+	local STATUS
+	STATUS=$($BAT_CMD -i "$BATTERY" | grep --color=never -E "$EXPRESSION")
 
 	if [ -z "$STATUS" ]; then
 		printf "%s\n" 'Could not determine battery status.' >&2
@@ -32,7 +34,8 @@ battery_status() {
 }
 
 battery_level() {
-	local LEVEL="$(battery_status | grep 'percentage' | sed -e 's/.* \([0-9]\{1,3\}\)%.*/\1/')"
+	local LEVEL
+	LEVEL="$(battery_status | grep 'percentage' | sed -e 's/.* \([0-9]\{1,3\}\)%.*/\1/')"
 
 	if [ -z "$LEVEL" ]; then
 		printf "%s\n" 'Could not determine battery level.' >&2
@@ -43,7 +46,8 @@ battery_level() {
 }
 
 print_battery_level() {
-	local LEVEL=$(battery_level)
+	local LEVEL
+	LEVEL=$(battery_level)
 	exit_on_failure 0 $? ''
 
 	printf "%s\n" "Battery: $LEVEL%"
@@ -54,7 +58,8 @@ brightness_status() {
 }
 
 brightness_level() {
-	local LEVEL="$(brightness_status | sed -e 's/.* (\([0-9]\{1,3\}\)%).*/\1/')"
+	local LEVEL
+	LEVEL="$(brightness_status | sed -e 's/.* (\([0-9]\{1,3\}\)%).*/\1/')"
 
 	if [ -z "$LEVEL" ]; then
 		printf "%s\n" 'Could not determine brightness level.' >&2
@@ -65,7 +70,8 @@ brightness_level() {
 }
 
 print_brightness_level() {
-	local BRIGHTNESS="$(brightness_level)"
+	local BRIGHTNESS
+	BRIGHTNESS="$(brightness_level)"
 	exit_on_failure 0 $? ''
 
 	printf "%s\n" "Brightness: $BRIGHTNESS%"
@@ -75,7 +81,8 @@ set_brightness_cond() {
 	local CONDITION="$1"
 	local NEW_BRIGHTNESS="$2"
 
-	local CURRENT_BRIGHTNESS="$(brightness_level)"
+	local CURRENT_BRIGHTNESS
+	CURRENT_BRIGHTNESS="$(brightness_level)"
 	exit_on_failure 0 $? ''
 
 	if [ "$CONDITION" = 'lt' ]; then
