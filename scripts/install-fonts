@@ -61,7 +61,7 @@ get_latest_release_url() {
 		exit 1
 	fi
 
-	printf "$urls"
+	printf '%s' "$urls"
 }
 
 install_font() {

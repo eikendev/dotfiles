@@ -33,16 +33,16 @@ for language in 'en_US' 'de_DE_frami'; do
 	done
 
 	# https://stackoverflow.com/a/19657765
-	lang_regions=( $language )
+	read -ra lang_regions <<< "$language"
 
 	# https://stackoverflow.com/a/13216833
 	lang_regions=( "${lang_regions[@]/#/$TMP_DIR\/}" )
 
 	# https://stackoverflow.com/a/13471141
-	lang_regions="${lang_regions[*]// /|}"
+	lang_regions_joined="${lang_regions[*]// /|}"
 
 	printf "Generating language file for '%s'...\n" "$base"
-	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $lang_regions" -c 'quitall!'
+	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $lang_regions_joined" -c 'quitall!'
 done
 
 rm -r "$TMP_DIR"
