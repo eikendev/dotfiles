@@ -1,0 +1,31 @@
+---
+name: Main
+
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install fish
+        run: sudo apt-get update && sudo apt-get install -y fish
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Verify uv version
+        shell: bash
+        run: uv --version
+
+      - name: Lint
+        run: make lint
