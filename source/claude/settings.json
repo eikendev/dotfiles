@@ -99,5 +99,6 @@
   },
   "theme": "dark",
   "editorMode": "vim",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "autoMemoryEnabled": false
 }
