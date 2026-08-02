@@ -67,7 +67,37 @@
     "failIfUnavailable": true,
     "allowUnsandboxedCommands": false,
     "network": {
-      "allowAllUnixSockets": true
+      "allowAllUnixSockets": true,
+      "allowedDomains": [
+        "github.com",
+        "*.github.com",
+        "*.githubusercontent.com",
+        "pypi.org",
+        "*.pythonhosted.org",
+        "registry.npmjs.org",
+        "nodejs.org",
+        "proxy.golang.org",
+        "sum.golang.org",
+        "go.dev",
+        "index.crates.io",
+        "static.crates.io",
+        "crates.io",
+        "static.rust-lang.org",
+        "registry-1.docker.io",
+        "auth.docker.io",
+        "production.cloudflare.docker.com",
+        "ghcr.io",
+        "*.ghcr.io",
+        "quay.io",
+        "*.quay.io",
+        "public.ecr.aws",
+        "mcr.microsoft.com",
+        "gitlab.com",
+        "*.gitlab.com",
+        "bitbucket.org",
+        "*.bitbucket.org",
+        "codeberg.org"
+      ]
     },
     "filesystem": {
       "denyWrite": [
@@ -97,8 +127,8 @@
     "enabled": true,
     "mode": "hold"
   },
+  "autoMemoryEnabled": false,
   "theme": "dark",
   "editorMode": "vim",
-  "voiceEnabled": true,
-  "autoMemoryEnabled": false
+  "voiceEnabled": true
 }
