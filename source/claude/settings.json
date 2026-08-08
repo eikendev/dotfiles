@@ -67,7 +67,6 @@
     "failIfUnavailable": true,
     "allowUnsandboxedCommands": false,
     "network": {
-      "allowAllUnixSockets": true,
       "allowedDomains": [
         "github.com",
         "*.github.com",
@@ -97,7 +96,8 @@
         "bitbucket.org",
         "*.bitbucket.org",
         "codeberg.org"
-      ]
+      ],
+      "allowAllUnixSockets": true
     },
     "filesystem": {
       "denyWrite": [
@@ -121,6 +121,9 @@
         "./**/*.key"
       ]
     }
+  },
+  "worktree": {
+    "bgIsolation": "none"
   },
   "tui": "fullscreen",
   "voice": {
