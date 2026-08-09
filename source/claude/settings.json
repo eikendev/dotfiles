@@ -53,6 +53,9 @@
     "defaultMode": "default"
   },
   "model": "opus[1m]",
+  "worktree": {
+    "bgIsolation": "none"
+  },
   "enabledPlugins": {
     "code-simplifier@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
@@ -121,9 +124,6 @@
         "./**/*.key"
       ]
     }
-  },
-  "worktree": {
-    "bgIsolation": "none"
   },
   "tui": "fullscreen",
   "voice": {
