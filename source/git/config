@@ -25,7 +25,7 @@
 	history = "log --first-parent --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
 	stats = "shortlog -sn --no-merges"
 	tree = "log --graph --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
-	rmgone = !"git fetch -p; git branch -D $(git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads)"
+	rmgone = !"git fetch -p && git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads | xargs -r git branch -D"
 
 [commit]
 	verbose = true
