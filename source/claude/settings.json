@@ -65,6 +65,7 @@
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true
   },
+  "outputStyle": "Concise",
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
@@ -133,6 +134,5 @@
   "autoMemoryEnabled": false,
   "theme": "dark",
   "editorMode": "vim",
-  "voiceEnabled": true,
-  "outputStyle": "Concise"
+  "voiceEnabled": true
 }
