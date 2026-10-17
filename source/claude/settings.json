@@ -52,7 +52,6 @@
     ],
     "defaultMode": "default"
   },
-  "model": "opus[1m]",
   "worktree": {
     "bgIsolation": "none"
   },
@@ -127,12 +126,7 @@
     }
   },
   "tui": "fullscreen",
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
   "autoMemoryEnabled": false,
   "theme": "dark",
-  "editorMode": "vim",
-  "voiceEnabled": true
+  "editorMode": "vim"
 }
