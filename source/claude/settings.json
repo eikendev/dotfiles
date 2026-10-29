@@ -39,12 +39,12 @@
       "Read(**/*.pem)",
       "Read(**/*.key)",
       "Bash(sudo *)",
-      "Bash(su *)",
-      "Bash(curl *)",
-      "Bash(wget *)"
+      "Bash(su *)"
     ],
     "ask": [
       "Bash",
+      "Bash(curl *)",
+      "Bash(wget *)",
       "Task",
       "Edit(Makefile)",
       "Edit(./Makefile)",
