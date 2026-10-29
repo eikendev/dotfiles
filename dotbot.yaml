@@ -24,7 +24,6 @@
     $XDG_CONFIG_HOME/nvim: 'source/nvim'
     $XDG_CONFIG_HOME/pip: 'source/pip'
     $XDG_CONFIG_HOME/pnpm: 'source/pnpm'
-    $XDG_CONFIG_HOME/pypoetry: 'source/pypoetry'
     $XDG_CONFIG_HOME/python: 'source/python'
     $XDG_CONFIG_HOME/radare2: 'source/radare2'
     $XDG_CONFIG_HOME/ripgrep: 'source/ripgrep'
