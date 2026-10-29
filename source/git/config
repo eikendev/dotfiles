@@ -1,6 +1,6 @@
 [core]
 	whitespace = trailing-space,tabwidth=4
-	pager = delta --color-only | less -R
+	pager = delta
 
 [interactive]
     diffFilter = delta --color-only
@@ -8,6 +8,7 @@
 [delta]
     features = line-numbers
     syntax-theme = Dracula
+    navigate = true
 
 [delta "line-numbers"]
     line-numbers = true
@@ -25,7 +26,13 @@
 	history = "log --first-parent --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
 	stats = "shortlog -sn --no-merges"
 	tree = "log --graph --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
-	rmgone = !"git fetch -p && git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads | xargs -r git branch -D"
+	rmgone = !"git fetch && git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads | xargs -r git branch -D"
+
+[branch]
+	sort = -committerdate
+
+[column]
+	ui = auto
 
 [commit]
 	verbose = true
@@ -34,12 +41,19 @@
 	prompt = false
 	tool = vimdiff
 	algorithm = histogram
+	colorMoved = default
+
+[fetch]
+	prune = true
 
 [gc]
 	pruneexpire = now
 
 [gpg]
 	format = ssh
+
+[help]
+	autocorrect = prompt
 
 [merge]
 	tool = vimdiff
@@ -52,10 +66,6 @@
 	cmd = nvim -d "$BASE" "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
 	trustExitCode = false
 
-[mergetool "fugitive"]
-	cmd = nvim "$MERGED" -c 'Gvdiffsplit!'
-	trustExitCode = false
-
 [pull]
 	ff = only
 
@@ -65,6 +75,7 @@
 	followTags = true
 
 [rebase]
+	autoSquash = true
 	autoStash = true
 	stat = true
 	updateRefs = true
@@ -85,7 +96,7 @@
 	defaultBranch = main
 
 [gpg "ssh"]
-	allowedSignersFile = /home/user/.ssh/allowed_signers
+	allowedSignersFile = ~/.ssh/allowed_signers
 
 [includeIf "hasconfig:remote.*.url:git@eikendev.*.com:*/**"]
 	path = ~/coding/git/eikendev.gitconfig
