@@ -29,6 +29,10 @@
 	stats = "shortlog -sn --no-merges"
 	tree = "log --graph --date-order --pretty=format:'%C(#e5c07b)%h%Creset %C(#98c379)%an%Creset %C(#abb2bf)(%ar)%Creset%C(red)%d%Creset ➔ %<(64,trunc)%s' --decorate --abbrev-commit"
 	rmgone = !"git fetch && git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads | xargs -r git branch -D"
+	# Structural diffs via difftastic, paged by less instead of delta.
+	dft = "-c diff.external=difft -c core.pager=less diff"
+	dlog = "-c diff.external=difft -c core.pager=less log -p --ext-diff"
+	dshow = "-c diff.external=difft -c core.pager=less show --ext-diff"
 
 [branch]
 	sort = -committerdate
@@ -40,10 +44,18 @@
 	verbose = true
 
 [diff]
-	prompt = false
-	tool = vimdiff
+	tool = difftastic
 	algorithm = histogram
 	colorMoved = default
+
+[difftool]
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+
+[pager]
+	difftool = less
 
 [fetch]
 	prune = true
