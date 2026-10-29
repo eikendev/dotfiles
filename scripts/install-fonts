@@ -86,19 +86,28 @@ install_font() {
 	log 'Extracting' "$font_name..."
 	unzip "$temp_dir/$zip" -d "$temp_dir"
 
+	# Swap directories instead of overwriting files. Running applications have
+	# font files mapped, and truncating a mapped file crashes them with SIGBUS.
 	log 'Installing' "$font_name..."
-	mkdir -p "$dest_dir"
-	cp "$temp_dir"/**/*."$ext" "$dest_dir"
+	local stage_dir="$dest_dir.new"
+	rm -rf "$stage_dir"
+	mkdir -p "$stage_dir"
+	cp "$temp_dir"/**/*."$ext" "$stage_dir"
+	rm -rf "$dest_dir"
+	mv "$stage_dir" "$dest_dir"
 
 	rm -rf "$temp_dir"
 }
 
 install_noto_emoji() {
 	local dest_dir="$FONT_DIR/Noto Emoji"
+	local dest_file="$dest_dir/$NOTO_EMOJI_TTF"
 
+	# Rename into place instead of overwriting, see install_font.
 	log 'Downloading and installing Noto Emoji...'
 	mkdir -p "$dest_dir"
-	curl -q -s -S -L -o "$dest_dir/$NOTO_EMOJI_TTF" "$NOTO_EMOJI_URL"
+	curl -q -s -S -L -o "$dest_file.new" "$NOTO_EMOJI_URL"
+	mv -f "$dest_file.new" "$dest_file"
 }
 
 mkdir -p "$FONT_DIR"
