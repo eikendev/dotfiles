@@ -26,7 +26,7 @@ install-fish-completions:
 
 .PHONY: install-vim-plugins
 install-vim-plugins:
-	nvim --headless '+Lazy! sync' +qa
+	nvim --headless '+Lazy! sync' "+lua require('nvim-treesitter').update():wait(300000)" +qa
 
 .PHONY: vim-mkspell
 vim-mkspell:
