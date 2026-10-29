@@ -1,13 +1,9 @@
+-- Cache compiled Lua modules on disk to speed up startup
+vim.loader.enable()
+
 -- Set default colorscheme to koehler
 -- This may be overridden later after loading plugins
 vim.cmd.colorscheme('koehler')
-
--- Enable filetype detection, plugin, and indent
--- https://vi.stackexchange.com/a/10125
-vim.cmd('filetype plugin indent on')
-
--- Enable syntax highlighting
-vim.cmd('syntax on')
 
 -- Override the 'Normal' foreground whenever a colorscheme is applied
 local white = { gui = '#ABB2BF', cterm = '145', cterm16 = '7' }

@@ -1,14 +1,14 @@
 scriptencoding utf-8
 
 " Switch between windows.
-noremap <silent> <C-j> :TmuxNavigateDown<CR>
-noremap <silent> <C-k> :TmuxNavigateUp<CR>
-noremap <silent> <C-h> :TmuxNavigateLeft<CR>
-noremap <silent> <C-l> :TmuxNavigateRight<CR>
-inoremap <C-j> <Esc>:TmuxNavigateDown<CR>
-inoremap <C-k> <Esc>:TmuxNavigateUp<CR>
-inoremap <C-h> <Esc>:TmuxNavigateLeft<CR>
-inoremap <C-l> <Esc>:TmuxNavigateRight<CR>
+noremap <silent> <C-j> <C-w>j
+noremap <silent> <C-k> <C-w>k
+noremap <silent> <C-h> <C-w>h
+noremap <silent> <C-l> <C-w>l
+inoremap <C-j> <Esc><C-w>j
+inoremap <C-k> <Esc><C-w>k
+inoremap <C-h> <Esc><C-w>h
+inoremap <C-l> <Esc><C-w>l
 
 " Jump to start and end of the line.
 noremap H 0

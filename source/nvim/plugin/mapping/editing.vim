@@ -74,12 +74,12 @@ xnoremap <expr> K mode() ==# 'V' ? ":move '<-2<Enter>gv=gv" : '5k'
 nnoremap <silent> <Leader>w :EraseBadWhitespace<CR>
 
 " Delete a surrounding.
-nmap <Leader>sd <Plug>Dsurround
+nmap <Leader>sd <Plug>(nvim-surround-delete)
 " Change a surrounding.
-nmap <Leader>sc <Plug>Csurround
+nmap <Leader>sc <Plug>(nvim-surround-change)
 " Surround a text object.
-nmap <Leader>so <Plug>Ysurround
+nmap <Leader>so <Plug>(nvim-surround-normal)
 " Surround a line.
-nmap <Leader>sl <Plug>Yssurround
+nmap <Leader>sl <Plug>(nvim-surround-normal-cur)
 " Wrap the selection.
-xmap <Leader>s <Plug>VSurround
+xmap <Leader>s <Plug>(nvim-surround-visual)

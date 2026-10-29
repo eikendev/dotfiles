@@ -1,6 +1,4 @@
 return {
-	{ 'editorconfig/editorconfig-vim' },
-
 	{ 'tpope/vim-eunuch' },
 
 	{ 'tpope/vim-repeat' },

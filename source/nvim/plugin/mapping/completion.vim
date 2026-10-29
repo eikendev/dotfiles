@@ -1,12 +1,7 @@
 scriptencoding utf-8
 
 " Use <CR> to confirm completion, `<C-g>u` means break undo chain at current position.
-if has('patch8.1.1068')
-	" Use `complete_info` if (Neo)Vim supports it.
-	inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-	imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <A-CR> to toggle completion.
 inoremap <silent><expr> <A-CR> pumvisible() ? "\<C-e>" : "\<C-n>"
