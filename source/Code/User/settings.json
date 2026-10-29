@@ -48,15 +48,6 @@
 	"outline.showStructs": false,
 	"outline.showTypeParameters": false,
 	"outline.showVariables": false,
-	"python.formatting.provider": "black",
-	"python.linting.enabled": true,
-	"python.linting.flake8Args": [
-		"--ignore=E501"
-	],
-	"python.linting.flake8Enabled": true,
-	"rust-client.engine": "rust-analyzer",
-	"telemetry.enableCrashReporter": false,
-	"telemetry.enableTelemetry": false,
 	"telemetry.telemetryLevel": "off",
 	"vim.easymotion": true,
 	"vim.easymotionKeys": "abcdefghijklmnopqrstuvwxyz0123456789",
