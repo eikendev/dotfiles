@@ -14,14 +14,6 @@ alias vimx='vim -u NONE'
 # Only print matching lines with ripgrep.
 alias rgp='rg --no-filename --no-line-number --no-heading --color never'
 
-# Use lsd if available.
-if command -q lsd
-    alias ls='lsd -A -l --group-dirs first --date relative --icon never'
-    alias lse='lsd -A -l --group-dirs first --date date --icon never'
-else
-    alias ls='ls -a -l -h --color --group-directories-first'
-end
-
 # Display size of files and folders under current directory.
 alias duc='du --max-depth=1 --si'
 

@@ -29,7 +29,7 @@ set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -gx FZF_DEFAULT_OPTS "--no-mouse --preview-window='right:60%' --bind='alt-enter:accept' --bind='alt-k:up' --bind='alt-j:down' --bind='ctrl-f:page-down' --bind='ctrl-b:page-up' --bind='ctrl-d:cancel' --bind='?:toggle-preview'"
 
 # Tell python to read a startup file.
-set -gx PYTHONSTARTUP "$HOME/.config/python/startup"
+set -gx PYTHONSTARTUP "$XDG_CONFIG_HOME/python/startup"
 
 # Use nvim if available.
 if command -v nvim > /dev/null
@@ -42,10 +42,9 @@ end
 
 set -gx HACKENV_MEMORY '4194304'
 
-# Set configuration paths for different applications.
-set -gx BAT_CONFIG_PATH "$HOME/.config/bat/batrc"
-set -gx CARGO_HOME "$HOME/.config/cargo"
-set -gx GOPATH "$HOME/.local/share/go"
-set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
-set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
+# Set configuration paths for applications that do not honor XDG directories.
+set -gx CARGO_HOME "$XDG_CONFIG_HOME/cargo"
+set -gx GOPATH "$XDG_DATA_HOME/go"
+set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
+set -gx RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/ripgreprc"
+set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"

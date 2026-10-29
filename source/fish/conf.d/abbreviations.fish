@@ -1,6 +1,14 @@
 # Quickly display file contents.
 abbr -a b 'bat'
 
+# List directory contents, using lsd if available.
+if command -q lsd
+    abbr -a ls 'lsd -A -l --group-dirs first --date relative --icon never'
+    abbr -a lse 'lsd -A -l --group-dirs first --date date --icon never'
+else
+    abbr -a ls 'ls -a -l -h --color --group-directories-first'
+end
+
 abbr -a gtd 'cd ~/git/personal/dotfiles'
 
 abbr -a G    'git status'
