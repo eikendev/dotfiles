@@ -142,7 +142,7 @@ set fillchars=vert:┃
 set fillchars+=fold:·
 
 " Enable even prettier folding.
-set foldtext=self#settings#foldtext()
+set foldtext=v:lua.require'self.foldtext'.text()
 
 " Hide conceal markers.
 set conceallevel=2

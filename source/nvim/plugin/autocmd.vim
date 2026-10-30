@@ -22,12 +22,6 @@ augroup terminalsettings
 	endif
 augroup end
 
-" Jump to last known position.
-augroup jumplast
-	autocmd!
-	autocmd BufRead ?* call self#autocmd#jumplast#()
-augroup end
-
 " Always open help page in full window.
 augroup onlywindow
 	autocmd!

@@ -11,8 +11,8 @@ nnoremap <silent> <S-Tab> :bp<CR>
 nnoremap <CR> :w<CR>
 nnoremap <A-CR> :wq<CR>
 
-" Reload all buffers.
-nnoremap <silent> <F5> :ReloadAllBuffers<CR>
+" Reload buffers whose file changed on disk.
+nnoremap <silent> <F5> :checktime<CR>
 
 " Close a buffer, quit for last buffer.
 nnoremap <silent> <BS> :SmartClose<CR>

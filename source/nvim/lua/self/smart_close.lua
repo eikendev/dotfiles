@@ -1,29 +1,8 @@
 -- Close the current buffer, quitting Neovim when it is the last listed one.
---
--- Unlike a bare :bdelete this never dies with a raw Vim error. Buffers that
--- cannot be written (scratch, nofile, readonly) offer to be discarded, and
--- failures from :write, :bdelete or :quit are reported as messages.
+
+local run = require('self.util').run
 
 local M = {}
-
--- Reduce "...: Vim(write):E45: ..." from pcall to the bare Vim message.
-local function clean_error(err)
-	err = tostring(err)
-
-	return err:match('Vim%b():%s*(.*)$') or err
-end
-
--- Run an Ex command, reporting instead of raising on failure. A warning
--- rather than an error, so the mapping never ends in an exception.
-local function run(cmd)
-	local ok, err = pcall(vim.cmd, cmd)
-
-	if not ok then
-		vim.notify(clean_error(err), vim.log.levels.WARN)
-	end
-
-	return ok
-end
 
 local function listed_buffer_count()
 	return #vim.fn.getbufinfo({ buflisted = 1 })

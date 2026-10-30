@@ -6,8 +6,8 @@ nnoremap Q @q
 " Do not overwrite yank when deleting a character.
 nnoremap x "_x
 
-" Do not overwrite yank when pasting.
-xnoremap <silent> <expr> p self#replace#replace()
+" Do not overwrite yank when pasting over a selection.
+xnoremap p P
 
 " Use tab for indenting in visual mode.
 xnoremap <Tab> >gv
