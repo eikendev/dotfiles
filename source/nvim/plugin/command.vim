@@ -15,7 +15,7 @@ command! ToggleLocationList call self#command#toggle_somelist#('location')
 
 command! ToggleConceallevel call self#command#toggle_conceallevel#()
 
-command! SmartClose call self#command#smart_close#()
+command! -bar SmartClose lua require('self.smart_close').close()
 
 " Toggle semicolon at the end of the line.
 command! ToggleSemicolon call self#misc#toggle_end_char(';') | call repeat#set("\<Plug>(self-toggle-semicolon)")
