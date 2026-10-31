@@ -40,7 +40,7 @@ else
     set -gx VISUAL 'vim'
 end
 
-set -gx HACKENV_MEMORY '4194304'
+set -gx HACKENV_MEMORY '4G'
 
 # Set configuration paths for applications that do not honor XDG directories.
 set -gx CARGO_HOME "$XDG_CONFIG_HOME/cargo"
