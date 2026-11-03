@@ -17,7 +17,11 @@ let
   dotfilesDir = envOr "DOTFILES_DIR" "${homeDirectory}/.dotfiles";
 in
 {
-  imports = [ ./modules/files.nix ];
+  imports = [
+    ./modules/files.nix
+    ./modules/nvim.nix
+    ./modules/services.nix
+  ];
 
   home = {
     inherit username homeDirectory;

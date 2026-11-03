@@ -25,7 +25,7 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: switch install-vim-plugins vim-mkspell systemd
+install: switch install-vim-plugins
 
 .PHONY: switch
 switch:
@@ -43,11 +43,6 @@ install-vim-plugins:
 .PHONY: vim-mkspell
 vim-mkspell:
 	$(SCRIPTS_DIR)/vim-mkspell
-
-.PHONY: systemd
-systemd:
-	systemctl --user daemon-reload
-	systemctl --user enable --now tbunread.service
 
 .PHONY: lint
 lint: lint-shell lint-fish lint-yaml

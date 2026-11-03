@@ -39,7 +39,6 @@ let
     "Code/User/keybindings.json"
     "Code/User/settings.json"
     "Code/User/tasks.json"
-    "systemd/user/tbunread.service"
   ];
 
   # Files at fixed locations outside ~/.config.
