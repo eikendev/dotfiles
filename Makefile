@@ -67,7 +67,7 @@ lint-nix:
 .PHONY: lint-shell
 lint-shell:
 	git ls-files scripts source \
-		| xargs grep -lE '^#!.*(bash|/bin/sh)' \
+		| xargs grep -lE '^#!.*[/[:space:]](ba)?sh$$' \
 		| xargs -r uv tool run --from shellcheck-py shellcheck -x
 
 .PHONY: lint-fish

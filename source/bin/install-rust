@@ -35,17 +35,19 @@ function ensure_rustup --description 'Ensure rustup is installed and available o
 		| sh -s -- $rustup_args \
 		; or die "Failed to run rustup installer"
 
-	# Try to add ~/.cargo/bin to PATH for this session if rustup is still missing
-	if not type -q rustup
-		set -l cargo_bin "$HOME/.cargo/bin"
-		if test -d "$cargo_bin"
-			# Prepend to PATH for current shell session
-			set -gx PATH "$cargo_bin" $PATH
-		end
+	# The installer puts binaries below CARGO_HOME, or ~/.cargo without it.
+	set -l cargo_bin "$HOME/.cargo/bin"
+	if set -q CARGO_HOME
+		set cargo_bin "$CARGO_HOME/bin"
+	end
+
+	# Prepend to PATH for the current shell session if rustup is still missing
+	if not type -q rustup; and test -d "$cargo_bin"
+		set -gx PATH "$cargo_bin" $PATH
 	end
 
 	type -q rustup \
-		; or die "rustup still not found after installation. Check that ~/.cargo/bin is on your PATH."
+		; or die "rustup still not found after installation. Check that $cargo_bin is on your PATH."
 	log "rustup installed and available"
 end
 
@@ -72,7 +74,7 @@ function main --description 'Script entry point'
 	update_rustup_and_toolchains
 
 	if not type -q cargo
-		log "Warning: cargo still not found after updates. Ensure ~/.cargo/bin is on your PATH."
+		log "Warning: cargo still not found after updates. Ensure the cargo bin directory is on your PATH."
 	end
 end
 

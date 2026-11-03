@@ -2,8 +2,8 @@
 
 current_sink() {
 	local sink_name
-	sink_name="$(pactl info | grep 'Default Sink' | awk '{print $3}')"
-	pactl list short sinks | grep "$sink_name" | awk '{print $1}'
+	sink_name="$(pactl get-default-sink)"
+	pactl list short sinks | awk -v name="$sink_name" '$2 == name { print $1 }'
 }
 
 system_dbus() {
