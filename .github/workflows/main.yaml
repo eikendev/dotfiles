@@ -33,7 +33,7 @@ jobs:
         run: uv --version
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v12
+        uses: DeterminateSystems/nix-installer-action@v23
 
       - name: Cache Nix store
         uses: nix-community/cache-nix-action@v7
