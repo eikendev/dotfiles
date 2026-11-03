@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# Fetch a .gitignore from gitignore.io for the given templates. Without -f the
+# result is printed. With -f it replaces the generated block in FILE and keeps
+# everything else, so custom rules survive a refresh.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+API='https://www.toptal.com/developers/gitignore/api'
+START_MARKER="# Created by $API/"
+END_MARKER="# End of $API/"
+
+usage() {
+	printf '%s\n' "Usage: $0 [-f FILE] TEMPLATE[,TEMPLATE...]" "       $0 -l" >&2
+	printf '%s\n' '  -f FILE  Update the generated block in FILE instead of printing it.' >&2
+	printf '%s\n' '  -l       List the available templates.' >&2
+	exit 2
+}
+
+fetch() {
+	curl -q -sSfL "$API/$1"
+}
+
+file=''
+
+while getopts 'f:l' option; do
+	case "$option" in
+		f) file="$OPTARG" ;;
+		l) fetch 'list?format=lines'; exit ;;
+		*) usage ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+[ $# -eq 1 ] || usage
+templates="$1"
+
+if [ -z "$file" ]; then
+	fetch "$templates"
+	exit
+fi
+
+tmp_dir=$(mktemp -d)
+trap 'rm -r "$tmp_dir"' EXIT
+
+block="$tmp_dir/block"
+result="$tmp_dir/result"
+
+fetch "$templates" > "$block"
+touch "$file"
+
+start=$(grep -n -m1 "^$START_MARKER" "$file" | cut -d: -f1 || true)
+
+if [ -n "$start" ]; then
+	end=$(tail -n +"$start" "$file" | grep -n -m1 "^$END_MARKER" | cut -d: -f1 || true)
+
+	if [ -z "$end" ]; then
+		printf '%s\n' "Found the start of a generated block in $file but not its end." >&2
+		exit 1
+	fi
+
+	end=$((start + end - 1))
+
+	{
+		head -n $((start - 1)) "$file"
+		cat "$block"
+		tail -n +$((end + 1)) "$file"
+	} > "$result"
+else
+	{
+		if [ -s "$file" ]; then
+			cat "$file"
+			echo
+		fi
+
+		cat "$block"
+	} > "$result"
+fi
+
+cp "$result" "$file"
+printf '%s\n' "Updated the generated block in $file." >&2
