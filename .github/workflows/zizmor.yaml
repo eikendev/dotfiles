@@ -1,6 +1,7 @@
+---
 name: zizmor
 
-on:
+"on":
   push:
     branches:
       - main
@@ -22,5 +23,5 @@ jobs:
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@v0.7.1
         with:
-          advanced-security: false # Requires GitHub Advanced Security on private repos
+          advanced-security: false  # Requires GitHub Advanced Security on private repos
           annotations: true
