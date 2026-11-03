@@ -1,25 +1,46 @@
 #!/usr/bin/env bash
 
-set -e
+# Installs the latest Go release next to the system one and links it into
+# ~/bin, which has to come first on PATH.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+log() {
+	printf '%s\n' "$*" >&2
+}
+
+die() {
+	log "$@"
+	exit 1
+}
+
+command -v go >/dev/null || die 'go not found, install it and re-run.'
+command -v curl >/dev/null || die 'curl not found, install it and re-run.'
+
+# go install puts the release downloader here.
+go_bin="$(go env GOPATH)/bin"
 
 version="$(go version | cut -d' ' -f 3)"
 release="$(curl -q -s -S -L 'https://golang.org/VERSION?m=text' | grep '^go')"
 
-if [[ "$version" == "$release" ]]; then
-	printf "%s\n" "Local Go version $release is up-to-date." >&2
-    exit 0
-else
-	printf "%s\n" "Local Go version is $version. A new release $release is available." >&2
+if [ "$version" = "$release" ]; then
+	log "Local Go version $release is up-to-date."
+	exit 0
 fi
 
-printf "%s\n" "Installing $release binary..." >&2
-go install golang.org/dl/"$release"@latest
+log "Local Go version is $version, release $release is available."
 
-printf "%s\n" "Downloading full $release..." >&2
-$release download
+log "Installing the $release downloader..."
+go install "golang.org/dl/$release@latest"
 
-printf "%s\n" "Updating Go binaries in ~/bin..." >&2
-ln -sf "$($release env GOROOT)"/bin/* ~/bin/
+log "Downloading $release..."
+"$go_bin/$release" download
 
-version="$(go version | cut -d' ' -f 3)"
-printf "%s\n" "Local Go version is now $version." >&2
+log 'Linking Go binaries into ~/bin...'
+mkdir -p "$HOME/bin"
+ln -sf "$("$go_bin/$release" env GOROOT)"/bin/* "$HOME/bin/"
+
+version="$("$HOME/bin/go" version | cut -d' ' -f 3)"
+log "Local Go version is now $version."

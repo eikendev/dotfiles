@@ -1,48 +1,46 @@
 #!/usr/bin/env bash
 
-set -e
+# Builds the English and German spell files for Neovim from the LibreOffice
+# dictionaries.
 
-TMP_DIR=$(mktemp -d)
+set -o errexit
+set -o nounset
+set -o pipefail
 
-XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-
-DST_DIRECTORY="$XDG_DATA_HOME/nvim/site/spell"
-
-if ! [ -d "$DST_DIRECTORY" ]; then
-	if ! mkdir -p "$DST_DIRECTORY"; then
-		printf "%s\n" 'Cannot create spell directory.' >&2
-		exit 1
-	fi
-fi
-
-download_asset_url () {
-	base="$1"
-	lang_region="$2"
-	extension="$3"
-
-	curl -q -s -S -L -o "$TMP_DIR/$lang_region.$extension" "https://github.com/LibreOffice/dictionaries/raw/master/$base/$lang_region.$extension"
+log() {
+	printf '%s\n' "$*" >&2
 }
 
-for language in 'en_US' 'de_DE_frami'; do
-	base="$(printf '%s' "$language" | cut -d '_' -f 1)"
+die() {
+	log "$@"
+	exit 1
+}
 
-	for lang_region in $language; do
-		printf "Downloading dictionaries for '%s'...\n" "$lang_region"
-		download_asset_url "$base" "$lang_region" 'aff'
-		download_asset_url "$base" "$lang_region" 'dic'
-	done
+command -v nvim >/dev/null || die 'nvim not found, install it and re-run.'
+command -v curl >/dev/null || die 'curl not found, install it and re-run.'
 
-	# https://stackoverflow.com/a/19657765
-	read -ra lang_regions <<< "$language"
+tmp_dir="$(mktemp -d)"
+trap 'rm -r "$tmp_dir"' EXIT
 
-	# https://stackoverflow.com/a/13216833
-	lang_regions=( "${lang_regions[@]/#/$TMP_DIR\/}" )
+xdg_data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+spell_dir="$xdg_data_home/nvim/site/spell"
 
-	# https://stackoverflow.com/a/13471141
-	lang_regions_joined="${lang_regions[*]// /|}"
+mkdir -p "$spell_dir" || die 'Cannot create spell directory.'
 
-	printf "Generating language file for '%s'...\n" "$base"
-	nvim --headless -c "silent mkspell! $DST_DIRECTORY/$base $lang_regions_joined" -c 'quitall!'
+download() {
+	local base="$1" lang_region="$2" extension="$3"
+
+	curl -q -s -S -L -o "$tmp_dir/$lang_region.$extension" \
+		"https://github.com/LibreOffice/dictionaries/raw/master/$base/$lang_region.$extension"
+}
+
+for lang_region in 'en_US' 'de_DE_frami'; do
+	base="$(printf '%s' "$lang_region" | cut -d '_' -f 1)"
+
+	log "Downloading dictionaries for $lang_region..."
+	download "$base" "$lang_region" 'aff'
+	download "$base" "$lang_region" 'dic'
+
+	log "Generating spell file for $base..."
+	nvim --headless -c "silent mkspell! $spell_dir/$base $tmp_dir/$lang_region" -c 'quitall!'
 done
-
-rm -r "$TMP_DIR"
