@@ -7,6 +7,9 @@ name: TruffleHog
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   scan-secrets:
     name: Scan for secrets
@@ -16,6 +19,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Run TruffleHog
         uses: trufflesecurity/trufflehog@main
