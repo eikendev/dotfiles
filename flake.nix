@@ -9,9 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Optional private overlay. The default is a tracked no-op flake. The
-    # Makefile replaces it with --override-input when a private directory is
-    # configured, see README.
+    # Optional private overlay, overridden by the Makefile. See README.
     private.url = "path:./private-empty";
   };
 
@@ -35,8 +33,7 @@
         ];
       };
 
-      # Expose the pinned Home Manager CLI so `nix run .#home-manager` always
-      # matches the version the configuration was written against.
+      # Pinned Home Manager CLI for `nix run .#home-manager`.
       packages.${system}.home-manager = home-manager.packages.${system}.default;
 
       formatter.${system} = pkgs.nixfmt-tree;

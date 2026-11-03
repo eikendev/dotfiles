@@ -1,13 +1,11 @@
-# Links from the home directory into source/. Every link goes through
-# ~/.dotfiles so that the checkout can move without touching this file.
+# Links into source/, through ~/.dotfiles so the checkout can move.
 { config, lib, ... }:
 let
   link = path: {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/source/${path}";
   };
 
-  # Entries linked as a whole under ~/.config. Apps may write into them, and
-  # git shows what they changed or created.
+  # Linked as a whole, git shows what apps write into them.
   configEntries = [
     "bat"
     "ddcutil"
@@ -32,8 +30,7 @@ let
     "zellij"
   ];
 
-  # Apps that fill their config directory with state. Only the tracked files
-  # are linked, the directory itself stays outside the repository.
+  # Apps that fill their config dir with state, only tracked files are linked.
   configFiles = [
     "cargo/config.toml"
     "Code/User/keybindings.json"

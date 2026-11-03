@@ -1,6 +1,5 @@
-# Fish reads $XDG_DATA_DIRS for vendor directories once at startup, before
-# conf.d runs, so the Nix profile's vendor directories are registered by hand.
-# Loaded after environment.fish, which sets XDG_STATE_HOME.
+# Fish scans $XDG_DATA_DIRS for vendor dirs before conf.d runs, so the Nix
+# profile is registered by hand.
 set -l nix_fish_share "$XDG_STATE_HOME/nix/profile/share/fish"
 
 if test -d "$nix_fish_share"

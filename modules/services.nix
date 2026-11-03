@@ -1,5 +1,3 @@
-# User services. Home Manager writes the unit files, enables them through
-# their Install section and restarts changed units on switch.
 { ... }:
 {
   systemd.user.services.tbunread = {
