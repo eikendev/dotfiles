@@ -14,6 +14,11 @@ indent_style = space
 [*.{yml,yaml}]
 indent_style = space
 
+# Matches nixfmt.
+[*.nix]
+indent_style = space
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false
 
