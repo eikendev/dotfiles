@@ -15,6 +15,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       home-manager,
       private,
@@ -23,8 +24,23 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
+      check =
+        name: tool: command:
+        pkgs.runCommand "check-${name}" { nativeBuildInputs = [ tool ]; } ''
+          ${command} ${self}
+          touch "$out"
+        '';
     in
     {
+      # Run with `nix flake check`.
+      checks.${system} = {
+        format = check "format" pkgs.nixfmt "nixfmt --check";
+        statix = check "statix" pkgs.statix "statix check";
+        deadnix = check "deadnix" pkgs.deadnix "deadnix --fail";
+        home = self.homeConfigurations.default.activationPackage;
+      };
+
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [

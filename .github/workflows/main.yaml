@@ -27,5 +27,8 @@ jobs:
         shell: bash
         run: uv --version
 
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v12
+
       - name: Lint
         run: make lint

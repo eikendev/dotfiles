@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   systemd.user.services.tbunread = {
     Unit.Description = "tbunread";
 

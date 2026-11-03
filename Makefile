@@ -53,8 +53,16 @@ install-vim-plugins:
 vim-mkspell:
 	$(SCRIPTS_DIR)/vim-mkspell
 
+.PHONY: fmt
+fmt:
+	nix fmt
+
 .PHONY: lint
-lint: lint-shell lint-fish lint-yaml
+lint: lint-shell lint-fish lint-yaml lint-nix
+
+.PHONY: lint-nix
+lint-nix:
+	nix flake check
 
 .PHONY: lint-shell
 lint-shell:
