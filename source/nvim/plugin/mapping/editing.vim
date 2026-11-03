@@ -49,9 +49,9 @@ nmap ; <Plug>(self-toggle-semicolon)
 " Reindent the current file.
 nnoremap == :PreserveNormal gg=G<CR>
 
-" Simpified substitutions.
-nnoremap s :%s//g<Left><Left>
-xnoremap S *<Esc>:%s///g<Left><Left>
+" Simplified substitutions, 'gdefault' already makes them global.
+nnoremap s :%s//<Left>
+xnoremap S *<Esc>:%s///<Left>
 
 " Replace current word with the word last yanked.
 nnoremap <silent> S :PreserveNormal "_diw"0P<CR>

@@ -3,6 +3,7 @@ return {
 		'windwp/nvim-autopairs',
 		event = 'InsertEnter',
 		opts = {
+			map_cr = false,  -- <CR> is mapped in plugin/mapping/completion.lua
 			disable_filetype = { "TelescopePrompt", "spectre_panel" },
 			ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
 			enable_afterquote = false,  -- allows bracket pairs to be automatically added after a quote
