@@ -3,11 +3,12 @@
 		// Normal mode only.
 		"context": "vim_mode == normal && !menu",
 		"bindings": {
-			"acute": [ // pls fix
+			// Acute accent as backtick, for marks on international keyboards.
+			"acute": [
 				"workspace::SendKeystrokes",
 				"`"
 			],
-			"acute acute": [ // pls fix
+			"acute acute": [
 				"workspace::SendKeystrokes",
 				"` `"
 			],

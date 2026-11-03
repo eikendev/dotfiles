@@ -141,7 +141,7 @@ plugins {
 load_plugins {
 }
 
-theme "nord"
+theme "onedark"
 
 default_layout "compact"
 

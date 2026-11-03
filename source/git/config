@@ -60,9 +60,6 @@
 [fetch]
 	prune = true
 
-[gc]
-	pruneexpire = now
-
 [gpg]
 	format = ssh
 

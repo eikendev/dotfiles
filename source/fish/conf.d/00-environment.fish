@@ -13,9 +13,6 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 
-# Set the default desktop wallpaper.
-set -gx WALLPAPER '/usr/share/backgrounds/default.png'
-
 # Color support and case-insensitive search in less.
 set -gx LESS "--ignore-case --tilde --jump-target=8 --RAW-CONTROL-CHARS --clear-screen --silent --tabs=4 --shift=5"
 

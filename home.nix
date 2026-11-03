@@ -34,7 +34,6 @@ in
       fishPlugins.autopair
       fishPlugins.fzf-fish
 
-      fira-code
       monaspace
       source-code-pro
       nerd-fonts.symbols-only

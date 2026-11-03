@@ -48,6 +48,10 @@ make install
 
 This updates the Nix inputs in `flake.lock` and the Neovim plugins in `source/nvim/lazy-lock.json`.
 
+### Programs from elsewhere
+
+A few programs are expected but installed neither by DNF nor by this repository: `tbunread` in the cargo bin directory for the user service in `modules/services.nix`, and `pinentry-qt` for the GPG agent.
+
 ### Private overlay
 
 The public setup works on its own.

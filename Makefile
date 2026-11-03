@@ -42,11 +42,6 @@ switch:
 gc:
 	nix-collect-garbage --delete-older-than 30d
 
-.PHONY: clean
-clean:
-	find -type d -name '__pycache__' -exec rm -rf {} +;
-	find -type d -name '.mypy_cache' -exec rm -rf {} +;
-
 # Plugins come from lazy-lock.json, treesitter parsers are unpinned.
 .PHONY: install-vim-plugins
 install-vim-plugins:
