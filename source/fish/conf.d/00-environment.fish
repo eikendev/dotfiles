@@ -1,3 +1,5 @@
+# Sourced first, the other conf.d files rely on these variables.
+
 # Set locale information.
 set -gx LANG 'en_US.UTF-8'
 set -gx LANGUAGE 'en_US'

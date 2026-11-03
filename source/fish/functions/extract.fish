@@ -1,55 +1,55 @@
-function extract -d "Extract various compressed file formats into a directory"
-	set file $argv[1]
+function extract -d "Extract an archive into a directory named after it, next to the archive"
+	set -l file $argv[1]
 
 	if not test -f "$file"
 		printf "Usage: extract <file>\n" >&2
 		return 1
 	end
 
-	set directory (string split -m 1 '.' $file)[1]
+	# Strip every extension from the file name, so foo.tar.gz becomes foo.
+	set -l archive (path basename $file)
+	set -l name (string split -m 1 '.' $archive)[1]
+
+	if test -z "$name"
+		printf "Cannot derive a directory name from '%s'.\n" "$file" >&2
+		return 1
+	end
+
+	set -l directory (path dirname $file)/$name
+
 	if test -e "$directory"
 		printf "Directory '%s' already exists.\n" "$directory" >&2
 		return 1
 	end
 
-	mkdir "$directory"
-	if test $status -ne 0
-		return 1
-	end
+	mkdir "$directory"; or return 1
+	mv "$file" "$directory/"; or return 1
+	cd "$directory"; or return 1
 
-	mv "$file" "$directory/"
-	if test $status -ne 0
-		return 1
-	end
-
-	cd "$directory"
-	if test $status -ne 0
-		return 1
-	end
-
-	switch "$file"
+	switch "$archive"
 		case '*.7z'
-			7z x "$file"
+			7z x "$archive"
 		case '*.rar'
-			unrar x -ad "$file"
+			unrar x -ad "$archive"
 		case '*.tar' '*.tar.bz2' '*.tar.gz' '*.tar.xz' '*.tbz2' '*.tgz'
-			tar -xvf "$file"
+			tar -xvf "$archive"
 		case '*.bz2'
-			bunzip2 "$file"
+			bunzip2 "$archive"
 		case '*.gz'
-			gunzip "$file"
+			gunzip "$archive"
 		case '*.xz'
-			unxz "$file"
+			unxz "$archive"
 		case '*.zip'
-			unzip "$file"
+			unzip "$archive"
 		case '*'
 			printf "Unknown compression format.\n" >&2
 			return 1
 	end
 
 	if test $status -ne 0
-		printf "Extracting file '%s' failed.\n" "$file"
-	else
-		printf "Extracting file '%s' was successful.\n" "$file"
+		printf "Extracting file '%s' failed.\n" "$archive" >&2
+		return 1
 	end
+
+	printf "Extracting file '%s' was successful.\n" "$archive"
 end
