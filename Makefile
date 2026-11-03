@@ -2,7 +2,7 @@ SCRIPTS_DIR := ./scripts
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
-# Optional private overlay, see README. The .env file is not tracked.
+# Optional private overlay, see README.
 -include .env
 
 HM_FLAGS :=
@@ -25,11 +25,20 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: switch install-vim-plugins
+install: update switch install-vim-plugins gc
+
+.PHONY: update
+update:
+	nix flake update
 
 .PHONY: switch
 switch:
 	DOTFILES_DIR="$(CURDIR)" nix run "$(CURDIR)#home-manager" -- switch --impure --flake "$(CURDIR)#default" $(HM_FLAGS)
+
+# Keep 30 days of generations for rollback.
+.PHONY: gc
+gc:
+	nix-collect-garbage --delete-older-than 30d
 
 .PHONY: clean
 clean:
