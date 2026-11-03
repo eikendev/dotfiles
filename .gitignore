@@ -1,3 +1,6 @@
+# Local settings for the private overlay
+.env
+
 # Configuration files for coding agents
 .claude/
 .clinerules/

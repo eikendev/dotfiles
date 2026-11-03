@@ -4,6 +4,22 @@ SCRIPTS_DIR := ./scripts
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
+# Optional private overlay, see README. The .env file is not tracked.
+-include .env
+
+HM_FLAGS :=
+ifneq ($(strip $(PRIVATE_DIR)),)
+ifneq ($(wildcard $(PRIVATE_DIR)/.),)
+HM_FLAGS += --override-input private path:$(PRIVATE_DIR) --no-write-lock-file
+endif
+endif
+
+.PHONY: init
+init:
+	sudo dnf install nix nix-daemon
+	sudo systemctl enable --now nix-daemon
+	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
+
 .PHONY: install
 install: dotbot install-fish-plugins install-vim-plugins vim-mkspell install-fonts systemd
 
