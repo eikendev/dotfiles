@@ -1,8 +1,8 @@
-# Links into source/, through ~/.dotfiles so the checkout can move.
+# Links into source/ of the checkout, see dotfiles.nix.
 { config, lib, ... }:
 let
   link = path: {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/source/${path}";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.link}/source/${path}";
   };
 
   # Linked as a whole, git shows what apps write into them.

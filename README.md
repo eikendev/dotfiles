@@ -6,7 +6,8 @@ They are mainly intended for personal use, but since I am regularly asked how I'
 Some configuration files are inspired by other repositories, others were originally authored by myself.
 I've tried to give credit where appropriate, but I might have missed something.
 
-The programs being configured are installed with the distribution's package manager and are not part of this repository.
+The programs being configured come from various sources, mostly the distribution's package manager, and are not part of this repository.
+A few packages such as fonts and fish plugins are installed from nixpkgs via Home Manager, see `home.nix`.
 
 ## Installation
 
@@ -50,7 +51,8 @@ This updates the Nix inputs in `flake.lock` and the Neovim plugins in `source/nv
 
 ### Programs from elsewhere
 
-A few programs are expected but installed neither by DNF nor by this repository: `tbunread` in the cargo bin directory for the user service in `modules/services.nix`, and `pinentry-qt` for the GPG agent.
+The Go and Rust toolchains are installed and updated by `modules/toolchains.nix` on every `make install`, starting from the distribution's `go`.
+Some setup steps and services expect programs that come neither from DNF nor from this repository, the comment at the top of each module states what it needs.
 
 ### Private overlay
 

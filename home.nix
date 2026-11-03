@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   # Identity from the environment, the Makefile passes --impure. Fallbacks
   # are for CI.
@@ -11,26 +11,22 @@ let
 
   username = envOr "USER" "nobody";
   homeDirectory = envOr "HOME" "/home/${username}";
-
-  # Checkout path from the Makefile. All links resolve through ~/.dotfiles.
-  dotfilesDir = envOr "DOTFILES_DIR" "${homeDirectory}/.dotfiles";
 in
 {
   imports = [
+    ./modules/dotfiles.nix
     ./modules/files.nix
     ./modules/gdb.nix
     ./modules/nvim.nix
     ./modules/services.nix
     ./modules/tldr.nix
+    ./modules/toolchains.nix
   ];
 
   home = {
     inherit username homeDirectory;
     stateVersion = "26.05";
 
-    file.".dotfiles".source = config.lib.file.mkOutOfStoreSymlink dotfilesDir;
-
-    # Only packages from nixpkgs, everything else comes from DNF.
     packages = with pkgs; [
       # Loaded by source/fish/conf.d/nix.fish.
       fishPlugins.autopair
@@ -42,6 +38,9 @@ in
       noto-fonts-color-emoji
     ];
   };
+
+  # Checkout path from the Makefile.
+  dotfiles.checkout = envOr "DOTFILES_DIR" "${homeDirectory}/.dotfiles";
 
   fonts.fontconfig.enable = true;
 
