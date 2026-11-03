@@ -42,4 +42,3 @@
     ~/.claude: 'source/claude'
     ~/.gnupg/gpg-agent.conf: 'source/gpg/gpg-agent.conf'
     ~/.gnupg/gpg.conf: 'source/gpg/gpg.conf'
-    ~/.rtorrent.rc: 'source/rtorrent'
