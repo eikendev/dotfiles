@@ -52,7 +52,7 @@ This updates the Nix inputs in `flake.lock` and the Neovim plugins in `source/nv
 ### Programs from elsewhere
 
 The Go and Rust toolchains are installed and updated by `modules/toolchains.nix` on every `make install`, starting from the distribution's `go`.
-Some setup steps and services expect programs that come neither from DNF nor from this repository, the comment at the top of each module states what it needs.
+Some setup steps and services expect programs that come neither from DNF nor from this repository.
 
 ### Private overlay
 
