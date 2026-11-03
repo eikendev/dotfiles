@@ -3,14 +3,15 @@
 set -o errexit
 set -o errtrace
 
-basedir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-
 BAT_CMD=upower
 CTL_CMD=brightnessctl
 
-# shellcheck source-path=SCRIPTDIR
-# shellcheck source=./script-utils
-source "$basedir/script-utils"
+check_dependency() {
+	if ! command -v "$1" > /dev/null; then
+		printf "%s\n" "$1 is not installed on your system." >&2
+		exit 1
+	fi
+}
 
 battery_status() {
 	local EXPRESSION='state|to\ full|to\ empty|percentage'
@@ -48,7 +49,6 @@ battery_level() {
 print_battery_level() {
 	local LEVEL
 	LEVEL=$(battery_level)
-	exit_on_failure 0 $? ''
 
 	printf "%s\n" "Battery: $LEVEL%"
 }
@@ -72,31 +72,11 @@ brightness_level() {
 print_brightness_level() {
 	local BRIGHTNESS
 	BRIGHTNESS="$(brightness_level)"
-	exit_on_failure 0 $? ''
 
 	printf "%s\n" "Brightness: $BRIGHTNESS%"
 }
 
-set_brightness_cond() {
-	local CONDITION="$1"
-	local NEW_BRIGHTNESS="$2"
-
-	local CURRENT_BRIGHTNESS
-	CURRENT_BRIGHTNESS="$(brightness_level)"
-	exit_on_failure 0 $? ''
-
-	if [ "$CONDITION" = 'lt' ]; then
-		if [ "$NEW_BRIGHTNESS" -lt "$CURRENT_BRIGHTNESS" ]; then
-			$CTL_CMD set "$NEW_BRIGHTNESS%" > /dev/null
-		fi
-	elif [ "$CONDITION" = 'gt' ]; then
-		if [ "$NEW_BRIGHTNESS" -gt "$CURRENT_BRIGHTNESS" ]; then
-			$CTL_CMD set "$NEW_BRIGHTNESS%" > /dev/null
-		fi
-	fi
-}
-
-for cmd in "$BAT_CMD" "$CTL_CMD" ; do check_dependency $cmd; done
+for cmd in "$BAT_CMD" "$CTL_CMD" ; do check_dependency "$cmd"; done
 
 case "$1" in
 	status)
@@ -126,6 +106,6 @@ case "$1" in
 		print_brightness_level
 		;;
 	*)
-		printf "%s\n" "Usage: $0 {status|increase|decrease}" >&2
+		printf "%s\n" "Usage: $0 {status|increase|decrease|set <level>}" >&2
 		exit 1
 esac
