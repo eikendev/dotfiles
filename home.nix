@@ -18,8 +18,10 @@ in
 {
   imports = [
     ./modules/files.nix
+    ./modules/gdb.nix
     ./modules/nvim.nix
     ./modules/services.nix
+    ./modules/tldr.nix
   ];
 
   home = {
