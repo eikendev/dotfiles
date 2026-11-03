@@ -25,11 +25,13 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: update switch install-vim-plugins gc
+install: switch install-vim-plugins gc
 
+# Bumps flake.lock and lazy-lock.json, apply with `make install` and commit.
 .PHONY: update
 update:
 	nix flake update
+	nvim --headless '+Lazy! update' +qa
 
 .PHONY: switch
 switch:
@@ -45,9 +47,10 @@ clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;
 	find -type d -name '.mypy_cache' -exec rm -rf {} +;
 
+# Plugins come from lazy-lock.json, treesitter parsers are unpinned.
 .PHONY: install-vim-plugins
 install-vim-plugins:
-	nvim --headless '+Lazy! sync' "+lua require('nvim-treesitter').update():wait(300000)" +qa
+	nvim --headless '+Lazy! restore' "+lua require('nvim-treesitter').update():wait(300000)" +qa
 
 .PHONY: vim-mkspell
 vim-mkspell:

@@ -33,11 +33,20 @@ make install
 
 ### Updates
 
-Run the `install` Make target whenever you want to apply changes or refresh the setup, for example once a week:
+Run the `install` Make target whenever you want to apply changes:
 
 ```sh
 make install
 ```
+
+To move to newer versions of the pinned inputs, bump the lock files, apply them, and commit the result:
+
+```sh
+make update
+make install
+```
+
+This updates the Nix inputs in `flake.lock` and the Neovim plugins in `source/nvim/lazy-lock.json`.
 
 ### Private overlay
 
