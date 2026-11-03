@@ -125,6 +125,7 @@
       ]
     }
   },
+  "feedbackDrafts": "off",
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "theme": "dark",
