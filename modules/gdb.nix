@@ -1,4 +1,4 @@
-# Fetches gef on every switch, sourced by source/gdb/gdbinit. Needs system curl.
+# Fetches gef, sourced by source/gdb/gdbinit.
 { config, lib, ... }:
 {
   home.activation.gef = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

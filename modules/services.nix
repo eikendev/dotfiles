@@ -1,4 +1,3 @@
-# Needs tbunread from cargo.
 _: {
   systemd.user.services.tbunread = {
     Unit.Description = "tbunread";

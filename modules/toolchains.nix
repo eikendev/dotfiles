@@ -1,5 +1,4 @@
-# Installs and updates the Go and Rust toolchains on every switch. Needs
-# system go, curl and fish, and the network.
+# Installs and updates the Go and Rust toolchains.
 { config, lib, ... }:
 let
   scripts = "${config.dotfiles.link}/scripts";

@@ -1,4 +1,4 @@
-# Refreshes the page cache on every switch. Needs tealdeer from cargo.
+# Refreshes the page cache for tldr.
 { config, lib, ... }:
 {
   home.activation.tldrUpdate = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

@@ -1,5 +1,3 @@
-# Where the checkout lives. Everything else links through ~/.dotfiles, so a
-# moved checkout only changes this one link.
 { config, lib, ... }:
 let
   name = ".dotfiles";
