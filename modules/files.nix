@@ -14,7 +14,6 @@ let
     "git"
     "htop"
     "lazygit"
-    "MangoHud"
     "nvim"
     "pip"
     "python"
