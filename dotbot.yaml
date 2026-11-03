@@ -14,7 +14,6 @@
     $XDG_CONFIG_HOME/bat: 'source/bat'
     $XDG_CONFIG_HOME/cargo: 'source/cargo'
     $XDG_CONFIG_HOME/Code: 'source/Code'
-    $XDG_CONFIG_HOME/curlrc: 'source/curlrc'
     $XDG_CONFIG_HOME/ddcutil: 'source/ddcutil'
     $XDG_CONFIG_HOME/fish: 'source/fish'
     $XDG_CONFIG_HOME/gdb: 'source/gdb'
