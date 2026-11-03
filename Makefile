@@ -61,10 +61,11 @@ fmt:
 	nix fmt
 
 .PHONY: lint
-lint: lint-shell lint-fish lint-yaml lint-nix
+lint: lint-shell lint-fish lint-yaml lint-flake
 
-.PHONY: lint-nix
-lint-nix:
+# Nix format and lints plus luacheck, see flake.nix.
+.PHONY: lint-flake
+lint-flake:
 	nix flake check
 
 .PHONY: lint-shell

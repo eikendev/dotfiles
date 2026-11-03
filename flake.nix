@@ -28,7 +28,8 @@
       check =
         name: tool: command:
         pkgs.runCommand "check-${name}" { nativeBuildInputs = [ tool ]; } ''
-          ${command} ${self}
+          cd ${self}
+          ${command} .
           touch "$out"
         '';
     in
@@ -38,6 +39,8 @@
         format = check "format" pkgs.nixfmt "nixfmt --check";
         statix = check "statix" pkgs.statix "statix check";
         deadnix = check "deadnix" pkgs.deadnix "deadnix --fail";
+        # Reads .luacheckrc from the checkout.
+        luacheck = check "luacheck" pkgs.luajitPackages.luacheck "luacheck";
         home = self.homeConfigurations.default.activationPackage;
       };
 
