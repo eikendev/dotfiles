@@ -14,14 +14,24 @@ HM_FLAGS += --override-input private path:$(PRIVATE_DIR) --no-write-lock-file
 endif
 endif
 
+NIX_CONF := /etc/nix/nix.conf
+
 .PHONY: init
 init:
 	sudo dnf install nix nix-daemon
 	sudo systemctl enable --now nix-daemon
+	@if ! grep -qs '^use-xdg-base-directories' "$(NIX_CONF)"; then \
+		echo 'use-xdg-base-directories = true' | sudo tee -a "$(NIX_CONF)" >/dev/null; \
+		sudo systemctl restart nix-daemon; \
+	fi
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
 install: dotbot install-fish-plugins install-vim-plugins vim-mkspell install-fonts systemd
+
+.PHONY: switch
+switch:
+	DOTFILES_DIR="$(CURDIR)" nix run "$(CURDIR)#home-manager" -- switch --impure --flake "$(CURDIR)#default" $(HM_FLAGS)
 
 .PHONY: clean
 clean:

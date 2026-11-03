@@ -23,7 +23,7 @@ cd dotfiles
 make init
 ```
 
-The target installs Nix from the Fedora repositories and enables the Nix daemon.
+The target installs Nix from the Fedora repositories, enables the Nix daemon, and configures Nix to keep its per-user files in XDG directories.
 It asks for `sudo` and is safe to run again.
 Afterwards, apply the configuration:
 
