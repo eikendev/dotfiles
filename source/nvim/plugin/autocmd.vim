@@ -1,7 +1,3 @@
-if !has('autocmd')
-	finish
-endif
-
 " Toggle relative numbers in insert/normal mode.
 augroup togglenumbers
 	autocmd!
@@ -12,14 +8,12 @@ augroup end
 " Default to insert mode in terminal buffer.
 augroup terminalsettings
 	autocmd!
-	if has('nvim')
-		" Set filetype so that plugins can filter out terminals.
-		autocmd TermOpen * setlocal filetype=terminal
-		autocmd TermOpen * setlocal nonumber
-		autocmd TermOpen * setlocal signcolumn=no
-		autocmd TermOpen * startinsert
-		autocmd BufWinEnter term://* startinsert
-	endif
+	" Set filetype so that plugins can filter out terminals.
+	autocmd TermOpen * setlocal filetype=terminal
+	autocmd TermOpen * setlocal nonumber
+	autocmd TermOpen * setlocal signcolumn=no
+	autocmd TermOpen * startinsert
+	autocmd BufWinEnter term://* startinsert
 augroup end
 
 " Always open help page in full window.

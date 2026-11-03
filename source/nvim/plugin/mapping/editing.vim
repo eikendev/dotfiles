@@ -27,9 +27,6 @@ nnoremap <Leader>y "+y
 nnoremap <Leader>Y "+Y
 xnoremap <Leader>y "+y
 
-" Yank till the end of the line.
-nnoremap Y y$
-
 " Insert space and line in normal mode.
 nnoremap <A-h> i<Space><Esc>l
 nnoremap <A-l> a<Space><Esc>h

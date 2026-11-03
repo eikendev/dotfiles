@@ -1,7 +1,6 @@
 local command = vim.api.nvim_create_user_command
 
 command('VimEdit', 'edit $MYVIMRC', {})
-command('VimSource', 'source $MYVIMRC', {})
 
 command('CdGit', function() require('self.cd_git').run() end, { bar = true })
 command('CdFile', 'cd %:p:h', {})
