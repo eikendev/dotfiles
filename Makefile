@@ -5,7 +5,7 @@ SCRIPTS_DIR := ./scripts
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
 .PHONY: install
-install: dotbot install-fish-plugins install-fish-completions install-vim-plugins vim-mkspell install-fonts systemd
+install: dotbot install-fish-plugins install-vim-plugins vim-mkspell install-fonts systemd
 
 .PHONY: clean
 clean:
@@ -19,10 +19,6 @@ dotbot:
 .PHONY: install-fish-plugins
 install-fish-plugins:
 	$(SCRIPTS_DIR)/install-fish-plugins
-
-.PHONY: install-fish-completions
-install-fish-completions:
-	curl -q -s -S -L --create-dirs -o $(XDG_CONFIG_HOME)/fish/completions/task.fish 'https://raw.githubusercontent.com/go-task/task/main/completion/fish/task.fish'
 
 .PHONY: install-vim-plugins
 install-vim-plugins:
