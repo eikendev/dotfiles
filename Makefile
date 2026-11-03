@@ -27,7 +27,7 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: dotbot install-fish-plugins install-vim-plugins vim-mkspell install-fonts systemd
+install: dotbot switch install-vim-plugins vim-mkspell systemd
 
 .PHONY: switch
 switch:
@@ -42,10 +42,6 @@ clean:
 dotbot:
 	uv tool run dotbot@latest -c "${DOTBOT_CONFIG}"
 
-.PHONY: install-fish-plugins
-install-fish-plugins:
-	$(SCRIPTS_DIR)/install-fish-plugins
-
 .PHONY: install-vim-plugins
 install-vim-plugins:
 	nvim --headless '+Lazy! sync' "+lua require('nvim-treesitter').update():wait(300000)" +qa
@@ -53,10 +49,6 @@ install-vim-plugins:
 .PHONY: vim-mkspell
 vim-mkspell:
 	$(SCRIPTS_DIR)/vim-mkspell
-
-.PHONY: install-fonts
-install-fonts:
-	$(SCRIPTS_DIR)/install-fonts
 
 .PHONY: systemd
 systemd:

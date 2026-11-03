@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   # Identity comes from the environment so that it never lands in git. The
   # Makefile passes --impure. The fallbacks only serve evaluation in CI.
@@ -22,7 +22,24 @@ in
     stateVersion = "26.05";
 
     file.".dotfiles".source = config.lib.file.mkOutOfStoreSymlink dotfilesDir;
+
+    # The only packages taken from nixpkgs. Everything else comes from DNF.
+    packages = with pkgs; [
+      # Fish plugins, loaded through the vendor directories, see
+      # source/fish/conf.d/nix.fish.
+      fishPlugins.autopair
+      fishPlugins.fzf-fish
+
+      # Fonts, made visible to fontconfig below.
+      fira-code
+      monaspace
+      source-code-pro
+      nerd-fonts.symbols-only
+      noto-fonts-color-emoji
+    ];
   };
+
+  fonts.fontconfig.enable = true;
 
   programs.home-manager.enable = true;
 
