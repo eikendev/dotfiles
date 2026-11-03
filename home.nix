@@ -17,6 +17,8 @@ let
   dotfilesDir = envOr "DOTFILES_DIR" "${homeDirectory}/.dotfiles";
 in
 {
+  imports = [ ./modules/files.nix ];
+
   home = {
     inherit username homeDirectory;
     stateVersion = "26.05";

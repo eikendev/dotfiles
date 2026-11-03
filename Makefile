@@ -1,5 +1,3 @@
-DOTBOT_CONFIG := dotbot.yaml
-
 SCRIPTS_DIR := ./scripts
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
@@ -27,7 +25,7 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: dotbot switch install-vim-plugins vim-mkspell systemd
+install: switch install-vim-plugins vim-mkspell systemd
 
 .PHONY: switch
 switch:
@@ -37,10 +35,6 @@ switch:
 clean:
 	find -type d -name '__pycache__' -exec rm -rf {} +;
 	find -type d -name '.mypy_cache' -exec rm -rf {} +;
-
-.PHONY: dotbot
-dotbot:
-	uv tool run dotbot@latest -c "${DOTBOT_CONFIG}"
 
 .PHONY: install-vim-plugins
 install-vim-plugins:
