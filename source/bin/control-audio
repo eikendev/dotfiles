@@ -1,93 +1,91 @@
 #!/usr/bin/env bash
 
-current_sink() {
-	local sink_name
-	sink_name="$(pactl get-default-sink)"
-	pactl list short sinks | awk -v name="$sink_name" '$2 == name { print $1 }'
+# Controls playback of MPRIS players and the default PulseAudio sink.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+log() {
+	printf '%s\n' "$*" >&2
 }
 
-system_dbus() {
-	local NAME="$1"
-	local ACTION="$2"
-
-	dbus-send --type=method_call --dest=org.mpris.MediaPlayer2."$NAME" /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$ACTION"
+die() {
+	log "$@"
+	exit 1
 }
 
-control_mpris() {
-	system_dbus "cmus" "$1"
-	system_dbus "rhythmbox" "$1"
-	system_dbus "vlc" "$1"
+usage() {
+	log "Usage: $0 {play|next|previous|raise|lower|mute|switch}"
+	exit 2
 }
 
-audio_play() {
-	control_mpris "PlayPause"
+command -v pactl >/dev/null || die 'pactl not found, install it and re-run.'
+command -v dbus-send >/dev/null || die 'dbus-send not found, install it and re-run.'
+
+# Sends a player method to every known player. Without --print-reply the call
+# does not wait for an answer, so players that are not running are no error.
+control_players() {
+	local method="$1" player
+
+	for player in cmus rhythmbox vlc; do
+		dbus-send --type=method_call --dest="org.mpris.MediaPlayer2.$player" \
+			/org/mpris/MediaPlayer2 "org.mpris.MediaPlayer2.Player.$method"
+	done
 }
 
-audio_next() {
-	control_mpris "Next"
-}
-
-audio_previous() {
-	control_mpris "Previous"
+# Prints the index of the sink after the default one, wrapping around.
+next_sink() {
+	pactl list short sinks | awk -v current="$(pactl get-default-sink)" '
+		NR == 1 { first = $1 }
+		found { print $1; done = 1; exit }
+		$2 == current { found = 1 }
+		END { if (!done) print first }'
 }
 
 switch_sink() {
-	local CURRENT_SINK_INDEX
-	CURRENT_SINK_INDEX="$(current_sink)"
-	local CARDS
-	CARDS="$(pactl list short sinks | awk '{print $1}' | sort)"
-	local PICKNEXTCARD=1
+	local next input
+	next="$(next_sink)"
+	[ -n "$next" ] || die 'No audio sink found.'
 
-	for card in $CARDS; do
-		if [ "$PICKNEXTCARD" == 1 ]; then
-			local NEXT_SINK_INDEX="$card"
-			local PICKNEXTCARD=0
-		fi
-		if [ "$card" == "$CURRENT_SINK_INDEX" ]; then
-			PICKNEXTCARD=1
-		fi
-	done
+	log "Switching to sink $next."
+	pactl set-default-sink "$next"
 
-	echo "Switching from sink $CURRENT_SINK_INDEX to sink $NEXT_SINK_INDEX."
-	pactl set-default-sink "$NEXT_SINK_INDEX"
-
-	pactl list short sink-inputs | awk '{print $1}' | while read -r input
-	do
-		echo "Moving input $input to sink $NEXT_SINK_INDEX."
-		pactl move-sink-input "$input" "$NEXT_SINK_INDEX"
+	pactl list short sink-inputs | awk '{ print $1 }' | while read -r input; do
+		log "Moving input $input to sink $next."
+		pactl move-sink-input "$input" "$next"
 	done
 }
 
-case "$1" in
+case "${1:-}" in
 	play)
-		echo "Start or stop current playback."
-		audio_play
+		log 'Toggling playback.'
+		control_players PlayPause
 		;;
 	next)
-		echo "Skip to next track."
-		audio_next
+		log 'Skipping to the next track.'
+		control_players Next
 		;;
 	previous)
-		echo "Skip to previous track."
-		audio_previous
+		log 'Skipping to the previous track.'
+		control_players Previous
 		;;
 	raise)
-		echo "Raising volume on sink $(current_sink)."
-		pactl set-sink-volume "$(current_sink)" +5%
+		log 'Raising the volume.'
+		pactl set-sink-volume @DEFAULT_SINK@ +5%
 		;;
 	lower)
-		echo "Lowering volume on sink $(current_sink)."
-		pactl set-sink-volume "$(current_sink)" -5%
+		log 'Lowering the volume.'
+		pactl set-sink-volume @DEFAULT_SINK@ -5%
 		;;
 	mute)
-		echo "Muting sink $(current_sink)."
-		pactl set-sink-mute "$(current_sink)" toggle
+		log 'Toggling mute.'
+		pactl set-sink-mute @DEFAULT_SINK@ toggle
 		;;
 	switch)
-		echo "Switch to next audio sink."
 		switch_sink
 		;;
 	*)
-		echo "Usage: $0 {play|next|previous|raise|lower|mute|switch}" >&2
-		exit 2
+		usage
+		;;
 esac

@@ -1,41 +1,47 @@
 #!/usr/bin/env bash
 
-# Find more info at [1].
-# [1] https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+# Upgrades Fedora to the given release with dnf system-upgrade, see
+# https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/.
 
-set -e
+set -o errexit
+set -o nounset
+set -o pipefail
 
-VERSION=$1
-
-function confirm_continue {
-	read -p 'Do you wish to continue? ' -r
-
-	if [[ ! $REPLY =~ ^[Yy]$ ]]
-	then
-		exit 1
-	fi
+log() {
+	printf '%s\n' "$*" >&2
 }
 
-if [ -z "$VERSION" ] ; then
-	printf "%s\n" "Usage: $0 <version>" >&2
+die() {
+	log "$@"
 	exit 1
-fi
+}
 
-printf "%s\n" 'Update currently installed packages.'
-confirm_continue
+usage() {
+	log "Usage: $0 RELEASE"
+	exit 2
+}
+
+confirm() {
+	local reply
+
+	read -rp "$1 Continue? " reply
+	[[ "$reply" =~ ^[Yy]$ ]] || exit 1
+}
+
+[ $# -eq 1 ] || usage
+release="$1"
+[[ "$release" =~ ^[0-9]+$ ]] || die 'The release has to be a number.'
+
+confirm 'Upgrading the installed packages.'
 sudo dnf upgrade --refresh
 
-printf "%s\n" 'Install necessary DNF plugins.'
-confirm_continue
+confirm 'Installing the system-upgrade plugin.'
 sudo dnf install dnf-plugin-system-upgrade
 
-printf "%s\n" 'Validate the GPG keys via https://fedoraproject.org/security'
-confirm_continue
+confirm 'Validate the GPG keys via https://fedoraproject.org/security first.'
 
-printf "%s\n" "Download packages for version $VERSION."
-confirm_continue
-sudo dnf system-upgrade download --refresh --allowerasing "--releasever=$VERSION"
+confirm "Downloading the packages for Fedora $release."
+sudo dnf system-upgrade download --refresh --allowerasing "--releasever=$release"
 
-printf "%s\n" 'Reboot and install packages.'
-confirm_continue
+confirm 'Rebooting to install the packages.'
 sudo dnf system-upgrade reboot

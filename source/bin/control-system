@@ -1,41 +1,66 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
+# Locks the session and changes the power state via logind.
 # See https://askubuntu.com/a/454077.
 
-system_dbus() {
-	dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "$1" boolean:true
+set -o errexit
+set -o nounset
+set -o pipefail
+
+log() {
+	printf '%s\n' "$*" >&2
 }
 
-case "$1" in
+die() {
+	log "$@"
+	exit 1
+}
+
+usage() {
+	log "Usage: $0 {lock|unlock|logout|suspend|hibernate|reboot|poweroff}"
+	exit 2
+}
+
+command -v loginctl >/dev/null || die 'loginctl not found, install it and re-run.'
+command -v dbus-send >/dev/null || die 'dbus-send not found, install it and re-run.'
+
+# Calls a method of the logind manager, the argument allows interactive
+# authentication.
+manager() {
+	dbus-send --system --print-reply --dest=org.freedesktop.login1 \
+		/org/freedesktop/login1 "org.freedesktop.login1.Manager.$1" boolean:true >/dev/null
+}
+
+case "${1:-}" in
 	lock)
-		echo "Locking screen."
+		log 'Locking the session.'
 		loginctl lock-session
 		;;
 	unlock)
-		echo "Unlocking screen."
+		log 'Unlocking the session.'
 		loginctl unlock-session
 		;;
 	logout)
-		echo "Logging out."
-		loginctl terminate-user "$(whoami)"
+		log 'Logging out.'
+		loginctl terminate-user "$(id -un)"
 		;;
 	suspend)
-		echo "Suspending machine."
-		system_dbus "org.freedesktop.login1.Manager.Suspend"
+		log 'Suspending the machine.'
+		manager Suspend
 		;;
 	hibernate)
-		echo "Hibernating machine."
-		system_dbus "org.freedesktop.login1.Manager.Hibernate"
+		log 'Hibernating the machine.'
+		manager Hibernate
 		;;
 	reboot)
-		echo "Rebooting machine."
-		system_dbus "org.freedesktop.login1.Manager.Reboot"
+		log 'Rebooting the machine.'
+		manager Reboot
 		;;
 	poweroff)
-		echo "Powering off machine."
-		system_dbus "org.freedesktop.login1.Manager.PowerOff"
+		log 'Powering off the machine.'
+		manager PowerOff
 		;;
 	*)
-		printf "%s\n" "Usage: $0 {lock|unlock|logout|suspend|hibernate|reboot|poweroff}" >&2
-		exit 1
+		usage
+		;;
 esac
