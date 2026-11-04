@@ -6,7 +6,7 @@ _: {
       Type = "simple";
       ExecStartPre = "/usr/bin/mkdir -p %h/.local/share/tbunread";
       ExecStart = "%h/.config/cargo/bin/tbunread --output %h/.local/share/tbunread/count";
-      Restart = "on-success";
+      Restart = "on-failure";
       RestartSec = "5s";
     };
 
