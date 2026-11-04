@@ -4,10 +4,17 @@ let
 in
 {
   home.activation = {
-    # Installs the plugins pinned in lazy-lock.json, bumped by `make update`.
-    # Treesitter parsers follow the pinned nvim-treesitter.
+    # Applies lazy-lock.json like switch applies flake.lock: only when the lock
+    # changed, since restore fetches every remote. Treesitter parsers follow
+    # the pinned nvim-treesitter.
     vimPlugins = config.lib.dotfiles.entryAfter [ "linkGeneration" ] ''
-      run nvim --headless '+Lazy! restore' "+lua require('nvim-treesitter').update():wait(300000)" +qa
+      lock="${config.dotfiles.link}/source/nvim/lazy-lock.json"
+      applied="${config.xdg.stateHome}/dotfiles/lazy-lock.json"
+
+      if ! cmp -s "$lock" "$applied"; then
+        run nvim --headless '+Lazy! restore' "+lua require('nvim-treesitter').update():wait(300000)" +qa
+        run install -D "$lock" "$applied"
+      fi
     '';
 
     # Built once, refreshed by `make update`.
