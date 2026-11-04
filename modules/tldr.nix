@@ -1,7 +1,7 @@
 # Refreshes the page cache for tldr.
-{ config, lib, ... }:
+{ config, ... }:
 {
-  home.activation.tldrUpdate = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.tldrUpdate = config.lib.dotfiles.entryAfter [ "writeBoundary" ] ''
     PATH="$PATH:${config.xdg.configHome}/cargo/bin" run tldr --update
   '';
 }
