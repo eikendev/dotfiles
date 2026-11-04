@@ -25,11 +25,11 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: switch gc
+install: switch
 
 # Bumps flake.lock and lazy-lock.json and refreshes everything fetched from upstream.
 .PHONY: update
-update:
+update: gc
 	nix flake update
 	nvim --headless '+Lazy! update' +qa
 	$(SCRIPTS_DIR)/install-go
