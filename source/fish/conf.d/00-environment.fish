@@ -43,6 +43,7 @@ end
 set -gx HACKENV_MEMORY '4G'
 
 # Set configuration paths for applications that do not honor XDG directories.
+# The toolchain paths mirror the options in modules/toolchains.nix.
 set -gx CARGO_HOME "$XDG_CONFIG_HOME/cargo"
 set -gx GOPATH "$XDG_DATA_HOME/go"
 set -gx RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/ripgreprc"
