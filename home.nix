@@ -19,7 +19,6 @@ in
     ./modules/gdb.nix
     ./modules/nvim.nix
     ./modules/services.nix
-    ./modules/tldr.nix
     ./modules/toolchains.nix
   ];
 

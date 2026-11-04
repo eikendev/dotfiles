@@ -1,9 +1,9 @@
-# Fetches gef, sourced by source/gdb/gdbinit.
+# Fetches gef once, sourced by source/gdb/gdbinit. Refreshed by `make update`.
 { config, ... }:
 {
-  home.activation.gef = config.lib.dotfiles.entryAfter [ "writeBoundary" ] ''
-    run curl -q -s -S -L --create-dirs \
-      -o "${config.xdg.dataHome}/gef/init.py" \
-      'https://raw.githubusercontent.com/hugsy/gef/main/gef.py'
+  home.activation.gef = config.lib.dotfiles.entryAfter [ "linkGeneration" ] ''
+    if [ ! -f "${config.xdg.dataHome}/gef/init.py" ]; then
+      run "${config.dotfiles.link}/scripts/install-gef"
+    fi
   '';
 }

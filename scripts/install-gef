@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Fetches gef for gdb, sourced by source/gdb/gdbinit.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+log() {
+	printf '%s\n' "$*" >&2
+}
+
+die() {
+	log "$@"
+	exit 1
+}
+
+command -v curl >/dev/null || die 'curl not found, install it and re-run.'
+
+xdg_data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+target="$xdg_data_home/gef/init.py"
+
+tmp_file="$(mktemp)"
+trap 'rm -f "$tmp_file"' EXIT
+
+log 'Downloading gef...'
+curl -q -s -S -f -L -o "$tmp_file" 'https://raw.githubusercontent.com/hugsy/gef/main/gef.py'
+
+# Replaced in one step so a failed download never leaves a broken file.
+mkdir -p "$(dirname "$target")"
+mv "$tmp_file" "$target"
+
+log "Installed gef to $target."

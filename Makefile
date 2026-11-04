@@ -25,31 +25,29 @@ init:
 	@printf '\n%s\n%s\n\n' 'Nix is installed and the daemon is running.' 'Next, apply the configuration with: make install'
 
 .PHONY: install
-install: switch install-vim-plugins gc
+install: switch gc
 
-# Bumps flake.lock and lazy-lock.json, apply with `make install` and commit.
+# Bumps flake.lock and lazy-lock.json and refreshes everything fetched from upstream.
 .PHONY: update
 update:
 	nix flake update
 	nvim --headless '+Lazy! update' +qa
+	$(SCRIPTS_DIR)/install-go
+	$(SCRIPTS_DIR)/install-rust
+	$(SCRIPTS_DIR)/install-gef
+	$(SCRIPTS_DIR)/vim-mkspell
+	tldr --update
+ifneq ($(wildcard $(PRIVATE_DIR)/Makefile),)
+	$(MAKE) -C $(PRIVATE_DIR) update
+endif
 
 .PHONY: switch
 switch:
 	DOTFILES_DIR="$(CURDIR)" nix run "$(CURDIR)#home-manager" -- switch --impure --flake "$(CURDIR)#default" $(HM_FLAGS)
 
-# Keep 30 days of generations for rollback.
 .PHONY: gc
 gc:
 	nix-collect-garbage --delete-older-than 30d
-
-# Plugins come from lazy-lock.json, treesitter parsers are unpinned.
-.PHONY: install-vim-plugins
-install-vim-plugins:
-	nvim --headless '+Lazy! restore' "+lua require('nvim-treesitter').update():wait(300000)" +qa
-
-.PHONY: vim-mkspell
-vim-mkspell:
-	$(SCRIPTS_DIR)/vim-mkspell
 
 .PHONY: fmt
 fmt:
@@ -58,7 +56,6 @@ fmt:
 .PHONY: lint
 lint: lint-shell lint-fish lint-yaml lint-flake
 
-# Nix format and lints plus luacheck, see flake.nix.
 .PHONY: lint-flake
 lint-flake:
 	nix flake check

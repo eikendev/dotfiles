@@ -40,19 +40,12 @@ Run the `install` Make target whenever you want to apply changes:
 make install
 ```
 
-To move to newer versions of the pinned inputs, bump the lock files, apply them, and commit the result:
+To move to newer versions of everything that is pinned or fetched from upstream, run the `update` target, apply it, and commit the result:
 
 ```sh
 make update
 make install
 ```
-
-This updates the Nix inputs in `flake.lock` and the Neovim plugins in `source/nvim/lazy-lock.json`.
-
-### Programs from elsewhere
-
-The Go and Rust toolchains are installed and updated by `modules/toolchains.nix` on every `make install`, starting from the distribution's `go`.
-Some setup steps and services expect programs that come neither from DNF nor from this repository.
 
 ### Private overlay
 
@@ -68,3 +61,4 @@ PRIVATE_DIR=/path/to/private
 The file is ignored by git.
 The overlay is a Nix flake that exports a Home Manager module as `homeModules.default`.
 When the directory does not exist, the public setup is applied without it.
+When the overlay has a Makefile with an `update` target, `make update` runs it last.
