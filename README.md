@@ -16,17 +16,17 @@ It uses [Nix](https://nixos.org) with [Home Manager](https://nix-community.githu
 
 ### New machine
 
-Clone the repository to a location of your choice and run the `init` Make target once:
+Clone the repository and run the `init` Make target once:
 
 ```sh
-git clone https://github.com/eikendev/dotfiles.git
-cd dotfiles
+git clone https://github.com/eikendev/dotfiles.git ~/git/personal/dotfiles
+cd ~/git/personal/dotfiles
 make init
 ```
 
 The target installs Nix from the Fedora repositories, enables the Nix daemon, and configures Nix to keep its per-user files in XDG directories.
 It asks for `sudo` and is safe to run again.
-Afterwards, apply the configuration:
+Then set up the private overlay described below, which tells Home Manager who you are, and apply the configuration:
 
 ```sh
 make install
@@ -49,16 +49,31 @@ make install
 
 ### Private overlay
 
-The public setup works on its own.
-An optional private overlay can add packages, files and setup steps that do not belong into a public repository.
+The evaluation is pure, so the configuration cannot read the username from the environment.
+Instead a private overlay provides it, together with anything else that does not belong into a public repository.
+Without it the public placeholders apply, and Home Manager refuses to activate for a user it does not match.
 
-To enable it, create a file named `.env` in the repository root with the path of the overlay:
+Point to the overlay with a file named `.env` in the repository root:
 
 ```sh
 PRIVATE_DIR=/path/to/private
 ```
 
 The file is ignored by git.
-The overlay is a Nix flake that exports a Home Manager module as `homeModules.default`.
-When the directory does not exist, the public setup is applied without it.
+The overlay is a Nix flake without inputs that exports a Home Manager module as `homeModules.default`:
+
+```nix
+{
+  outputs = _: {
+    homeModules.default = {
+      home.username = "me";
+      # Only when the checkout is somewhere else.
+      # dotfiles.checkout = "/path/to/checkout";
+    };
+  };
+}
+```
+
+`home.nix` derives the home directory as `/home/<username>`, set `home.homeDirectory` in the overlay when it differs.
+The overlay is passed with `--override-input`, so it never ends up in `flake.lock`.
 When the overlay has a Makefile with an `update` target, `make update` runs it last.

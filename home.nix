@@ -1,17 +1,9 @@
-{ pkgs, ... }:
-let
-  # Identity from the environment, the Makefile passes --impure. Fallbacks
-  # are for CI.
-  envOr =
-    name: fallback:
-    let
-      value = builtins.getEnv name;
-    in
-    if value == "" then fallback else value;
-
-  username = envOr "USER" "nobody";
-  homeDirectory = envOr "HOME" "/home/${username}";
-in
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./modules/dotfiles.nix
@@ -23,7 +15,11 @@ in
   ];
 
   home = {
-    inherit username homeDirectory;
+    # Placeholders that keep the evaluation pure, the private overlay sets the
+    # real identity. See README.
+    username = lib.mkDefault "nobody";
+    homeDirectory = lib.mkDefault "/home/${config.home.username}";
+
     stateVersion = "26.05";
 
     packages = with pkgs; [
@@ -37,9 +33,6 @@ in
       noto-fonts-color-emoji
     ];
   };
-
-  # Checkout path from the Makefile.
-  dotfiles.checkout = envOr "DOTFILES_DIR" "${homeDirectory}/.dotfiles";
 
   fonts.fontconfig.enable = true;
 

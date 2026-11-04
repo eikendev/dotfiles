@@ -43,7 +43,7 @@ endif
 
 .PHONY: switch
 switch:
-	DOTFILES_DIR="$(CURDIR)" nix run "$(CURDIR)#home-manager" -- switch --impure --flake "$(CURDIR)#default" $(HM_FLAGS)
+	nix run "$(CURDIR)#home-manager" -- switch --flake "$(CURDIR)#default" $(HM_FLAGS)
 
 .PHONY: gc
 gc:

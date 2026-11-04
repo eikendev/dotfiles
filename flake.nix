@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Optional private overlay, overridden by the Makefile. See README.
+    # Private overlay with the identity, overridden by the Makefile. See README.
     private.url = "path:./private-empty";
   };
 

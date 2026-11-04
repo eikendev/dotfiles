@@ -6,6 +6,7 @@ in
   options.dotfiles = {
     checkout = lib.mkOption {
       type = lib.types.str;
+      default = "${config.home.homeDirectory}/git/personal/dotfiles";
       description = "Path of the git checkout.";
     };
 
