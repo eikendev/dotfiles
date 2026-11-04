@@ -30,7 +30,7 @@ mkdir -p "$spell_dir" || die 'Cannot create spell directory.'
 download() {
 	local base="$1" lang_region="$2" extension="$3"
 
-	curl -q -s -S -L -o "$tmp_dir/$lang_region.$extension" \
+	curl -q -s -S -f -L -o "$tmp_dir/$lang_region.$extension" \
 		"https://github.com/LibreOffice/dictionaries/raw/master/$base/$lang_region.$extension"
 }
 
