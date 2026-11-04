@@ -1,7 +1,7 @@
 # Quickly display file contents.
 abbr -a b 'bat'
 
-abbr -a gtd 'cd ~/git/personal/dotfiles'
+abbr -a gtd 'cd ~/.dotfiles'
 
 abbr -a G    'git status'
 abbr -a Ga   'git add'
