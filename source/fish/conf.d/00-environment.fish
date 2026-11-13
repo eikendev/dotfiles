@@ -46,5 +46,6 @@ set -gx HACKENV_MEMORY '4G'
 # The toolchain paths mirror the options in modules/toolchains.nix.
 set -gx CARGO_HOME "$XDG_CONFIG_HOME/cargo"
 set -gx GOPATH "$XDG_DATA_HOME/go"
+set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
 set -gx RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/ripgreprc"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
