@@ -35,6 +35,7 @@ update: gc
 	$(SCRIPTS_DIR)/install-go
 	$(SCRIPTS_DIR)/install-rust
 	$(SCRIPTS_DIR)/install-gef
+	$(SCRIPTS_DIR)/update-openshell
 	$(SCRIPTS_DIR)/vim-mkspell
 ifneq ($(wildcard $(PRIVATE_DIR)/Makefile),)
 	$(MAKE) -C $(PRIVATE_DIR) update

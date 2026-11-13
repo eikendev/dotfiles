@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Pins the latest OpenShell release in modules/openshell.lock.json, read by
+# modules/openshell.nix.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+log() {
+	printf '%s\n' "$*" >&2
+}
+
+die() {
+	log "$@"
+	exit 1
+}
+
+command -v curl >/dev/null || die 'curl not found, install it and re-run.'
+command -v jq >/dev/null || die 'jq not found, install it and re-run.'
+
+repo='https://github.com/NVIDIA/OpenShell'
+lock="$(dirname "$(realpath "$0")")/../modules/openshell.lock.json"
+
+# The latest release redirects to its tag.
+tag="$(curl -q -s -S -f -L -o /dev/null -w '%{url_effective}' "$repo/releases/latest")"
+tag="${tag##*/}"
+release="${tag#v}"
+[[ "$release" =~ ^[0-9]+(\.[0-9]+)+$ ]] || die "Unexpected OpenShell release tag: $tag"
+
+version="$(jq -r '.version' "$lock")"
+
+if [ "$version" = "$release" ]; then
+	log "Pinned OpenShell version $release is up-to-date."
+	exit 0
+fi
+
+log "Pinned OpenShell version is $version, release $release is available."
+
+# Keeps the pinned assets and takes their sums from the release's checksum
+# files, named after the executable.
+assets='{}'
+while read -r asset; do
+	sums="${asset%%-x86_64-*}-checksums-sha256.txt"
+	sum="$(curl -q -s -S -f -L "$repo/releases/download/$tag/$sums" |
+		awk -v asset="$asset" '$2 == asset || $2 == "*" asset { print $1 }')"
+	[[ "$sum" =~ ^[0-9a-f]{64}$ ]] || die "No checksum for $asset in $sums."
+	assets="$(jq --arg asset "$asset" --arg sum "$sum" '.[$asset] = $sum' <<<"$assets")"
+done < <(jq -r '.assets | keys_unsorted[]' "$lock")
+
+# Written only after every sum was found, a failed run keeps the old pin.
+pin="$(jq -n --arg version "$release" --argjson assets "$assets" '{version: $version, assets: $assets}')"
+printf '%s\n' "$pin" >"$lock"
+
+log "Pinned OpenShell $release, apply it with: make install"

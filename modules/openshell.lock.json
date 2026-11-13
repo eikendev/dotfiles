@@ -1,0 +1,8 @@
+{
+  "version": "0.1.8",
+  "assets": {
+    "openshell-x86_64-unknown-linux-musl.tar.gz": "87f5c41d396dcd36b4c30a7b5e6f41643a656cb31a82b0edbb00319c9a719c2d",
+    "openshell-gateway-x86_64-unknown-linux-gnu.tar.gz": "d2e5e7f80811b7cfbad0d48f0b561ea5e301401d311e4402bbfc419b3d08cbd3",
+    "openshell-prover-x86_64-unknown-linux-musl.tar.gz": "34123490c9934857089753e986d6173500542d67ed295b38772c9b67f25fe068"
+  }
+}

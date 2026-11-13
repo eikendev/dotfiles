@@ -10,6 +10,7 @@
     ./modules/files.nix
     ./modules/gdb.nix
     ./modules/nvim.nix
+    ./modules/openshell.nix
     ./modules/services.nix
     ./modules/toolchains.nix
   ];

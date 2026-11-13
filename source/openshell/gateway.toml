@@ -1,0 +1,19 @@
+# OpenShell gateway configuration.
+# Passed to the gateway from the Nix store, see modules/openshell.nix.
+#
+# Same content as the default the OpenShell RPM seeds
+# (/usr/share/openshell-gateway/gateway.toml.default in openshell-gateway 0.1.8).
+#
+# Configuration precedence (highest to lowest):
+#   CLI flag  >  OPENSHELL_* env var  >  TOML file  >  built-in default
+
+[openshell]
+version = 2
+
+[openshell.gateway]
+# The listener stays on the built-in 127.0.0.1:17670 default.
+# Without this key the gateway auto-detects Kubernetes, then Podman, then Docker.
+compute_driver = "podman"
+
+[openshell.drivers.podman]
+health_check_interval_secs = 10
