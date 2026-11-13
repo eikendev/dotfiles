@@ -1,0 +1,267 @@
+#!/usr/bin/env bash
+# capsule: run coding agents in disposable OpenShell sandboxes ("boxes").
+# OpenShell and its gateway come from modules/openshell.nix.
+
+set -euo pipefail
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/openshell/capsule"
+POLICY="${CAPSULE_POLICY:-$CONFIG_DIR/policy.yaml}"
+PROFILE="${CAPSULE_PROFILE:-$CONFIG_DIR/openrouter.yaml}"
+OPENCODE_CONFIG="${CAPSULE_OPENCODE_CONFIG:-$CONFIG_DIR/opencode.json}"
+# Fully qualified, Podman refuses to resolve a short name without a TTY.
+IMAGE="${CAPSULE_IMAGE:-ghcr.io/nvidia/openshell-community/sandboxes/base:latest}"
+MODEL="${CAPSULE_MODEL:-}"
+
+# Name of the provider in the gateway, and of the provider type the profile declares.
+PROVIDER="openrouter"
+
+ADJECTIVES=(amber brave calm clever dusty eager fuzzy gentle happy icy jolly keen
+	lucky mellow nimble odd proud quiet rusty sunny tidy vivid witty zesty)
+NOUNS=(badger crane dingo eagle ferret gecko heron ibis jackal koala lemur marmot
+	newt otter panda quail raven seal tapir urchin vole walrus yak zebra)
+
+TMP=""
+cleanup() { [[ -z "$TMP" ]] || rm -rf "$TMP"; }
+trap cleanup EXIT
+
+die() {
+	printf 'capsule: %s\n' "$*" >&2
+	exit 1
+}
+
+need() {
+	local tool
+	for tool in "$@"; do
+		command -v "$tool" >/dev/null 2>&1 || die "required tool not found: $tool"
+	done
+}
+
+usage() {
+	cat <<'EOF'
+Usage: capsule <command> [box]
+
+  login            Store the OpenRouter API key in the gateway
+  up [name]        Create a box; the name is generated when omitted
+  run [box]        Open opencode in a box
+  shell [box]      Open bash in a box
+  push [box]       Copy the current directory into a box
+  pull [box]       Copy the box's copy of the current directory back
+  policy [box]     Apply the policy file to a running box
+  policy --dump [box]
+                   Print the policy a box runs under
+  logs [box]       Follow warnings, including denied connections
+  ps               List boxes
+  down [box]       Delete a box and its workspace
+
+With one box, [box] defaults to it. With several, fzf asks.
+
+Environment:
+  CAPSULE_IMAGE    Sandbox image (default: OpenShell's community base image)
+  CAPSULE_MODEL    Model passed to opencode with -m (default: opencode.json)
+  CAPSULE_POLICY   Policy file (default: ~/.config/openshell/capsule/policy.yaml)
+EOF
+}
+
+# Prints one box name per line.
+box_names() {
+	need jq
+	openshell sandbox list -o json |
+		jq -r '(.sandboxes? // .items? // .)[] | (.name // .metadata.name)'
+}
+
+gen_name() {
+	local existing name _
+	existing=$(box_names)
+	for _ in {1..50}; do
+		name="${ADJECTIVES[RANDOM % ${#ADJECTIVES[@]}]}-${NOUNS[RANDOM % ${#NOUNS[@]}]}"
+		if ! grep -qxF "$name" <<<"$existing"; then
+			printf '%s\n' "$name"
+			return
+		fi
+	done
+	die "could not generate an unused box name"
+}
+
+# Prints the target box: the argument if given, the only box, or an fzf pick.
+resolve_box() {
+	if [[ -n "${1:-}" ]]; then
+		printf '%s\n' "$1"
+		return
+	fi
+
+	local names
+	local -a boxes=()
+	names=$(box_names)
+	[[ -z "$names" ]] || mapfile -t boxes <<<"$names"
+
+	case ${#boxes[@]} in
+	0) die "no boxes; run 'capsule up' first" ;;
+	1) printf '%s\n' "${boxes[0]}" ;;
+	*)
+		need fzf
+		printf '%s\n' "${boxes[@]}" | fzf --prompt='box> ' --height=40% --reverse ||
+			die "no box selected"
+		;;
+	esac
+}
+
+# Runs a command in a box with a TTY, starting in the box's copy of the
+# current directory when the box has one.
+box_exec() {
+	local box=$1
+	shift
+	# shellcheck disable=SC2016  # expanded by the shell inside the box
+	openshell sandbox exec -n "$box" --tty -- \
+		sh -c 'cd "$1" 2>/dev/null || true; shift; exec "$@"' sh "$(basename "$PWD")" "$@"
+}
+
+import_profile() {
+	[[ -f "$PROFILE" ]] || die "provider profile not found: $PROFILE"
+	openshell provider profile import -f "$PROFILE" 2>/dev/null ||
+		openshell profile import -f "$PROFILE" ||
+		die "could not import provider profile $PROFILE"
+}
+
+cmd_login() {
+	local key
+	read -rsp 'OpenRouter API key: ' key
+	echo >&2
+	[[ -n "$key" ]] || die "no key entered"
+
+	import_profile
+	# Recreate so that login also rotates an existing key.
+	openshell provider delete "$PROVIDER" >/dev/null 2>&1 || true
+	OPENROUTER_API_KEY="$key" openshell provider create \
+		--name "$PROVIDER" --type openrouter --from-existing
+}
+
+cmd_up() {
+	[[ -f "$POLICY" ]] || die "policy file not found: $POLICY"
+
+	local name=${1:-}
+	[[ -n "$name" ]] || name=$(gen_name)
+
+	openshell sandbox create --name "$name" --from "$IMAGE" --provider "$PROVIDER" --policy "$POLICY" --detach
+	printf '%s\n' "$name"
+}
+
+cmd_run() {
+	local box
+	box=$(resolve_box "${1:-}")
+	local -a agent=(opencode)
+	# Written as the box's global config on every run, so the box follows the
+	# host's file.
+	if [[ -f "$OPENCODE_CONFIG" ]]; then
+		need jq
+		# shellcheck disable=SC2016  # expanded by the shell inside the box
+		agent=(sh -c 'dir="$HOME/.config/opencode" && mkdir -p "$dir" &&
+			printf "%s\n" "$1" >"$dir/opencode.json" && shift && exec "$@"' sh
+			"$(jq -c . "$OPENCODE_CONFIG")" opencode)
+	fi
+	[[ -z "$MODEL" ]] || agent+=(-m "$MODEL")
+	box_exec "$box" "${agent[@]}"
+}
+
+cmd_shell() {
+	local box
+	box=$(resolve_box "${1:-}")
+	box_exec "$box" /bin/bash
+}
+
+cmd_push() {
+	local box
+	box=$(resolve_box "${1:-}")
+	openshell sandbox upload "$box" "$PWD"
+}
+
+cmd_pull() {
+	need git rsync
+	git rev-parse --is-inside-work-tree >/dev/null 2>&1 ||
+		die "pull refused: $PWD is not inside a git work tree"
+	[[ -z "$(git status --porcelain)" ]] ||
+		die "pull refused: commit or stash your changes first"
+
+	local box base src
+	box=$(resolve_box "${1:-}")
+	base=$(basename "$PWD")
+
+	# Download to a staging directory so a failed transfer leaves the project untouched.
+	TMP=$(mktemp -d)
+	openshell sandbox download "$box" "$base" "$TMP"
+	src="$TMP"
+	[[ ! -d "$TMP/$base" ]] || src="$TMP/$base"
+
+	# The box is untrusted: a link from it could point anywhere on the host.
+	[[ -z "$(find "$src" -name .git -prune -o -type l -print -quit)" ]] ||
+		die "pull refused: the box's copy contains symbolic links"
+
+	# Only the working tree comes back; the host repository keeps its own history.
+	# rsync replaces a host link to a directory instead of writing through it.
+	rsync -a --no-links --exclude=.git "$src/" "$PWD/"
+	git status --short
+}
+
+cmd_policy() {
+	local dump=0
+	if [[ "${1:-}" == "--dump" ]]; then
+		dump=1
+		shift
+	fi
+
+	local box
+	box=$(resolve_box "${1:-}")
+	if ((dump)); then
+		openshell sandbox get "$box" --policy-only
+	else
+		[[ -f "$POLICY" ]] || die "policy file not found: $POLICY"
+		openshell policy set "$box" --policy "$POLICY" --wait
+	fi
+}
+
+cmd_logs() {
+	local box
+	box=$(resolve_box "${1:-}")
+	openshell logs "$box" --tail --level warn
+}
+
+cmd_ps() {
+	openshell sandbox list
+}
+
+cmd_down() {
+	local box
+	box=$(resolve_box "${1:-}")
+	openshell sandbox delete "$box"
+}
+
+main() {
+	local cmd=${1:-help}
+	[[ $# -eq 0 ]] || shift
+
+	case "$cmd" in
+	help | -h | --help)
+		usage
+		return
+		;;
+	esac
+
+	need openshell
+	case "$cmd" in
+	login) cmd_login "$@" ;;
+	up) cmd_up "$@" ;;
+	run) cmd_run "$@" ;;
+	shell) cmd_shell "$@" ;;
+	push) cmd_push "$@" ;;
+	pull) cmd_pull "$@" ;;
+	policy) cmd_policy "$@" ;;
+	logs) cmd_logs "$@" ;;
+	ps) cmd_ps "$@" ;;
+	down) cmd_down "$@" ;;
+	*)
+		usage >&2
+		die "unknown command: $cmd"
+		;;
+	esac
+}
+
+main "$@"
