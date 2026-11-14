@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+
 # capsule: run coding agents in disposable OpenShell sandboxes ("boxes").
 # OpenShell and its gateway come from modules/openshell.nix.
 
-set -euo pipefail
+set -o errexit
+set -o nounset
+set -o pipefail
 
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/openshell/capsule"
 POLICY="${CAPSULE_POLICY:-$CONFIG_DIR/policy.yaml}"
@@ -59,7 +62,19 @@ Environment:
   CAPSULE_IMAGE    Sandbox image (default: OpenShell's community base image)
   CAPSULE_MODEL    Model passed to opencode with -m (default: opencode.json)
   CAPSULE_POLICY   Policy file (default: ~/.config/openshell/capsule/policy.yaml)
+  CAPSULE_PROFILE  Provider profile imported by login
+                   (default: ~/.config/openshell/capsule/openrouter.yaml)
+  CAPSULE_OPENCODE_CONFIG
+                   opencode config written into the box by run
+                   (default: ~/.config/openshell/capsule/opencode.json)
 EOF
+}
+
+# Reports a mistake in the invocation.
+usage_error() {
+	usage >&2
+	printf 'capsule: %s\n' "$*" >&2
+	exit 2
 }
 
 # Prints one box name per line.
@@ -95,13 +110,13 @@ resolve_box() {
 	[[ -z "$names" ]] || mapfile -t boxes <<<"$names"
 
 	case ${#boxes[@]} in
-	0) die "no boxes; run 'capsule up' first" ;;
-	1) printf '%s\n' "${boxes[0]}" ;;
-	*)
-		need fzf
-		printf '%s\n' "${boxes[@]}" | fzf --prompt='box> ' --height=40% --reverse ||
-			die "no box selected"
-		;;
+		0) die "no boxes; run 'capsule up' first" ;;
+		1) printf '%s\n' "${boxes[0]}" ;;
+		*)
+			need fzf
+			printf '%s\n' "${boxes[@]}" | fzf --prompt='box> ' --height=40% --reverse ||
+				die "no box selected"
+			;;
 	esac
 }
 
@@ -117,8 +132,7 @@ box_exec() {
 
 import_profile() {
 	[[ -f "$PROFILE" ]] || die "provider profile not found: $PROFILE"
-	openshell provider profile import -f "$PROFILE" 2>/dev/null ||
-		openshell profile import -f "$PROFILE" ||
+	openshell provider profile import -f "$PROFILE" ||
 		die "could not import provider profile $PROFILE"
 }
 
@@ -141,7 +155,8 @@ cmd_up() {
 	local name=${1:-}
 	[[ -n "$name" ]] || name=$(gen_name)
 
-	openshell sandbox create --name "$name" --from "$IMAGE" --provider "$PROVIDER" --policy "$POLICY" --detach
+	# Only the name goes to stdout, so that it can be captured.
+	openshell sandbox create --name "$name" --from "$IMAGE" --provider "$PROVIDER" --policy "$POLICY" --detach >&2
 	printf '%s\n' "$name"
 }
 
@@ -195,9 +210,15 @@ cmd_pull() {
 	[[ -z "$(find "$src" -name .git -prune -o -type l -print -quit)" ]] ||
 		die "pull refused: the box's copy contains symbolic links"
 
+	# Ignored files are outside git's safety net, so the box's copies of them
+	# stay behind. check-ignore exits with 1 when nothing is ignored.
+	(cd "$src" && find . -name .git -prune -o -type f -print0) |
+		{ git check-ignore -z --stdin || [[ $? -eq 1 ]]; } |
+		(cd "$src" && xargs -0 -r rm -f --)
+
 	# Only the working tree comes back; the host repository keeps its own history.
 	# rsync replaces a host link to a directory instead of writing through it.
-	rsync -a --no-links --exclude=.git "$src/" "$PWD/"
+	rsync -a --no-links --prune-empty-dirs --exclude=.git "$src/" "$PWD/"
 	git status --short
 }
 
@@ -207,6 +228,7 @@ cmd_policy() {
 		dump=1
 		shift
 	fi
+	(($# <= 1)) || usage_error "too many arguments for policy"
 
 	local box
 	box=$(resolve_box "${1:-}")
@@ -238,29 +260,31 @@ main() {
 	local cmd=${1:-help}
 	[[ $# -eq 0 ]] || shift
 
+	local max=1
 	case "$cmd" in
-	help | -h | --help)
-		usage
-		return
-		;;
+		help | -h | --help)
+			usage
+			return
+			;;
+		login | ps) max=0 ;;
+		policy) max=2 ;;
+		up | run | shell | push | pull | logs | down) ;;
+		*) usage_error "unknown command: $cmd" ;;
 	esac
+	(($# <= max)) || usage_error "too many arguments for $cmd"
 
 	need openshell
 	case "$cmd" in
-	login) cmd_login "$@" ;;
-	up) cmd_up "$@" ;;
-	run) cmd_run "$@" ;;
-	shell) cmd_shell "$@" ;;
-	push) cmd_push "$@" ;;
-	pull) cmd_pull "$@" ;;
-	policy) cmd_policy "$@" ;;
-	logs) cmd_logs "$@" ;;
-	ps) cmd_ps "$@" ;;
-	down) cmd_down "$@" ;;
-	*)
-		usage >&2
-		die "unknown command: $cmd"
-		;;
+		login) cmd_login ;;
+		up) cmd_up "$@" ;;
+		run) cmd_run "$@" ;;
+		shell) cmd_shell "$@" ;;
+		push) cmd_push "$@" ;;
+		pull) cmd_pull "$@" ;;
+		policy) cmd_policy "$@" ;;
+		logs) cmd_logs "$@" ;;
+		ps) cmd_ps ;;
+		down) cmd_down "$@" ;;
 	esac
 }
 
