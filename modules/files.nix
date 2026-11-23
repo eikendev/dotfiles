@@ -32,6 +32,7 @@ let
   # Apps that fill their config dir with state, only tracked files are linked.
   configFiles = [
     "cargo/config.toml"
+    "claude/settings.json"
     "Code/User/keybindings.json"
     "Code/User/settings.json"
     "Code/User/tasks.json"
@@ -41,7 +42,6 @@ let
   homeFiles = {
     ".bash_profile" = "bash_profile";
     ".bashrc" = "bashrc";
-    ".claude/settings.json" = "claude/settings.json";
     ".gnupg/gpg.conf" = "gpg/gpg.conf";
     ".gnupg/gpg-agent.conf" = "gpg/gpg-agent.conf";
   };
