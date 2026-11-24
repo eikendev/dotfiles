@@ -31,7 +31,7 @@ in
     export CARGO_HOME="${cfg.cargoHome}"
     export RUSTUP_HOME="${cfg.rustupHome}"
 
-    if [ ! -x "$HOME/bin/go" ]; then
+    if ! command -v go >/dev/null || [ "$(go env GOTOOLCHAIN)" = auto ]; then
       run "${scripts}/install-go"
     fi
 

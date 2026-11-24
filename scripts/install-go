@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Installs the latest Go release next to the system one and links it into
-# ~/bin, which has to come first on PATH.
+# Pins the latest Go release as the global minimum toolchain. Any go from 1.21
+# on then switches to it, fetching it into the module cache when needed. A
+# base go has to come from the system package manager.
 
 set -o errexit
 set -o nounset
@@ -19,28 +20,17 @@ die() {
 command -v go >/dev/null || die 'go not found, install it and re-run.'
 command -v curl >/dev/null || die 'curl not found, install it and re-run.'
 
-# go install puts the release downloader here.
-go_bin="$(go env GOPATH)/bin"
+release="$(curl -q -s -S -L 'https://go.dev/VERSION?m=text' | grep '^go')"
+toolchain="$release+auto"
 
-version="$(go version | cut -d' ' -f 3)"
-release="$(curl -q -s -S -L 'https://golang.org/VERSION?m=text' | grep '^go')"
-
-if [ "$version" = "$release" ]; then
-	log "Local Go version $release is up-to-date."
+if [ "$(go env GOTOOLCHAIN)" = "$toolchain" ]; then
+	log "Go toolchain is already pinned to $toolchain."
 	exit 0
 fi
 
-log "Local Go version is $version, release $release is available."
+log "Pinning the Go toolchain to $toolchain..."
+go env -w GOTOOLCHAIN="$toolchain"
 
-log "Installing the $release downloader..."
-go install "golang.org/dl/$release@latest"
-
-log "Downloading $release..."
-"$go_bin/$release" download
-
-log 'Linking Go binaries into ~/bin...'
-mkdir -p "$HOME/bin"
-ln -sf "$("$go_bin/$release" env GOROOT)"/bin/* "$HOME/bin/"
-
-version="$("$HOME/bin/go" version | cut -d' ' -f 3)"
-log "Local Go version is now $version."
+# Triggers the download if the base go is older than the release.
+version="$(go version | cut -d' ' -f 3)"
+log "Go version is now $version."
