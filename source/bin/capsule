@@ -23,10 +23,6 @@ ADJECTIVES=(amber brave calm clever dusty eager fuzzy gentle happy icy jolly kee
 NOUNS=(badger crane dingo eagle ferret gecko heron ibis jackal koala lemur marmot
 	newt otter panda quail raven seal tapir urchin vole walrus yak zebra)
 
-TMP=""
-cleanup() { [[ -z "$TMP" ]] || rm -rf "$TMP"; }
-trap cleanup EXIT
-
 die() {
 	printf 'capsule: %s\n' "$*" >&2
 	exit 1
@@ -44,17 +40,16 @@ usage() {
 Usage: capsule <command> [box]
 
   login            Store the OpenRouter API key in the gateway
-  up [name]        Create a box; the name is generated when omitted
+  up [name]        Create a box with the current directory mounted read-write;
+                   the name is generated when omitted
   run [box]        Open opencode in a box
   shell [box]      Open bash in a box
-  push [box]       Copy the current directory into a box
-  pull [box]       Copy the box's copy of the current directory back
   policy [box]     Apply the policy file to a running box
   policy --dump [box]
                    Print the policy a box runs under
   logs [box]       Follow warnings, including denied connections
   ps               List boxes
-  down [box]       Delete a box and its workspace
+  down [box]       Delete a box; the mounted directory stays
 
 With one box, [box] defaults to it. With several, fzf asks.
 
@@ -120,8 +115,7 @@ resolve_box() {
 	esac
 }
 
-# Runs a command in a box with a TTY, starting in the box's copy of the
-# current directory when the box has one.
+# Runs a command in a box with a TTY, in the mounted directory if any.
 box_exec() {
 	local box=$1
 	shift
@@ -151,12 +145,26 @@ cmd_login() {
 
 cmd_up() {
 	[[ -f "$POLICY" ]] || die "policy file not found: $POLICY"
+	# Mounting relabels the directory for SELinux.
+	[[ "$PWD" != / && "$PWD" != "$HOME" ]] || die "refusing to mount $PWD"
+	need jq
 
 	local name=${1:-}
 	[[ -n "$name" ]] || name=$(gen_name)
 
+	# The policy only allows writes under /sandbox.
+	local target driver
+	target="/sandbox/$(basename "$PWD")"
+	# A read-only .git keeps the box from planting hooks the host would run.
+	driver=$(jq -nc --arg src "$PWD" --arg dst "$target" --argjson git "$([[ -e .git ]] && echo true || echo false)" '
+		def bind($s; $d; $ro): {type: "bind", source: $s, target: $d, read_only: $ro, selinux_label: "shared"};
+		{podman: {mounts: [bind($src; $dst; false)] + (if $git then [bind($src + "/.git"; $dst + "/.git"; true)] else [] end)}}')
+
 	# Only the name goes to stdout, so that it can be captured.
-	openshell sandbox create --name "$name" --from "$IMAGE" --provider "$PROVIDER" --policy "$POLICY" --detach >&2
+	openshell sandbox create --name "$name" --from "$IMAGE" --provider "$PROVIDER" --policy "$POLICY" \
+		--driver-config-json "$driver" --detach >&2
+	openshell sandbox exec -n "$name" --no-tty -- test -w "$target" ||
+		die "box $name cannot write to $target; check userns in the gateway config against the image's user"
 	printf '%s\n' "$name"
 }
 
@@ -181,45 +189,6 @@ cmd_shell() {
 	local box
 	box=$(resolve_box "${1:-}")
 	box_exec "$box" /bin/bash
-}
-
-cmd_push() {
-	local box
-	box=$(resolve_box "${1:-}")
-	openshell sandbox upload "$box" "$PWD"
-}
-
-cmd_pull() {
-	need git rsync
-	git rev-parse --is-inside-work-tree >/dev/null 2>&1 ||
-		die "pull refused: $PWD is not inside a git work tree"
-	[[ -z "$(git status --porcelain)" ]] ||
-		die "pull refused: commit or stash your changes first"
-
-	local box base src
-	box=$(resolve_box "${1:-}")
-	base=$(basename "$PWD")
-
-	# Download to a staging directory so a failed transfer leaves the project untouched.
-	TMP=$(mktemp -d)
-	openshell sandbox download "$box" "$base" "$TMP"
-	src="$TMP"
-	[[ ! -d "$TMP/$base" ]] || src="$TMP/$base"
-
-	# The box is untrusted: a link from it could point anywhere on the host.
-	[[ -z "$(find "$src" -name .git -prune -o -type l -print -quit)" ]] ||
-		die "pull refused: the box's copy contains symbolic links"
-
-	# Ignored files are outside git's safety net, so the box's copies of them
-	# stay behind. check-ignore exits with 1 when nothing is ignored.
-	(cd "$src" && find . -name .git -prune -o -type f -print0) |
-		{ git check-ignore -z --stdin || [[ $? -eq 1 ]]; } |
-		(cd "$src" && xargs -0 -r rm -f --)
-
-	# Only the working tree comes back; the host repository keeps its own history.
-	# rsync replaces a host link to a directory instead of writing through it.
-	rsync -a --no-links --prune-empty-dirs --exclude=.git "$src/" "$PWD/"
-	git status --short
 }
 
 cmd_policy() {
@@ -268,7 +237,7 @@ main() {
 			;;
 		login | ps) max=0 ;;
 		policy) max=2 ;;
-		up | run | shell | push | pull | logs | down) ;;
+		up | run | shell | logs | down) ;;
 		*) usage_error "unknown command: $cmd" ;;
 	esac
 	(($# <= max)) || usage_error "too many arguments for $cmd"
@@ -279,8 +248,6 @@ main() {
 		up) cmd_up "$@" ;;
 		run) cmd_run "$@" ;;
 		shell) cmd_shell "$@" ;;
-		push) cmd_push "$@" ;;
-		pull) cmd_pull "$@" ;;
 		policy) cmd_policy "$@" ;;
 		logs) cmd_logs "$@" ;;
 		ps) cmd_ps ;;
