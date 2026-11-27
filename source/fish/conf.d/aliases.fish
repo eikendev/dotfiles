@@ -48,7 +48,7 @@ alias kali='hackenv --type=kali'
 alias parrot='hackenv --type=parrot'
 
 # Do not track subsequent commands.
-alias incognito='set -e fish_history'
+alias incognito='set -g fish_history ""'
 
 # Do not check authenticity when using SSH.
 alias unsafessh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'

@@ -6,7 +6,8 @@ function ffk -d "Interactively select and kill processes with fzf"
 	end
 
 	if test -n "$pid"
-		set signal (or $argv[1] 9)
+		set -l signal 9
+		set -q argv[1]; and set signal $argv[1]
 		echo $pid | xargs kill -$signal
 	end
 end

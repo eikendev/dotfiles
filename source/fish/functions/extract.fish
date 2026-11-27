@@ -15,6 +15,14 @@ function extract -d "Extract an archive into a directory named after it, next to
 		return 1
 	end
 
+	# Checked up front, the archive is moved before it is extracted.
+	switch "$archive"
+		case '*.7z' '*.rar' '*.tar' '*.tar.bz2' '*.tar.gz' '*.tar.xz' '*.tbz2' '*.tgz' '*.bz2' '*.gz' '*.xz' '*.zip'
+		case '*'
+			printf "Unknown compression format.\n" >&2
+			return 1
+	end
+
 	set -l directory (path dirname $file)/$name
 
 	if test -e "$directory"
@@ -41,9 +49,6 @@ function extract -d "Extract an archive into a directory named after it, next to
 			unxz "$archive"
 		case '*.zip'
 			unzip "$archive"
-		case '*'
-			printf "Unknown compression format.\n" >&2
-			return 1
 	end
 
 	if test $status -ne 0
