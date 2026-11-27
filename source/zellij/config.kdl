@@ -64,7 +64,8 @@ keybinds clear-defaults=true {
 			SwitchToMode "normal"
 		}
 	}
-	shared_except "normal" "locked" "scroll" "search" {
+	// Not in the modes that take text input, a bound key cannot be typed there.
+	shared_except "normal" "locked" "scroll" "search" "entersearch" "renametab" "renamepane" {
 		bind "q" { SwitchToMode "normal"; }
 	}
 	shared_except "normal" "locked" "scroll" "entersearch" "search" {
