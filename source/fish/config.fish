@@ -8,6 +8,12 @@ set -gx ZELLIJ_AUTO_EXIT true
 if status is-interactive
 	fish_vi_key_bindings
 
+	# Show the vi mode at the cursor.
+	set -g fish_cursor_default block
+	set -g fish_cursor_insert line
+	set -g fish_cursor_replace_one underscore
+	set -g fish_cursor_visual block
+
 	if test -n "$TERM"; and tty >/dev/null 2>&1
 		if type -q starship
 			starship init fish | source
