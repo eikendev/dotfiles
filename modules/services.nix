@@ -4,7 +4,7 @@ let
 in
 {
   systemd.user = {
-    # Installed with cargo, see toolchains.nix.
+    # Installed with cargo by the private overlay.
     services.tbunread = {
       Unit.Description = "tbunread";
 
