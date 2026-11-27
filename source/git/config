@@ -7,7 +7,7 @@
 
 [delta]
     features = line-numbers
-    syntax-theme = Dracula
+    syntax-theme = TwoDark
     navigate = true
     # Spell out the pager so delta does not add --quit-if-one-screen and --no-init.
     pager = less -R
@@ -90,6 +90,9 @@
 	autoStash = true
 	stat = true
 	updateRefs = true
+
+[rerere]
+	enabled = true
 
 [status]
 	branch = true
