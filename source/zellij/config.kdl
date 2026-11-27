@@ -11,14 +11,14 @@ keybinds clear-defaults=true {
 	}
 	pane {
 		bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
-		bind "r" { SwitchToMode "renamepane"; PaneNameInput 0; }
+		bind "r" { SwitchToMode "renamepane"; }
 		bind "u" { UndoRenamePane; SwitchToMode "normal"; }
 	}
 	tab {
 		bind "[" { BreakPaneLeft; SwitchToMode "normal"; }
 		bind "]" { BreakPaneRight; SwitchToMode "normal"; }
 		bind "b" { BreakPane; SwitchToMode "normal"; }
-		bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+		bind "r" { SwitchToMode "renametab"; }
 		bind "u" { UndoRenameTab; SwitchToMode "normal"; }
 		bind "x" { CloseTab; SwitchToMode "normal"; }
 	}
@@ -107,6 +107,8 @@ keybinds clear-defaults=true {
 		bind "." { ToggleFocusFullscreen; SwitchToMode "normal"; }
 		bind "[" { SwitchToMode "scroll"; }
 		bind "a" { SwitchToMode "scroll"; }
+		// Sends a literal Ctrl+a to the pane.
+		bind "Ctrl a" { Write 1; SwitchToMode "normal"; }
 		bind "Ctrl b" { SwitchToMode "scroll"; PageScrollUp; }
 		bind "Ctrl d" { SwitchToMode "scroll"; HalfPageScrollDown; }
 		bind "Ctrl f" { SwitchToMode "scroll"; PageScrollDown; }
