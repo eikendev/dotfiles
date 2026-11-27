@@ -17,6 +17,11 @@ config.keys = {
 	{ key="V", mods="CTRL|SHIFT", action=act.PasteFrom("Clipboard") },
 	{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
 	{ key = "+", mods = "CTRL", action = act.IncreaseFontSize },
+	{ key = "0", mods = "CTRL", action = act.ResetFontSize },
+	-- Label jumps are on Space like flash in nvim, the palette is where the
+	-- editors have theirs.
+	{ key = "Space", mods = "CTRL|SHIFT", action = act.QuickSelect },
+	{ key = "P", mods = "CTRL|SHIFT", action = act.ActivateCommandPalette },
 }
 
 config.mouse_bindings = {
