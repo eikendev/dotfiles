@@ -155,5 +155,5 @@ set concealcursor=""
 if exists('$SUDO_USER')
 	set noswapfile
 	set noundofile
-	set shada=''
+	set shadafile=NONE
 endif
