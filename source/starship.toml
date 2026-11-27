@@ -106,6 +106,17 @@ symbol = "󱘗 "
 [scala]
 symbol = " "
 
+[shlvl]
+disabled = false
+# A shell in a Zellij pane is at level 2, only shells nested below it show.
+threshold = 3
+symbol = "↳"
+
+# The exit code alone, without the default emoji.
+[status]
+disabled = false
+symbol = ""
+
 [swift]
 symbol = " "
 
